@@ -1,0 +1,30 @@
+[
+  {
+    "id": "P001",
+    "slug": "proyecto-demostracion",
+    "asesorId": "A001",
+    "empresaId": "C001",
+    "nombre": "Proyecto Demostración",
+    "distrito": "Miraflores",
+    "direccion": "Av. Larco 123",
+    "enlace": "https://example.com",
+    "etapa": "en_construccion",
+    "fechaEntrega": {
+      "texto": "2028 4T",
+      "anio": 2028,
+      "trimestre": 4
+    },
+    "financiamiento": ["BCP", "BBVA"],
+    "tipologia": ["Flat", "Duplex"],
+    "disponibles": 10,
+    "pisosProyecto": 12,
+    "pisoMasAltoVenta": 10,
+    "departamentosPorPiso": 4,
+    "areaMin": 45.0,
+    "habitaciones": [1, 2, 3],
+    "banos": [1, 2],
+    "precioMin": 350000,
+    "estado": "activo",
+    "imagen": "/images/projects/p001.webp"
+  }
+]
