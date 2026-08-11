@@ -1,17 +1,69 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import ProjectCard from '../components/ProjectCard.astro';
 
+import projectsData from '../data/projects.json';
+import companiesData from '../data/companies.json';
+import type { Project, Company } from '../types/index';
+
+const projects = projectsData as Project[];
+const companies = companiesData as Company[];
+
+// Mapa rápido de empresas
+const companiesMap = new Map<string, Company>(companies.map((c) => [c.id, c]));
+
+// 1. Filtrar únicamente proyectos activos
+const activeProjects = projects.filter((p) => p.estado === 'activo');
+
+// 2. Ordenar por NOMBRE DEL DISTRITO ASCENDENTE
+activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensitivity: 'base' }));
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Remax Family Proyectos">
+  <Header />
+
+  <main class="container page-main">
+    <div class="results-header">
+      <h2 class="results-title">Proyectos Disponibles</h2>
+      <span class="results-count">{activeProjects.length} proyectos activos</span>
+    </div>
+
+    <!-- Grid de Tarjetas -->
+    <div class="projects-grid" id="projects-grid">
+      {activeProjects.map((project) => (
+        <ProjectCard 
+          project={project} 
+          company={companiesMap.get(project.empresaId)} 
+        />
+      ))}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .page-main {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .results-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .results-count {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+</style>

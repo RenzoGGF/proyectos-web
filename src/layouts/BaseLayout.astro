@@ -1,0 +1,30 @@
+---
+// @ts-ignore: Allow side-effect CSS import without type declarations
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const { 
+  title = 'Catálogo Privado de Proyectos Inmobiliarios',
+  description = 'Consulta exclusiva de proyectos inmobiliarios disponibles.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <!-- REQUISITO CRÍTICO DE PROYECTO PRIVADO -->
+    <meta name="robots" content="noindex, nofollow" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
