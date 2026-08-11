@@ -1,7 +1,62 @@
 [
   {
     "id": "A001",
-    "nombre": "RENZO GUTIERREZ",
-    "telefono": "987654321"
+    "nombre": "MARCO ANTONIO HERRERA",
+    "telefono": "989190382"
+  },
+  {
+    "id": "A002",
+    "nombre": "MARCELA CUBAS",
+    "telefono": "975595610"
+  },
+  {
+    "id": "A003",
+    "nombre": "CESAR ALCEDO",
+    "telefono": "991967805"
+  },
+  {
+    "id": "A004",
+    "nombre": "MOLLY LUDMIR",
+    "telefono": "994041887"
+  },
+  {
+    "id": "A005",
+    "nombre": "CARMEN ACOSTA",
+    "telefono": "945395535"
+  },
+  {
+    "id": "A006",
+    "nombre": "MERY ANN MONTALVO",
+    "telefono": "996642129"
+  },
+  {
+    "id": "A007",
+    "nombre": "SULMA BUSTILLOS",
+    "telefono": "987038940"
+  },
+  {
+    "id": "A008",
+    "nombre": "EFRAIN AGUILAR",
+    "telefono": "941403185"
+  },
+  {
+    "id": "A009",
+    "nombre": "WENDY CORZO",
+    "telefono": "986156102"
+  },
+  {
+    "id": "A010",
+    "nombre": "MARITZA MONTORO",
+    "telefono": "994041887"
+  },
+  {
+    "id": "A011",
+    "nombre": "SULMA BUSTILLOS/MARIA FERNANDA ANZA",
+    "telefono": "987038940/902991265"
+  },
+  {
+    "id": "A012",
+    "nombre": "MARIA FERNANDA ANZA",
+    "telefono": "902991265"
   }
 ]

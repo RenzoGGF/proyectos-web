@@ -1,7 +1,72 @@
 [
   {
     "id": "C001",
-    "nombre": "INMOBILIARIA EJEMPLO",
+    "nombre": "GRUPO TYC",
     "logo": "/images/companies/c001.webp"
+  },
+  {
+    "id": "C002",
+    "nombre": "EDIFICA INVERSIONES DEL SUR SAC",
+    "logo": "/images/companies/c002.webp"
+  },
+  {
+    "id": "C003",
+    "nombre": "PHORMATO EDIFICACIONES",
+    "logo": "/images/companies/c003.webp"
+  },
+  {
+    "id": "C004",
+    "nombre": "MALLORCA",
+    "logo": "/images/companies/c004.webp"
+  },
+  {
+    "id": "C005",
+    "nombre": "EFRON",
+    "logo": "/images/companies/c005.webp"
+  },
+  {
+    "id": "C006",
+    "nombre": "ILUSSIONE CONSTRUCTORA E INMOBILIARIA SAC",
+    "logo": "/images/companies/c006.webp"
+  },
+  {
+    "id": "C007",
+    "nombre": "GRUPO MG",
+    "logo": "/images/companies/c007.webp"
+  },
+  {
+    "id": "C008",
+    "nombre": "TER",
+    "logo": "/images/companies/c008.webp"
+  },
+  {
+    "id": "C009",
+    "nombre": "IN URBAN",
+    "logo": "/images/companies/c009.webp"
+  },
+  {
+    "id": "C010",
+    "nombre": "CONSTRUCTORA TALAMBO",
+    "logo": "/images/companies/c010.webp"
+  },
+  {
+    "id": "C011",
+    "nombre": "MOTORI SAC",
+    "logo": "/images/companies/c011.webp"
+  },
+  {
+    "id": "C012",
+    "nombre": "INVERSIONES INMOBILIARIAS DEL PERU (IMAGINA)",
+    "logo": "/images/companies/c012.webp"
+  },
+  {
+    "id": "C013",
+    "nombre": "DESARROLLADORA INMOBILIARIA",
+    "logo": "/images/companies/c013.webp"
+  },
+  {
+    "id": "C014",
+    "nombre": "MADRID INGENIEROS SAC",
+    "logo": "/images/companies/c014.webp"
   }
 ]

@@ -1,0 +1,343 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { z } from 'zod';
+import type { Advisor, Company, Etapa, Estado, FechaEntrega, Project } from '../src/types/index';
+import { generateSlug } from '../src/utils/slug';
+
+const require = createRequire(import.meta.url);
+const XLSX = require('xlsx');
+
+const EXCEL_PATH = path.resolve(process.cwd(), 'data/proyectos.xlsx');
+const DATA_DIR = path.resolve(process.cwd(), 'src/data');
+
+// ==========================================
+// ESQUEMAS DE VALIDACIÓN ZOD
+// ==========================================
+
+const AdvisorSchema = z.object({
+  id: z.string().min(1),
+  nombre: z.string().min(1, 'El nombre del asesor no puede estar vacío'),
+  telefono: z.string()
+});
+
+const CompanySchema = z.object({
+  id: z.string().min(1),
+  nombre: z.string().min(1, 'El nombre de la empresa no puede estar vacío'),
+  logo: z.string().min(1)
+});
+
+const FechaEntregaSchema = z.object({
+  texto: z.string(),
+  anio: z.number().int().min(2020).max(2100),
+  trimestre: z.number().int().min(1).max(4).nullable()
+}).nullable();
+
+const ProjectSchema = z.object({
+  id: z.string().min(1),
+  slug: z.string().min(1),
+  asesorId: z.string().min(1),
+  empresaId: z.string().min(1),
+  nombre: z.string().min(1, 'El nombre del proyecto es obligatorio'),
+  distrito: z.string().min(1, 'El distrito es obligatorio'),
+  direccion: z.string().optional(),
+  enlace: z.string().optional(),
+  etapa: z.enum(['en_planos', 'en_construccion', 'entrega_inmediata']).nullable(),
+  fechaEntrega: FechaEntregaSchema,
+  financiamiento: z.array(z.string()),
+  tipologia: z.array(z.string()),
+  disponibles: z.number().positive().optional(),
+  pisosProyecto: z.number().positive().optional(),
+  pisoMasAltoVenta: z.number().positive().optional(),
+  departamentosPorPiso: z.number().positive().optional(),
+  areaMin: z.number().positive('El área mínima debe ser un número positivo').optional(),
+  habitaciones: z.array(z.number().int().positive()),
+  banos: z.array(z.number().int().positive()),
+  precioMin: z.number().positive('El precio mínimo debe ser un número positivo').optional(),
+  estado: z.enum(['activo', 'vencido']),
+  imagen: z.string().min(1)
+});
+
+// ==========================================
+// FUNCIONES HELPER DE PARSEO
+// ==========================================
+
+function parseRange(value: unknown): number[] {
+  if (value === null || value === undefined || value === '') return [];
+  const str = String(value).trim();
+  const match = str.match(/^(\d+)(?:\s*-\s*(\d+))?$/);
+  if (!match) return [];
+  
+  const min = parseInt(match[1], 10);
+  const max = match[2] ? parseInt(match[2], 10) : min;
+  
+  if (isNaN(min) || isNaN(max)) return [];
+  if (min > max) return [min];
+
+  const result: number[] = [];
+  for (let i = min; i <= max; i++) {
+    result.push(i);
+  }
+  return result;
+}
+
+function parseEtapa(value: unknown): Etapa | null {
+  if (!value) return null;
+  const str = String(value).trim().toLowerCase();
+  if (str.includes('plano')) return 'en_planos';
+  if (str.includes('construc')) return 'en_construccion';
+  if (str.includes('inmediat')) return 'entrega_inmediata';
+  return null;
+}
+
+function parseFechaEntrega(value: unknown, etapa: Etapa | null): FechaEntrega | null {
+  if (etapa === 'entrega_inmediata') return null;
+  if (!value) return null;
+
+  const rawStr = String(value).trim();
+  if (!rawStr) return null;
+
+  const match = rawStr.match(/(\d{4})\s*(?:[T\-]?\s*(\d)\s*T?)?/i);
+  if (!match) return null;
+
+  const anio = parseInt(match[1], 10);
+  const trimestre = match[2] ? parseInt(match[2], 10) : null;
+
+  return {
+    texto: rawStr,
+    anio,
+    trimestre: trimestre && trimestre >= 1 && trimestre <= 4 ? trimestre : null
+  };
+}
+
+function parseList(value: unknown): string[] {
+  if (!value) return [];
+  return String(value)
+    .split(/[,/;|]/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function parseEstado(value: unknown): Estado {
+  if (!value) return 'activo';
+  const str = String(value).trim().toUpperCase();
+  return str === 'VENCIDO' ? 'vencido' : 'activo';
+}
+
+function parseNumber(value: unknown): number | undefined {
+  if (value === null || value === undefined || value === '') return undefined;
+  const cleaned = String(value).replace(/[^0-9.]/g, '');
+  const num = parseFloat(cleaned);
+  return isNaN(num) ? undefined : num;
+}
+
+function parseAdvisorString(value: unknown): { nombre: string; telefono: string } {
+  if (!value) return { nombre: 'SIN ASESOR', telefono: '' };
+  const str = String(value).trim();
+  
+  // Separa por barra '/' si existen múltiples asesores
+  const parts = str.split('/');
+  const names: string[] = [];
+  const phones: string[] = [];
+
+  for (const part of parts) {
+    const trimmed = part.trim();
+    if (!trimmed) continue;
+
+    const match = trimmed.match(/^(.+?)\s+(\+?\d[\d\s-]{6,14})$/);
+    if (match) {
+      names.push(match[1].trim().toUpperCase());
+      phones.push(match[2].replace(/\s+/g, ''));
+    } else {
+      // Si un segmento no tiene número de teléfono, conserva el texto como nombre
+      names.push(trimmed.toUpperCase());
+    }
+  }
+
+  return {
+    nombre: names.join('/'),
+    telefono: phones.join('/')
+  };
+}
+
+// ==========================================
+// PROCESAMIENTO PRINCIPAL
+// ==========================================
+
+function runImport(): void {
+  console.log('🚀 Iniciando proceso de importación Excel -> JSON...');
+
+  if (!fs.existsSync(EXCEL_PATH)) {
+    console.error(`❌ Error crítico: No se encontró el archivo de origen en "${EXCEL_PATH}".`);
+    console.error('Por favor, coloca el archivo Excel en "data/proyectos.xlsx" y vuelve a intentarlo.');
+    process.exit(1);
+  }
+
+  const workbook = XLSX.readFile(EXCEL_PATH);
+  const sheetName = workbook.SheetNames[0];
+  const worksheet = workbook.Sheets[sheetName];
+
+  const rawRows = XLSX.utils.sheet_to_json(worksheet, { defval: '' }) as Record<string, unknown>[];
+
+  if (rawRows.length === 0) {
+    console.error('❌ Error crítico: El archivo Excel está vacío.');
+    process.exit(1);
+  }
+
+  const advisorsMap = new Map<string, Advisor>();
+  const advisorNameMap = new Map<string, string>();
+  const companiesMap = new Map<string, Company>();
+  const projects: Project[] = [];
+
+  const warnings: string[] = [];
+  const errors: string[] = [];
+
+  const usedSlugs = new Set<string>();
+
+  rawRows.forEach((row: Record<string, unknown>, index: number) => {
+    const rowIndex = index + 2;
+    
+    // 1. Extraer Asesor
+    const rawAsesor = row['ASESOR RESPONSABLE'];
+    const { nombre: advisorName, telefono: advisorPhone } = parseAdvisorString(rawAsesor);
+    
+    if (advisorNameMap.has(advisorName) && advisorNameMap.get(advisorName) !== advisorPhone) {
+      warnings.push(
+        `[Fila ${rowIndex}] Asesor "${advisorName}" registrado con teléfonos distintos (` +
+        `"${advisorNameMap.get(advisorName)}" vs "${advisorPhone}"). Se crearon registros independientes.`
+      );
+    } else {
+      advisorNameMap.set(advisorName, advisorPhone);
+    }
+
+    const advisorKey = `${advisorName}_${advisorPhone}`;
+    let advisorId = '';
+
+    for (const [key, advisor] of advisorsMap.entries()) {
+      if (key === advisorKey) {
+        advisorId = advisor.id;
+        break;
+      }
+    }
+
+    if (!advisorId) {
+      advisorId = `A${String(advisorsMap.size + 1).padStart(3, '0')}`;
+      const advisorObj: Advisor = {
+        id: advisorId,
+        nombre: advisorName,
+        telefono: advisorPhone
+      };
+      
+      const val = AdvisorSchema.safeParse(advisorObj);
+      if (!val.success) {
+        errors.push(`[Fila ${rowIndex}] Asesor inválido: ${val.error.issues[0].message}`);
+      } else {
+        advisorsMap.set(advisorKey, advisorObj);
+      }
+    }
+
+    // 2. Extraer Empresa
+    const rawEmpresa = String(row['EMPRESA'] || 'EMPRESA NO ESPECIFICADA').trim().toUpperCase();
+    let companyId = '';
+
+    if (companiesMap.has(rawEmpresa)) {
+      companyId = companiesMap.get(rawEmpresa)!.id;
+    } else {
+      companyId = `C${String(companiesMap.size + 1).padStart(3, '0')}`;
+      const companyObj: Company = {
+        id: companyId,
+        nombre: rawEmpresa,
+        logo: `/images/companies/${companyId.toLowerCase()}.webp`
+      };
+
+      const val = CompanySchema.safeParse(companyObj);
+      if (!val.success) {
+        errors.push(`[Fila ${rowIndex}] Empresa inválida: ${val.error.issues[0].message}`);
+      } else {
+        companiesMap.set(rawEmpresa, companyObj);
+      }
+    }
+
+    // 3. Extraer Proyecto
+    const projectId = `P${String(index + 1).padStart(3, '0')}`;
+    const rawNombre = String(row['NOMBRE DEL PROYECTO'] || '').trim();
+    const slug = generateSlug(rawNombre);
+
+    if (!rawNombre) {
+      errors.push(`[Fila ${rowIndex}] Nombre del proyecto está vacío.`);
+    }
+
+    if (usedSlugs.has(slug)) {
+      errors.push(`[Fila ${rowIndex}] Slug duplicado "${slug}" para el proyecto "${rawNombre}".`);
+    } else if (slug) {
+      usedSlugs.add(slug);
+    }
+
+    const etapa = parseEtapa(row['ETAPA']);
+    const fechaEntrega = parseFechaEntrega(row['FECHA DE ENTREGA'], etapa);
+
+    const projectObj: Project = {
+      id: projectId,
+      slug,
+      asesorId: advisorId,
+      empresaId: companyId,
+      nombre: rawNombre,
+      distrito: String(row['DISTRITOS'] || '').trim(),
+      direccion: String(row['DIRECCION'] || '').trim() || undefined,
+      enlace: String(row['DRIVE O PÁGINA WEB'] || '').trim() || undefined,
+      etapa,
+      fechaEntrega,
+      financiamiento: parseList(row['FINANCIAMIENTO']),
+      tipologia: parseList(row['TIPOLOGIA']),
+      disponibles: parseNumber(row['DISPONIBLES']),
+      pisosProyecto: parseNumber(row['PISOS DEL PROYECTO']),
+      pisoMasAltoVenta: parseNumber(row['PISO MÁS ALTO A LA VENTA']),
+      departamentosPorPiso: parseNumber(row['DEPARTAMENTOS POR PISO']),
+      areaMin: parseNumber(row['AREA MINIMA']),
+      habitaciones: parseRange(row['RANGO DE HABITACIONES']),
+      banos: parseRange(row['RANGO DE BAÑOS']),
+      precioMin: parseNumber(row['PRECIO MINIMO S/']),
+      estado: parseEstado(row['ESTADO']),
+      imagen: `/images/projects/${projectId.toLowerCase()}.webp`
+    };
+
+    const projectVal = ProjectSchema.safeParse(projectObj);
+    if (!projectVal.success) {
+      projectVal.error.issues.forEach((issue: z.ZodIssue) => {
+        errors.push(`[Fila ${rowIndex}] Proyecto "${rawNombre || 'Sin nombre'}": ${issue.path.join('.')} - ${issue.message}`);
+      });
+    } else {
+      projects.push(projectObj);
+    }
+  });
+
+  if (warnings.length > 0) {
+    console.warn('\n⚠️ ADVERTENCIAS DETECTADAS (Proceso continuado):');
+    warnings.forEach((w: string) => console.warn(`  - ${w}`));
+  }
+
+  if (errors.length > 0) {
+    console.error('\n❌ ERRORES CRÍTICOS EN EL EXCEL (Importaciones abortadas):');
+    errors.forEach((e: string) => console.error(`  - ${e}`));
+    console.error('\nPor favor, corrige el archivo Excel y vuelve a ejecutar "npm run data:import".\n');
+    process.exit(1);
+  }
+
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+  }
+
+  const advisorsArray = Array.from(advisorsMap.values());
+  const companiesArray = Array.from(companiesMap.values());
+
+  fs.writeFileSync(path.join(DATA_DIR, 'advisors.json'), JSON.stringify(advisorsArray, null, 2), 'utf-8');
+  fs.writeFileSync(path.join(DATA_DIR, 'companies.json'), JSON.stringify(companiesArray, null, 2), 'utf-8');
+  fs.writeFileSync(path.join(DATA_DIR, 'projects.json'), JSON.stringify(projects, null, 2), 'utf-8');
+
+  console.log('\n✅ IMPORTACIÓN COMPLETADA CON ÉXITO:');
+  console.log(`  - ${projects.length} proyectos procesados en "src/data/projects.json"`);
+  console.log(`  - ${advisorsArray.length} asesores guardados en "src/data/advisors.json"`);
+  console.log(`  - ${companiesArray.length} empresas guardadas en "src/data/companies.json"\n`);
+}
+
+runImport();
