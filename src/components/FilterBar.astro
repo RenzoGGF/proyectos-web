@@ -1,0 +1,202 @@
+---
+interface Props {
+  distritos: string[];
+  aniosEntrega: number[];
+}
+
+const { distritos, aniosEntrega } = Astro.props;
+---
+
+<section class="filter-section">
+  <div class="filter-container">
+    <div class="filter-header">
+      <h3 class="filter-title">Filtros de Búsqueda</h3>
+      <button type="button" id="btn-reset-filters" class="btn-reset">
+        🔄 Limpiar filtros
+      </button>
+    </div>
+
+    <div class="filter-grid">
+      <!-- 1. Distrito (ÚNICO) -->
+      <div class="filter-group">
+        <label for="filter-distrito" class="filter-label">Distrito</label>
+        <select id="filter-distrito" class="filter-select">
+          <option value="">Todos los distritos</option>
+          {distritos.map((d) => (
+            <option value={d.toLowerCase()}>{d}</option>
+          ))}
+        </select>
+      </div>
+
+      <!-- 2. Etapa (ÚNICO) -->
+      <div class="filter-group">
+        <label for="filter-etapa" class="filter-label">Etapa del proyecto</label>
+        <select id="filter-etapa" class="filter-select">
+          <option value="">Todas las etapas</option>
+          <option value="en_planos">En planos</option>
+          <option value="en_construccion">En construcción</option>
+          <option value="entrega_inmediata">Entrega inmediata</option>
+        </select>
+      </div>
+
+      <!-- 3. Precio Máximo -->
+      <div class="filter-group">
+        <label for="filter-precio" class="filter-label">Precio Máximo (S/)</label>
+        <input 
+          type="number" 
+          id="filter-precio" 
+          class="filter-input" 
+          placeholder="Ej. 500000" 
+          step="10000"
+          min="0"
+        />
+      </div>
+
+      <!-- 4. Año Máximo de Entrega -->
+      <div class="filter-group">
+        <label for="filter-anio" class="filter-label">Año Máximo de Entrega</label>
+        <select id="filter-anio" class="filter-select">
+          <option value="">Cualquier año</option>
+          {aniosEntrega.map((a) => (
+            <option value={a}>Hasta {a}</option>
+          ))}
+        </select>
+      </div>
+    </div>
+
+    <!-- 5. Habitaciones (MÚLTIPLE - OR) -->
+    <div class="filter-group-rooms">
+      <span class="filter-label">Habitaciones</span>
+      <div class="checkbox-group">
+        {[1, 2, 3, 4].map((num) => (
+          <label class="checkbox-label">
+            <input type="checkbox" name="filter-rooms" value={num} class="filter-checkbox" />
+            <span>{num === 4 ? '4+ hab' : `${num} hab`}</span>
+          </label>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .filter-section {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .filter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .filter-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+  }
+
+  .btn-reset {
+    background: none;
+    border: none;
+    color: var(--color-primary);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+  }
+
+  .btn-reset:hover {
+    background-color: #eff6ff;
+  }
+
+  .filter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .filter-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .filter-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .filter-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+  }
+
+  .filter-select,
+  .filter-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    background-color: #ffffff;
+    color: var(--color-text-main);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .filter-select:focus,
+  .filter-input:focus {
+    border-color: var(--color-primary);
+  }
+
+  .filter-group-rooms {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px dashed var(--color-border);
+  }
+
+  .checkbox-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: 0.875rem;
+    color: var(--color-text-main);
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .filter-checkbox {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primary);
+    cursor: pointer;
+  }
+</style>

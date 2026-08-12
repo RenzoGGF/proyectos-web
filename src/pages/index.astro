@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import ProjectCard from '../components/ProjectCard.astro';
+import FilterBar from '../components/FilterBar.astro';
 
 import projectsData from '../data/projects.json';
 import companiesData from '../data/companies.json';
@@ -10,23 +11,44 @@ import type { Project, Company } from '../types/index';
 const projects = projectsData as Project[];
 const companies = companiesData as Company[];
 
-// Mapa rápido de empresas
 const companiesMap = new Map<string, Company>(companies.map((c) => [c.id, c]));
 
-// 1. Filtrar únicamente proyectos activos
+// 1. Proyectos activos
 const activeProjects = projects.filter((p) => p.estado === 'activo');
 
-// 2. Ordenar por NOMBRE DEL DISTRITO ASCENDENTE
+// 2. Ordenar por distrito ASC
 activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensitivity: 'base' }));
+
+// 3. Extraer distritos únicos para el filtro
+const distritosUnicos = Array.from(new Set(activeProjects.map((p) => p.distrito))).sort((a, b) => 
+  a.localeCompare(b, 'es', { sensitivity: 'base' })
+);
+
+// 4. Extraer años de entrega únicos para el filtro
+const aniosUnicos = Array.from(
+  new Set(activeProjects.map((p) => p.fechaEntrega?.anio).filter((a): a is number => typeof a === 'number'))
+).sort((a, b) => a - b);
 ---
 
-<BaseLayout title="Remax Family Proyectos">
+<BaseLayout title="Catálogo Privado de Proyectos Inmobiliarios">
   <Header />
 
   <main class="container page-main">
+    <!-- Componente de Filtros -->
+    <FilterBar distritos={distritosUnicos} aniosEntrega={aniosUnicos} />
+
     <div class="results-header">
       <h2 class="results-title">Proyectos Disponibles</h2>
-      <span class="results-count">{activeProjects.length} proyectos activos</span>
+      <span id="results-count" class="results-count">{activeProjects.length} proyectos activos</span>
+    </div>
+
+    <!-- Contenedor Estado Sin Resultados -->
+    <div id="no-results" class="no-results hidden">
+      <div class="no-results-box">
+        <p class="no-results-icon">🔍</p>
+        <h3>No se encontraron proyectos</h3>
+        <p>Prueba cambiando los filtros seleccionados o limpiándolos para ver más opciones.</p>
+      </div>
     </div>
 
     <!-- Grid de Tarjetas -->
@@ -40,6 +62,113 @@ activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensi
     </div>
   </main>
 </BaseLayout>
+
+<script>
+  // SCRIPT CLIENT-SIDE PARA FILTRADO DINÁMICO
+  document.addEventListener('DOMContentLoaded', () => {
+    const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
+    const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
+    const precioInput = document.getElementById('filter-precio') as HTMLInputElement | null;
+    const anioSelect = document.getElementById('filter-anio') as HTMLSelectElement | null;
+    const roomCheckboxes = document.querySelectorAll<HTMLInputElement>('input[name="filter-rooms"]');
+    const btnReset = document.getElementById('btn-reset-filters');
+
+    const cards = document.querySelectorAll<HTMLElement>('.project-card');
+    const resultsCountEl = document.getElementById('results-count');
+    const noResultsEl = document.getElementById('no-results');
+
+    function filterProjects() {
+      const distritoVal = distritoSelect?.value.toLowerCase() || '';
+      const etapaVal = etapaSelect?.value || '';
+      const precioMaxVal = precioInput?.value ? parseFloat(precioInput.value) : null;
+      const anioMaxVal = anioSelect?.value ? parseInt(anioSelect.value, 10) : null;
+
+      const selectedRooms: number[] = [];
+      roomCheckboxes.forEach((cb) => {
+        if (cb.checked) selectedRooms.push(parseInt(cb.value, 10));
+      });
+
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const cardDistrito = card.dataset.distrito || '';
+        const cardEtapa = card.dataset.etapa || '';
+        const cardPrecio = parseFloat(card.dataset.precio || '0');
+        const cardAnio = parseInt(card.dataset.anio || '0', 10);
+        
+        const cardHabitaciones = (card.dataset.habitaciones || '')
+          .split(',')
+          .map((n) => parseInt(n, 10))
+          .filter((n) => !isNaN(n));
+
+        // 1. Filtro Distrito (AND)
+        const matchesDistrito = !distritoVal || cardDistrito === distritoVal;
+
+        // 2. Filtro Etapa (AND)
+        const matchesEtapa = !etapaVal || cardEtapa === etapaVal;
+
+        // 3. Filtro Precio Máximo (AND: precioMin <= precioMax)
+        const matchesPrecio = !precioMaxVal || (cardPrecio > 0 && cardPrecio <= precioMaxVal);
+
+        // 4. Filtro Año Máximo (AND + Regla Entrega Inmediata)
+        // anio === 0 significa "entrega_inmediata" o sin fecha especificada
+        const matchesAnio = !anioMaxVal || cardAnio === 0 || cardAnio <= anioMaxVal;
+
+        // 5. Filtro Habitaciones (OR dentro de la selección)
+        let matchesHabitaciones = true;
+        if (selectedRooms.length > 0) {
+          matchesHabitaciones = selectedRooms.some((r) => {
+            if (r === 4) {
+              // 4+ habs
+              return cardHabitaciones.some((h) => h >= 4);
+            }
+            return cardHabitaciones.includes(r);
+          });
+        }
+
+        const isVisible = matchesDistrito && matchesEtapa && matchesPrecio && matchesAnio && matchesHabitaciones;
+
+        if (isVisible) {
+          card.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Actualizar contador
+      if (resultsCountEl) {
+        resultsCountEl.textContent = `${visibleCount} ${visibleCount === 1 ? 'proyecto encontrado' : 'proyectos encontrados'}`;
+      }
+
+      // Mostrar u ocultar estado sin resultados
+      if (noResultsEl) {
+        if (visibleCount === 0) {
+          noResultsEl.classList.remove('hidden');
+        } else {
+          noResultsEl.classList.add('hidden');
+        }
+      }
+    }
+
+    // Event listeners
+    distritoSelect?.addEventListener('change', filterProjects);
+    etapaSelect?.addEventListener('change', filterProjects);
+    precioInput?.addEventListener('input', filterProjects);
+    anioSelect?.addEventListener('change', filterProjects);
+    roomCheckboxes.forEach((cb) => cb.addEventListener('change', filterProjects));
+
+    // Reset de Filtros
+    btnReset?.addEventListener('click', () => {
+      if (distritoSelect) distritoSelect.value = '';
+      if (etapaSelect) etapaSelect.value = '';
+      if (precioInput) precioInput.value = '';
+      if (anioSelect) anioSelect.value = '';
+      roomCheckboxes.forEach((cb) => (cb.checked = false));
+      filterProjects();
+    });
+  });
+</script>
 
 <style>
   .page-main {
@@ -65,5 +194,31 @@ activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensi
     font-size: 0.875rem;
     color: var(--color-text-muted);
     font-weight: 500;
+  }
+
+  .no-results {
+    padding: 3rem 1rem;
+    text-align: center;
+  }
+
+  .no-results-box {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .no-results-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .no-results h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .no-results p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
   }
 </style>
