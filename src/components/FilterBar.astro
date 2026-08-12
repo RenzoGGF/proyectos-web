@@ -19,7 +19,7 @@ const { distritos, aniosEntrega } = Astro.props;
     <div class="filter-header-desktop">
       <h3 class="filter-title">Filtros de Búsqueda</h3>
       <button type="button" id="btn-reset-filters" class="btn-reset">
-        🔄 Limpiar filtros
+        Limpiar filtros
       </button>
     </div>
 
@@ -170,11 +170,13 @@ const { distritos, aniosEntrega } = Astro.props;
 
   .btn-reset {
     background: none;
-    border: none;
     color: var(--color-remax-red);
     font-size: 0.85rem;
     font-weight: 700;
     cursor: pointer;
+    border-radius: 50rem;
+    padding: 6px;
+    border-color: var(--color-remax-red);
   }
 
   .filter-grid {
@@ -221,12 +223,10 @@ const { distritos, aniosEntrega } = Astro.props;
     font-weight: 700;
   }
 
-  /* ESTILO CSS MEJORADO PARA COMBOBOXES (SELECTS) Y INPUTS */
   .filter-select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.65rem center;
     background-size: 0.9rem;

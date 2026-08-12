@@ -81,9 +81,9 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
     )}
 
     <div class="project-specs">
-      {habitacionesTexto && <span>{habitacionesTexto}</span>}
+      {habitacionesTexto && <span>🛏️ {habitacionesTexto}</span>}
       {habitacionesTexto && project.areaMin && <span>·</span>}
-      {project.areaMin && <span>Desde {project.areaMin} m²</span>}
+      {project.areaMin && <span>📐 Desde {project.areaMin} m²</span>}
     </div>
 
     {precioFormateado && (
