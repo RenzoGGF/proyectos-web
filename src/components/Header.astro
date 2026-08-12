@@ -2,36 +2,69 @@
 ---
 <header class="site-header">
   <div class="container header-content">
-    <div>
-      <h1 class="site-title">Catálogo de Proyectos Disponibles en Oficina</h1>
-      <p class="site-subtitle">Remax Family</p>
-    </div>
+    <a href="/" class="brand-link" title="Volver al catálogo principal">
+      <img 
+        src="/images/logo.webp" 
+        alt="Logo Principal" 
+        class="brand-logo-img" 
+        onerror="this.onerror=null; this.src='/images/default-logo.webp';"
+      />
+      <div class="brand-divider"></div>
+      <span class="brand-title">Catálogo de proyectos en oficina</span>
+    </a>
   </div>
 </header>
 
 <style>
   .site-header {
-    background-color: var(--color-surface);
-    border-bottom: 1px solid var(--color-border);
-    padding: 1.5rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background-color: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 2px solid var(--color-remax-blue);
+    box-shadow: var(--shadow-sm);
   }
 
   .header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 70px;
   }
 
-  .site-title {
-    font-size: 1.5rem;
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+  }
+
+  .brand-logo-img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  .brand-divider {
+    width: 1px;
+    height: 20px;
+    background-color: var(--color-border);
+  }
+
+  .brand-title {
+    font-size: 0.95rem;
     font-weight: 700;
     color: var(--color-text-main);
-    letter-spacing: -0.02em;
   }
 
-  .site-subtitle {
-    font-size: 0.875rem;
-    color: var(--color-text-muted);
-    margin-top: 0.125rem;
+  .header-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-remax-blue);
+    background-color: #eff6ff;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    border: 1px solid #bfdbfe;
   }
 </style>

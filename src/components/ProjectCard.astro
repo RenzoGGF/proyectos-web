@@ -8,7 +8,6 @@ interface Props {
 
 const { project, company } = Astro.props;
 
-// Formateadores
 const etapaLabelMap: Record<string, string> = {
   en_planos: 'En planos',
   en_construccion: 'En construcción',
@@ -16,6 +15,9 @@ const etapaLabelMap: Record<string, string> = {
 };
 
 const etapaTexto = project.etapa ? etapaLabelMap[project.etapa] : null;
+const fechaTexto = project.fechaEntrega ? project.fechaEntrega.texto : null;
+
+const etapaFechaBadge = [etapaTexto, fechaTexto].filter(Boolean).join(' | ');
 
 const precioFormateado = project.precioMin 
   ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
@@ -25,7 +27,6 @@ const habitacionesTexto = project.habitaciones && project.habitaciones.length > 
   ? `${project.habitaciones.join(', ')} hab.`
   : null;
 
-// Preparación de data-attributes para filtrado en el cliente (Fase 3B)
 const dataHabitaciones = project.habitaciones ? project.habitaciones.join(',') : '';
 const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.etapa === 'entrega_inmediata' ? '0' : '');
 ---
@@ -39,58 +40,56 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
   data-precio={project.precioMin || 0}
   data-anio={dataAnio}
 >
-  <div class="image-container">
+  <!-- CONTENEDOR DE IMAGEN -->
+  <div class="image-wrapper">
     <img 
       src={project.imagen} 
       alt={project.nombre}
       loading="lazy"
       class="project-image"
-      onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' fill=\'%23e2e8f0\'><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2364748b\' font-size=\'14\'>Imagen no disponible</text></svg>'"
+      onerror="this.onerror=null; this.src='/images/projects/default.webp';"
     />
-    {etapaTexto && (
-      <span class="badge-etapa">{etapaTexto}</span>
+
+    <!-- Logo Constructora Superpuesto (Solo Desktop) -->
+    <div class="company-logo-badge">
+      <img 
+        src={company?.logo || `/images/companies/${project.empresaId.toLowerCase()}.webp`} 
+        alt={company?.nombre || 'Constructora'}
+        onerror="this.onerror=null; this.src='/images/companies/default.webp';"
+      />
+    </div>
+
+    <!-- Gradiente + Etapa/Fecha Overlay (Solo Desktop) -->
+    {etapaFechaBadge && (
+      <div class="desktop-image-overlay">
+        <span>{etapaFechaBadge}</span>
+      </div>
     )}
   </div>
 
-  <div class="card-content">
-    <div class="company-row">
-      <img 
-        src={company?.logo || `/images/companies/${project.empresaId.toLowerCase()}.webp`} 
-        alt={company?.nombre || 'Empresa'}
-        class="company-logo"
-        onerror="this.style.display='none'"
-      />
-      <span class="company-name">{company?.nombre || 'Inmobiliaria'}</span>
-    </div>
+  <!-- CONTENEDOR DE INFORMACIÓN -->
+  <div class="card-info">
+    {etapaFechaBadge && (
+      <p class="mobile-etapa-tag">{etapaFechaBadge}</p>
+    )}
 
     <h2 class="project-name">{project.nombre}</h2>
+
+    <!-- Distrito en color NEGRO -->
     <p class="project-district">📍 {project.distrito}</p>
+    {project.direccion && (
+      <p class="project-address">{project.direccion}</p>
+    )}
 
-    <div class="card-details">
-      {project.fechaEntrega && (
-        <div class="detail-item">
-          <span class="detail-label">Entrega:</span>
-          <span class="detail-value">{project.fechaEntrega.texto}</span>
-        </div>
-      )}
-
-      {habitacionesTexto && (
-        <div class="detail-item">
-          <span class="detail-label">Habitaciones:</span>
-          <span class="detail-value">{habitacionesTexto}</span>
-        </div>
-      )}
-
-      {project.areaMin && (
-        <div class="detail-item">
-          <span class="detail-label">Área:</span>
-          <span class="detail-value">Desde {project.areaMin} m²</span>
-        </div>
-      )}
+    <div class="project-specs">
+      {habitacionesTexto && <span>{habitacionesTexto}</span>}
+      {habitacionesTexto && project.areaMin && <span>·</span>}
+      {project.areaMin && <span>Desde {project.areaMin} m²</span>}
     </div>
 
+    <!-- Precio Mínimo Dominante en color NEGRO -->
     {precioFormateado && (
-      <div class="card-footer">
+      <div class="price-container">
         <span class="price-label">Desde</span>
         <span class="price-value">{precioFormateado}</span>
       </div>
@@ -101,27 +100,27 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
 <style>
   .project-card {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-lg);
     overflow: hidden;
     text-decoration: none;
     color: inherit;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
 
   .project-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-hover);
-    border-color: #cbd5e1;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-remax-blue);
   }
 
-  .image-container {
+  .image-wrapper {
     position: relative;
-    width: 100%;
-    height: 200px;
+    width: 120px;
+    flex-shrink: 0;
     background-color: #e2e8f0;
   }
 
@@ -129,106 +128,148 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
     width: 100%;
     height: 100%;
     object-fit: cover;
+    aspect-ratio: 3 / 4;
   }
 
-  .badge-etapa {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    background-color: rgba(15, 23, 42, 0.85);
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.25rem 0.625rem;
-    border-radius: 9999px;
-    backdrop-filter: blur(4px);
+  .company-logo-badge,
+  .desktop-image-overlay {
+    display: none;
   }
 
-  .card-content {
+  .card-info {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    padding: 1.25rem;
+    padding: 0.75rem 0.875rem;
   }
 
-  .company-row {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  .company-logo {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    border-radius: 4px;
-  }
-
-  .company-name {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  .project-name {
-    font-size: 1.125rem;
+  .mobile-etapa-tag {
+    font-size: 0.7rem;
     font-weight: 700;
-    color: var(--color-text-main);
-    line-height: 1.3;
+    color: var(--color-remax-red);
+    text-transform: uppercase;
     margin-bottom: 0.25rem;
   }
 
-  .project-district {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--color-primary);
-    margin-bottom: 1rem;
+  .project-name {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    text-align: center;
+    line-height: 1.25;
+    margin-bottom: 0.35rem;
   }
 
-  .card-details {
+  /* COLOR NEGRO EN DISTRITO */
+  .project-district {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #0f172a;
+    text-align: left;
+  }
+
+  .project-address {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    text-align: left;
+    margin-bottom: 0.5rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .project-specs {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    margin-top: auto;
+    margin-bottom: 0.35rem;
+  }
+
+  .price-container {
     display: flex;
-    flex-direction: column;
-    gap: 0.375rem;
-    font-size: 0.875rem;
-    margin-bottom: 1.25rem;
-    padding-top: 0.75rem;
+    align-items: baseline;
+    gap: 0.35rem;
+    padding-top: 0.25rem;
     border-top: 1px dashed var(--color-border);
   }
 
-  .detail-item {
-    display: flex;
-    justify-content: space-between;
-  }
-
-  .detail-label {
-    color: var(--color-text-muted);
-  }
-
-  .detail-value {
-    font-weight: 600;
-    color: var(--color-text-main);
-  }
-
-  .card-footer {
-    margin-top: auto;
-    padding-top: 0.75rem;
-    border-top: 1px solid var(--color-border);
-    display: flex;
-    align-items: baseline;
-    gap: 0.375rem;
-  }
-
   .price-label {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: var(--color-text-muted);
   }
 
+  /* COLOR NEGRO EN PRECIO */
   .price-value {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--color-text-main);
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #0f172a;
+  }
+
+  @media (min-width: 1024px) {
+    .project-card {
+      flex-direction: column;
+    }
+
+    .image-wrapper {
+      width: 100%;
+    }
+
+    .project-image {
+      aspect-ratio: 1 / 1;
+    }
+
+    .company-logo-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 32px;
+      height: 32px;
+      background-color: #ffffff;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      padding: 3px;
+      z-index: 2;
+    }
+
+    .company-logo-badge img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .desktop-image-overlay {
+      display: block;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+      padding: 1.5rem 0.75rem 0.5rem;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
+
+    .mobile-etapa-tag {
+      display: none;
+    }
+
+    .card-info {
+      padding: 1.25rem;
+    }
+
+    .project-name {
+      font-size: 1.15rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-value {
+      font-size: 1.3rem;
+    }
   }
 </style>

@@ -19,12 +19,12 @@ const activeProjects = projects.filter((p) => p.estado === 'activo');
 // 2. Ordenar por distrito ASC
 activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensitivity: 'base' }));
 
-// 3. Extraer distritos únicos para el filtro
+// 3. Extraer distritos únicos
 const distritosUnicos = Array.from(new Set(activeProjects.map((p) => p.distrito))).sort((a, b) => 
   a.localeCompare(b, 'es', { sensitivity: 'base' })
 );
 
-// 4. Extraer años de entrega únicos para los filtros de rango
+// 4. Extraer años de entrega únicos
 const aniosUnicos = Array.from(
   new Set(activeProjects.map((p) => p.fechaEntrega?.anio).filter((a): a is number => typeof a === 'number'))
 ).sort((a, b) => a - b);
@@ -34,7 +34,6 @@ const aniosUnicos = Array.from(
   <Header />
 
   <main class="container page-main">
-    <!-- Componente de Filtros -->
     <FilterBar distritos={distritosUnicos} aniosEntrega={aniosUnicos} />
 
     <div class="results-header">
@@ -42,16 +41,15 @@ const aniosUnicos = Array.from(
       <span id="results-count" class="results-count">{activeProjects.length} proyectos activos</span>
     </div>
 
-    <!-- Contenedor Estado Sin Resultados -->
     <div id="no-results" class="no-results hidden">
       <div class="no-results-box">
         <p class="no-results-icon">🔍</p>
         <h3>No se encontraron proyectos</h3>
-        <p>Prueba cambiando los filtros seleccionados o limpiándolos para ver más opciones.</p>
+        <p>Prueba cambiando los filtros para ver más opciones.</p>
       </div>
     </div>
 
-    <!-- Grid de Tarjetas -->
+    <!-- Grid de Tarjetas (1 col mobile, 3 col desktop) -->
     <div class="projects-grid" id="projects-grid">
       {activeProjects.map((project) => (
         <ProjectCard 
@@ -64,7 +62,6 @@ const aniosUnicos = Array.from(
 </BaseLayout>
 
 <script>
-  // SCRIPT CLIENT-SIDE PARA FILTRADO DINÁMICO
   document.addEventListener('DOMContentLoaded', () => {
     const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
     const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
@@ -79,7 +76,7 @@ const aniosUnicos = Array.from(
     const resultsCountEl = document.getElementById('results-count');
     const noResultsEl = document.getElementById('no-results');
 
-    const CURRENT_YEAR = new Date().getFullYear(); // 2026
+    const CURRENT_YEAR = new Date().getFullYear();
 
     function filterProjects() {
       const distritoVal = distritoSelect?.value.toLowerCase() || '';
@@ -100,30 +97,23 @@ const aniosUnicos = Array.from(
         const cardDistrito = card.dataset.distrito || '';
         const cardEtapa = card.dataset.etapa || '';
         const cardPrecio = parseFloat(card.dataset.precio || '0');
-        const cardAnio = parseInt(card.dataset.anio || '0', 10); // 0 = entrega_inmediata
+        const cardAnio = parseInt(card.dataset.anio || '0', 10);
         
         const cardHabitaciones = (card.dataset.habitaciones || '')
           .split(',')
           .map((n) => parseInt(n, 10))
           .filter((n) => !isNaN(n));
 
-        // 1. Filtro Distrito (AND)
         const matchesDistrito = !distritoVal || cardDistrito === distritoVal;
-
-        // 2. Filtro Etapa (AND)
         const matchesEtapa = !etapaVal || cardEtapa === etapaVal;
-
-        // 3. Filtro Rango de Precios (AND)
         const matchesPrecioMin = !precioMinVal || (cardPrecio > 0 && cardPrecio >= precioMinVal);
         const matchesPrecioMax = !precioMaxVal || (cardPrecio > 0 && cardPrecio <= precioMaxVal);
         const matchesPrecio = matchesPrecioMin && matchesPrecioMax;
 
-        // 4. Filtro Rango de Año de Entrega (AND + Regla Entrega Inmediata)
         let matchesAnioMin = true;
         let matchesAnioMax = true;
 
         if (cardAnio === 0) {
-          // Entrega inmediata: se incluye si no hay año mín o si año mín es <= año actual
           matchesAnioMin = !anioMinVal || anioMinVal <= CURRENT_YEAR;
           matchesAnioMax = true;
         } else {
@@ -133,13 +123,10 @@ const aniosUnicos = Array.from(
 
         const matchesAnio = matchesAnioMin && matchesAnioMax;
 
-        // 5. Filtro Habitaciones (OR dentro de la selección)
         let matchesHabitaciones = true;
         if (selectedRooms.length > 0) {
           matchesHabitaciones = selectedRooms.some((r) => {
-            if (r === 4) {
-              return cardHabitaciones.some((h) => h >= 4);
-            }
+            if (r === 4) return cardHabitaciones.some((h) => h >= 4);
             return cardHabitaciones.includes(r);
           });
         }
@@ -154,12 +141,10 @@ const aniosUnicos = Array.from(
         }
       });
 
-      // Actualizar contador
       if (resultsCountEl) {
         resultsCountEl.textContent = `${visibleCount} ${visibleCount === 1 ? 'proyecto encontrado' : 'proyectos encontrados'}`;
       }
 
-      // Mostrar u ocultar estado sin resultados
       if (noResultsEl) {
         if (visibleCount === 0) {
           noResultsEl.classList.remove('hidden');
@@ -169,7 +154,6 @@ const aniosUnicos = Array.from(
       }
     }
 
-    // Event listeners
     distritoSelect?.addEventListener('change', filterProjects);
     etapaSelect?.addEventListener('change', filterProjects);
     precioMinInput?.addEventListener('input', filterProjects);
@@ -178,7 +162,6 @@ const aniosUnicos = Array.from(
     anioMaxSelect?.addEventListener('change', filterProjects);
     roomCheckboxes.forEach((cb) => cb.addEventListener('change', filterProjects));
 
-    // Reset de Filtros
     btnReset?.addEventListener('click', () => {
       if (distritoSelect) distritoSelect.value = '';
       if (etapaSelect) etapaSelect.value = '';
@@ -194,7 +177,7 @@ const aniosUnicos = Array.from(
 
 <style>
   .page-main {
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     padding-bottom: 4rem;
   }
 
@@ -208,14 +191,14 @@ const aniosUnicos = Array.from(
   }
 
   .results-title {
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-size: 1.2rem;
+    font-weight: 800;
   }
 
   .results-count {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: var(--color-text-muted);
-    font-weight: 500;
+    font-weight: 600;
   }
 
   .no-results {
@@ -231,16 +214,5 @@ const aniosUnicos = Array.from(
   .no-results-icon {
     font-size: 3rem;
     margin-bottom: 0.5rem;
-  }
-
-  .no-results h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-  }
-
-  .no-results p {
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
   }
 </style>
