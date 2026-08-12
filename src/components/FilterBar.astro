@@ -39,23 +39,45 @@ const { distritos, aniosEntrega } = Astro.props;
         </select>
       </div>
 
-      <!-- 3. Precio Máximo -->
+      <!-- 3. Rango de Precios -->
       <div class="filter-group">
-        <label for="filter-precio" class="filter-label">Precio Máximo (S/)</label>
+        <label for="filter-precio-min" class="filter-label">Precio Mínimo (S/)</label>
         <input 
           type="number" 
-          id="filter-precio" 
+          id="filter-precio-min" 
           class="filter-input" 
-          placeholder="Ej. 500000" 
+          placeholder="Desde ej. 200000" 
           step="10000"
           min="0"
         />
       </div>
 
-      <!-- 4. Año Máximo de Entrega -->
       <div class="filter-group">
-        <label for="filter-anio" class="filter-label">Año Máximo de Entrega</label>
-        <select id="filter-anio" class="filter-select">
+        <label for="filter-precio-max" class="filter-label">Precio Máximo (S/)</label>
+        <input 
+          type="number" 
+          id="filter-precio-max" 
+          class="filter-input" 
+          placeholder="Hasta ej. 500000" 
+          step="10000"
+          min="0"
+        />
+      </div>
+
+      <!-- 4. Rango de Fecha de Entrega -->
+      <div class="filter-group">
+        <label for="filter-anio-min" class="filter-label">Entrega desde (Año)</label>
+        <select id="filter-anio-min" class="filter-select">
+          <option value="">Cualquier año</option>
+          {aniosEntrega.map((a) => (
+            <option value={a}>Desde {a}</option>
+          ))}
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="filter-anio-max" class="filter-label">Entrega hasta (Año)</label>
+        <select id="filter-anio-max" class="filter-select">
           <option value="">Cualquier año</option>
           {aniosEntrega.map((a) => (
             <option value={a}>Hasta {a}</option>
@@ -135,7 +157,7 @@ const { distritos, aniosEntrega } = Astro.props;
 
   @media (min-width: 1024px) {
     .filter-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
     }
   }
 

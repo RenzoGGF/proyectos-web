@@ -24,7 +24,7 @@ const distritosUnicos = Array.from(new Set(activeProjects.map((p) => p.distrito)
   a.localeCompare(b, 'es', { sensitivity: 'base' })
 );
 
-// 4. Extraer años de entrega únicos para el filtro
+// 4. Extraer años de entrega únicos para los filtros de rango
 const aniosUnicos = Array.from(
   new Set(activeProjects.map((p) => p.fechaEntrega?.anio).filter((a): a is number => typeof a === 'number'))
 ).sort((a, b) => a - b);
@@ -68,8 +68,10 @@ const aniosUnicos = Array.from(
   document.addEventListener('DOMContentLoaded', () => {
     const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
     const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
-    const precioInput = document.getElementById('filter-precio') as HTMLInputElement | null;
-    const anioSelect = document.getElementById('filter-anio') as HTMLSelectElement | null;
+    const precioMinInput = document.getElementById('filter-precio-min') as HTMLInputElement | null;
+    const precioMaxInput = document.getElementById('filter-precio-max') as HTMLInputElement | null;
+    const anioMinSelect = document.getElementById('filter-anio-min') as HTMLSelectElement | null;
+    const anioMaxSelect = document.getElementById('filter-anio-max') as HTMLSelectElement | null;
     const roomCheckboxes = document.querySelectorAll<HTMLInputElement>('input[name="filter-rooms"]');
     const btnReset = document.getElementById('btn-reset-filters');
 
@@ -77,11 +79,15 @@ const aniosUnicos = Array.from(
     const resultsCountEl = document.getElementById('results-count');
     const noResultsEl = document.getElementById('no-results');
 
+    const CURRENT_YEAR = new Date().getFullYear(); // 2026
+
     function filterProjects() {
       const distritoVal = distritoSelect?.value.toLowerCase() || '';
       const etapaVal = etapaSelect?.value || '';
-      const precioMaxVal = precioInput?.value ? parseFloat(precioInput.value) : null;
-      const anioMaxVal = anioSelect?.value ? parseInt(anioSelect.value, 10) : null;
+      const precioMinVal = precioMinInput?.value ? parseFloat(precioMinInput.value) : null;
+      const precioMaxVal = precioMaxInput?.value ? parseFloat(precioMaxInput.value) : null;
+      const anioMinVal = anioMinSelect?.value ? parseInt(anioMinSelect.value, 10) : null;
+      const anioMaxVal = anioMaxSelect?.value ? parseInt(anioMaxSelect.value, 10) : null;
 
       const selectedRooms: number[] = [];
       roomCheckboxes.forEach((cb) => {
@@ -94,7 +100,7 @@ const aniosUnicos = Array.from(
         const cardDistrito = card.dataset.distrito || '';
         const cardEtapa = card.dataset.etapa || '';
         const cardPrecio = parseFloat(card.dataset.precio || '0');
-        const cardAnio = parseInt(card.dataset.anio || '0', 10);
+        const cardAnio = parseInt(card.dataset.anio || '0', 10); // 0 = entrega_inmediata
         
         const cardHabitaciones = (card.dataset.habitaciones || '')
           .split(',')
@@ -107,19 +113,31 @@ const aniosUnicos = Array.from(
         // 2. Filtro Etapa (AND)
         const matchesEtapa = !etapaVal || cardEtapa === etapaVal;
 
-        // 3. Filtro Precio Máximo (AND: precioMin <= precioMax)
-        const matchesPrecio = !precioMaxVal || (cardPrecio > 0 && cardPrecio <= precioMaxVal);
+        // 3. Filtro Rango de Precios (AND)
+        const matchesPrecioMin = !precioMinVal || (cardPrecio > 0 && cardPrecio >= precioMinVal);
+        const matchesPrecioMax = !precioMaxVal || (cardPrecio > 0 && cardPrecio <= precioMaxVal);
+        const matchesPrecio = matchesPrecioMin && matchesPrecioMax;
 
-        // 4. Filtro Año Máximo (AND + Regla Entrega Inmediata)
-        // anio === 0 significa "entrega_inmediata" o sin fecha especificada
-        const matchesAnio = !anioMaxVal || cardAnio === 0 || cardAnio <= anioMaxVal;
+        // 4. Filtro Rango de Año de Entrega (AND + Regla Entrega Inmediata)
+        let matchesAnioMin = true;
+        let matchesAnioMax = true;
+
+        if (cardAnio === 0) {
+          // Entrega inmediata: se incluye si no hay año mín o si año mín es <= año actual
+          matchesAnioMin = !anioMinVal || anioMinVal <= CURRENT_YEAR;
+          matchesAnioMax = true;
+        } else {
+          matchesAnioMin = !anioMinVal || cardAnio >= anioMinVal;
+          matchesAnioMax = !anioMaxVal || cardAnio <= anioMaxVal;
+        }
+
+        const matchesAnio = matchesAnioMin && matchesAnioMax;
 
         // 5. Filtro Habitaciones (OR dentro de la selección)
         let matchesHabitaciones = true;
         if (selectedRooms.length > 0) {
           matchesHabitaciones = selectedRooms.some((r) => {
             if (r === 4) {
-              // 4+ habs
               return cardHabitaciones.some((h) => h >= 4);
             }
             return cardHabitaciones.includes(r);
@@ -154,16 +172,20 @@ const aniosUnicos = Array.from(
     // Event listeners
     distritoSelect?.addEventListener('change', filterProjects);
     etapaSelect?.addEventListener('change', filterProjects);
-    precioInput?.addEventListener('input', filterProjects);
-    anioSelect?.addEventListener('change', filterProjects);
+    precioMinInput?.addEventListener('input', filterProjects);
+    precioMaxInput?.addEventListener('input', filterProjects);
+    anioMinSelect?.addEventListener('change', filterProjects);
+    anioMaxSelect?.addEventListener('change', filterProjects);
     roomCheckboxes.forEach((cb) => cb.addEventListener('change', filterProjects));
 
     // Reset de Filtros
     btnReset?.addEventListener('click', () => {
       if (distritoSelect) distritoSelect.value = '';
       if (etapaSelect) etapaSelect.value = '';
-      if (precioInput) precioInput.value = '';
-      if (anioSelect) anioSelect.value = '';
+      if (precioMinInput) precioMinInput.value = '';
+      if (precioMaxInput) precioMaxInput.value = '';
+      if (anioMinSelect) anioMinSelect.value = '';
+      if (anioMaxSelect) anioMaxSelect.value = '';
       roomCheckboxes.forEach((cb) => (cb.checked = false));
       filterProjects();
     });
