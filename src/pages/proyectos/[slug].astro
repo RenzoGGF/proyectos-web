@@ -1,0 +1,280 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+
+import projectsData from '../../data/projects.json';
+import advisorsData from '../../data/advisors.json';
+import companiesData from '../../data/companies.json';
+import type { Project, Advisor, Company } from '../../types/index';
+
+export async function getStaticPaths() {
+  const projects = projectsData as Project[];
+  const advisorsMap = new Map((advisorsData as Advisor[]).map((a) => [a.id, a]));
+  const companiesMap = new Map((companiesData as Company[]).map((c) => [c.id, c]));
+
+  // REGLA DE NEGOCIO (Decisión #2): Genera páginas para proyectos activos Y vencidos
+  return projects.map((project) => ({
+    params: { slug: project.slug },
+    props: {
+      project,
+      advisor: advisorsMap.get(project.asesorId),
+      company: companiesMap.get(project.empresaId)
+    }
+  }));
+}
+
+interface Props {
+  project: Project;
+  advisor?: Advisor;
+  company?: Company;
+}
+
+const { project, advisor, company } = Astro.props;
+
+const etapaLabelMap: Record<string, string> = {
+  en_planos: 'En planos',
+  en_construccion: 'En construcción',
+  entrega_inmediata: 'Entrega inmediata'
+};
+
+const precioFormateado = project.precioMin
+  ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
+  : null;
+---
+
+<BaseLayout title={`${project.nombre} - Catálogo Inmobiliario`}>
+  <Header />
+
+  <main class="container page-main">
+    <a href="/" class="back-link">← Volver al catálogo</a>
+
+    {project.estado === 'vencido' && (
+      <div class="banner-vencido" role="alert">
+        ⚠️ <strong>Aviso:</strong> Este proyecto se encuentra vencido y no está disponible en el catálogo activo.
+      </div>
+    )}
+
+    <article class="project-detail">
+      <header class="detail-header">
+        <div>
+          <span class="company-name">{company?.nombre || 'Inmobiliaria'}</span>
+          <h1 class="project-title">{project.nombre}</h1>
+          <p class="project-location">📍 {project.distrito} {project.direccion ? `— ${project.direccion}` : ''}</p>
+        </div>
+
+        {precioFormateado && (
+          <div class="price-box">
+            <span class="price-label">Precio desde</span>
+            <span class="price-amount">{precioFormateado}</span>
+          </div>
+        )}
+      </header>
+
+      <div class="detail-grid">
+        <div class="image-box">
+          <img 
+            src={project.imagen} 
+            alt={project.nombre} 
+            class="main-image"
+            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' fill=\'%23e2e8f0\'><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2364748b\' font-size=\'16\'>Imagen no disponible</text></svg>'"
+          />
+        </div>
+
+        <div class="info-sidebar">
+          <h3>Información del Proyecto</h3>
+          <ul class="info-list">
+            {project.etapa && (
+              <li><span>Etapa:</span> <strong>{etapaLabelMap[project.etapa]}</strong></li>
+            )}
+            {project.fechaEntrega && (
+              <li><span>Entrega:</span> <strong>{project.fechaEntrega.texto}</strong></li>
+            )}
+            {project.habitaciones.length > 0 && (
+              <li><span>Habitaciones:</span> <strong>{project.habitaciones.join(', ')} hab.</strong></li>
+            )}
+            {project.banos.length > 0 && (
+              <li><span>Baños:</span> <strong>{project.banos.join(', ')} baños</strong></li>
+            )}
+            {project.areaMin && (
+              <li><span>Área mínima:</span> <strong>{project.areaMin} m²</strong></li>
+            )}
+            {project.disponibles !== undefined && (
+              <li><span>Unidades disponibles:</span> <strong>{project.disponibles}</strong></li>
+            )}
+          </ul>
+
+          {advisor && (
+            <div class="advisor-card">
+              <h4>Asesor Responsable</h4>
+              <p class="advisor-name">{advisor.nombre}</p>
+              {advisor.telefono && (
+                <p class="advisor-phone">📞 {advisor.telefono}</p>
+              )}
+            </div>
+          )}
+
+          {project.enlace && (
+            <a href={project.enlace} target="_blank" rel="noopener noreferrer" class="external-btn">
+              Ver Drive / Web Oficial ↗
+            </a>
+          )}
+        </div>
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .page-main {
+    padding-top: 2rem;
+    padding-bottom: 4rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+
+  .banner-vencido {
+    background-color: #fef2f2;
+    border: 1px solid #fca5a5;
+    color: #991b1b;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  .detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 2rem;
+  }
+
+  .company-name {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .project-title {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+  }
+
+  .project-location {
+    font-size: 1rem;
+    color: var(--color-primary);
+    margin-top: 0.25rem;
+  }
+
+  .price-box {
+    text-align: right;
+    background-color: var(--color-surface);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
+  }
+
+  .price-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .price-amount {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+  }
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .detail-grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  .image-box {
+    width: 100%;
+    height: 400px;
+    background-color: #e2e8f0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .info-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .info-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .info-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    border-bottom: 1px dashed var(--color-border);
+    padding-bottom: 0.5rem;
+  }
+
+  .advisor-card {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+  }
+
+  .advisor-name {
+    font-weight: 700;
+    margin-top: 0.25rem;
+  }
+
+  .advisor-phone {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-top: 0.125rem;
+  }
+
+  .external-btn {
+    display: block;
+    text-align: center;
+    background-color: var(--color-primary);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.875rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
+  }
+
+  .external-btn:hover {
+    background-color: var(--color-primary-hover);
+  }
+</style>
