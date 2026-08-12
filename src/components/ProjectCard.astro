@@ -73,9 +73,9 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
       <p class="mobile-etapa-tag">{etapaFechaBadge}</p>
     )}
 
+    <!-- Nombre a la izquierda -->
     <h2 class="project-name">{project.nombre}</h2>
 
-    <!-- Distrito en color NEGRO -->
     <p class="project-district">📍 {project.distrito}</p>
     {project.direccion && (
       <p class="project-address">{project.direccion}</p>
@@ -87,7 +87,6 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
       {project.areaMin && <span>Desde {project.areaMin} m²</span>}
     </div>
 
-    <!-- Precio Mínimo Dominante en color NEGRO -->
     {precioFormateado && (
       <div class="price-container">
         <span class="price-label">Desde</span>
@@ -143,24 +142,25 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
     padding: 0.75rem 0.875rem;
   }
 
+  /* Etapa en Mobile con color AZUL RE/MAX */
   .mobile-etapa-tag {
     font-size: 0.7rem;
     font-weight: 700;
-    color: var(--color-remax-red);
+    color: var(--color-remax-blue);
     text-transform: uppercase;
     margin-bottom: 0.25rem;
   }
 
+  /* Nombre alineado a la izquierda */
   .project-name {
     font-size: 1rem;
     font-weight: 800;
     color: var(--color-text-main);
-    text-align: center;
+    text-align: left;
     line-height: 1.25;
     margin-bottom: 0.35rem;
   }
 
-  /* COLOR NEGRO EN DISTRITO */
   .project-district {
     font-size: 0.85rem;
     font-weight: 800;
@@ -199,7 +199,6 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
     color: var(--color-text-muted);
   }
 
-  /* COLOR NEGRO EN PRECIO */
   .price-value {
     font-size: 1.1rem;
     font-weight: 900;
@@ -226,8 +225,8 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
       position: absolute;
       top: 10px;
       left: 10px;
-      width: 32px;
-      height: 32px;
+      width: 52px;
+      height: 52px;
       background-color: #ffffff;
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-sm);
@@ -241,6 +240,7 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
       object-fit: contain;
     }
 
+    /* Overlay Desktop: Mayúsculas y +2pt de tamaño (0.875rem) */
     .desktop-image-overlay {
       display: block;
       position: absolute;
@@ -250,7 +250,8 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
       background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
       padding: 1.5rem 0.75rem 0.5rem;
       color: #ffffff;
-      font-size: 0.75rem;
+      font-size: 0.875rem;
+      text-transform: uppercase;
       font-weight: 700;
       text-shadow: 0 1px 2px rgba(0,0,0,0.5);
     }

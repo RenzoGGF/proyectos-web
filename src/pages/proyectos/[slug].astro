@@ -12,7 +12,6 @@ export async function getStaticPaths() {
   const advisorsMap = new Map((advisorsData as Advisor[]).map((a) => [a.id, a]));
   const companiesMap = new Map((companiesData as Company[]).map((c) => [c.id, c]));
 
-  // REGLA DE NEGOCIO (Decisión #2): Genera páginas para proyectos activos Y vencidos
   return projects.map((project) => ({
     params: { slug: project.slug },
     props: {
@@ -56,8 +55,16 @@ const precioFormateado = project.precioMin
 
     <article class="project-detail">
       <header class="detail-header">
-        <div>
-          <span class="company-name">{company?.nombre || 'Inmobiliaria'}</span>
+        <div class="title-company-wrapper">
+          <div class="company-brand">
+            <img 
+              src={company?.logo || `/images/companies/${project.empresaId.toLowerCase()}.webp`} 
+              alt={company?.nombre || 'Inmobiliaria'}
+              class="company-logo-img"
+              onerror="this.onerror=null; this.src='/images/companies/default.webp';"
+            />
+            <span class="company-name">{company?.nombre || 'Inmobiliaria'}</span>
+          </div>
           <h1 class="project-title">{project.nombre}</h1>
           <p class="project-location">📍 {project.distrito} {project.direccion ? `— ${project.direccion}` : ''}</p>
         </div>
@@ -76,7 +83,7 @@ const precioFormateado = project.precioMin
             src={project.imagen} 
             alt={project.nombre} 
             class="main-image"
-            onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\' fill=\'%23e2e8f0\'><text x=\'50%\' y=\'50%\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'%2364748b\' font-size=\'16\'>Imagen no disponible</text></svg>'"
+            onerror="this.onerror=null; this.src='/images/projects/default.webp';"
           />
         </div>
 
@@ -84,22 +91,22 @@ const precioFormateado = project.precioMin
           <h3>Información del Proyecto</h3>
           <ul class="info-list">
             {project.etapa && (
-              <li><span>Etapa:</span> <strong>{etapaLabelMap[project.etapa]}</strong></li>
+              <li><span class="info-label">Etapa:</span> <strong>{etapaLabelMap[project.etapa]}</strong></li>
             )}
             {project.fechaEntrega && (
-              <li><span>Entrega:</span> <strong>{project.fechaEntrega.texto}</strong></li>
+              <li><span class="info-label">Entrega:</span> <strong>{project.fechaEntrega.texto}</strong></li>
             )}
             {project.habitaciones.length > 0 && (
-              <li><span>Habitaciones:</span> <strong>{project.habitaciones.join(', ')} hab.</strong></li>
+              <li><span class="info-label">Habitaciones:</span> <strong>{project.habitaciones.join(', ')} hab.</strong></li>
             )}
             {project.banos.length > 0 && (
-              <li><span>Baños:</span> <strong>{project.banos.join(', ')} baños</strong></li>
+              <li><span class="info-label">Baños:</span> <strong>{project.banos.join(', ')} baños</strong></li>
             )}
             {project.areaMin && (
-              <li><span>Área mínima:</span> <strong>{project.areaMin} m²</strong></li>
+              <li><span class="info-label">Área mínima:</span> <strong>{project.areaMin} m²</strong></li>
             )}
             {project.disponibles !== undefined && (
-              <li><span>Unidades disponibles:</span> <strong>{project.disponibles}</strong></li>
+              <li><span class="info-label">Unidades disponibles:</span> <strong>{project.disponibles}</strong></li>
             )}
           </ul>
 
@@ -113,9 +120,10 @@ const precioFormateado = project.precioMin
             </div>
           )}
 
+          <!-- Botón de Drive / Web visible y destacado -->
           {project.enlace && (
             <a href={project.enlace} target="_blank" rel="noopener noreferrer" class="external-btn">
-              Ver Drive / Web Oficial ↗
+              🔗 Ver Drive / Web Oficial ↗
             </a>
           )}
         </div>
@@ -126,16 +134,16 @@ const precioFormateado = project.precioMin
 
 <style>
   .page-main {
-    padding-top: 2rem;
+    padding-top: 1.5rem;
     padding-bottom: 4rem;
   }
 
   .back-link {
     display: inline-block;
-    color: var(--color-primary);
+    color: var(--color-remax-blue);
     text-decoration: none;
-    font-weight: 600;
-    margin-bottom: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.25rem;
   }
 
   .banner-vencido {
@@ -150,39 +158,60 @@ const precioFormateado = project.precioMin
 
   .detail-header {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 1.5rem;
+    flex-direction: column;
+    gap: 1rem;
     padding-bottom: 1.5rem;
     border-bottom: 1px solid var(--color-border);
     margin-bottom: 2rem;
   }
 
+  @media (min-width: 768px) {
+    .detail-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .company-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+  }
+
+  .company-logo-img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+  }
+
   .company-name {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--color-text-muted);
     text-transform: uppercase;
   }
 
   .project-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: 800;
     color: var(--color-text-main);
   }
 
   .project-location {
-    font-size: 1rem;
-    color: var(--color-primary);
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    font-weight: 700;
     margin-top: 0.25rem;
   }
 
   .price-box {
-    text-align: right;
     background-color: var(--color-surface);
     padding: 0.75rem 1.25rem;
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border);
+    display: inline-block;
   }
 
   .price-label {
@@ -193,7 +222,7 @@ const precioFormateado = project.precioMin
 
   .price-amount {
     font-size: 1.5rem;
-    font-weight: 800;
+    font-weight: 900;
     color: var(--color-text-main);
   }
 
@@ -211,7 +240,7 @@ const precioFormateado = project.precioMin
 
   .image-box {
     width: 100%;
-    height: 400px;
+    height: 380px;
     background-color: #e2e8f0;
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -226,22 +255,32 @@ const precioFormateado = project.precioMin
   .info-sidebar {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.25rem;
+  }
+
+  .info-sidebar h3 {
+    font-size: 1.1rem;
+    font-weight: 800;
   }
 
   .info-list {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
   }
 
   .info-list li {
     display: flex;
     justify-content: space-between;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     border-bottom: 1px dashed var(--color-border);
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.4rem;
+  }
+
+  .info-label {
+    color: var(--color-text-muted);
+    font-weight: 600;
   }
 
   .advisor-card {
@@ -251,8 +290,14 @@ const precioFormateado = project.precioMin
     border-radius: var(--radius-md);
   }
 
+  .advisor-card h4 {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
   .advisor-name {
-    font-weight: 700;
+    font-weight: 800;
     margin-top: 0.25rem;
   }
 
@@ -262,19 +307,23 @@ const precioFormateado = project.precioMin
     margin-top: 0.125rem;
   }
 
+  /* BOTÓN DRIVE / WEB DESTACADO */
   .external-btn {
     display: block;
     text-align: center;
-    background-color: var(--color-primary);
+    background-color: var(--color-remax-red);
     color: #ffffff;
     text-decoration: none;
-    font-weight: 700;
-    padding: 0.875rem;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 0.875rem 1.25rem;
     border-radius: var(--radius-md);
-    transition: background-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(220, 28, 46, 0.25);
+    transition: background-color 0.2s ease, transform 0.2s ease;
   }
 
   .external-btn:hover {
-    background-color: var(--color-primary-hover);
+    background-color: #b91c1c;
+    transform: translateY(-2px);
   }
 </style>

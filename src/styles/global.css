@@ -8,8 +8,7 @@
   --color-bg: #f8fafc;
   --color-surface: #ffffff;
   --color-text-main: #0f172a;
-  --color-text-muted: #64748b;
-  --color-border: #e2e8f0;
+  --color-text-muted: #475569; /* Más oscuro para mejor contraste */
 
   /* Sombras y Bordes */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -41,7 +40,6 @@ body {
   padding: 0 1rem;
 }
 
-/* Grid de Proyectos: 1 columna en mobile, 3 columnas en PC */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
