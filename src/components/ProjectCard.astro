@@ -23,11 +23,14 @@ const precioFormateado = project.precioMin
   ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
   : null;
 
-const habitacionesTexto = project.habitaciones && project.habitaciones.length > 0
-  ? `${project.habitaciones.join(', ')} hab.`
-  : null;
+const tieneHabitaciones = project.habitaciones && project.habitaciones.length > 0;
+const tipologiaTexto = project.tipologia && project.tipologia.length > 0 ? project.tipologia.join(', ') : null;
 
-const dataHabitaciones = project.habitaciones ? project.habitaciones.join(',') : '';
+const infoEspacioTexto = tieneHabitaciones 
+  ? `🛏️ ${project.habitaciones.join(', ')} hab.` 
+  : (tipologiaTexto ? `🏢 ${tipologiaTexto}` : null);
+
+const dataHabitaciones = tieneHabitaciones ? project.habitaciones.join(',') : '0';
 const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.etapa === 'entrega_inmediata' ? '0' : '');
 ---
 
@@ -35,6 +38,7 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
   href={`/proyectos/${project.slug}`} 
   class="project-card"
   data-distrito={project.distrito.toLowerCase()}
+  data-empresa={project.empresaId.toLowerCase()}
   data-etapa={project.etapa || ''}
   data-habitaciones={dataHabitaciones}
   data-precio={project.precioMin || 0}
@@ -81,8 +85,8 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
     )}
 
     <div class="project-specs">
-      {habitacionesTexto && <span>🛏️ {habitacionesTexto}</span>}
-      {habitacionesTexto && project.areaMin && <span>·</span>}
+      {infoEspacioTexto && <span>{infoEspacioTexto}</span>}
+      {infoEspacioTexto && project.areaMin && <span>·</span>}
       {project.areaMin && <span>📐 Desde {project.areaMin} m²</span>}
     </div>
 
@@ -96,12 +100,11 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
 </a>
 
 <style>
-  /* Borde gris leve inicial */
   .project-card {
     display: flex;
     flex-direction: row;
     background-color: var(--color-surface);
-    border: 1px solid #cbd5e1; /* Borde gris leve */
+    border: 1px solid #cbd5e1;
     border-radius: var(--radius-lg);
     overflow: hidden;
     text-decoration: none;

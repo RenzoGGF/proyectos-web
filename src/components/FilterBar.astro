@@ -1,30 +1,32 @@
 ---
+import type { Company } from '../types/index';
+
 interface Props {
   distritos: string[];
   aniosEntrega: number[];
+  companies: Company[];
 }
 
-const { distritos, aniosEntrega } = Astro.props;
+const { distritos, aniosEntrega, companies } = Astro.props;
 ---
 
 <section class="filter-section">
-  <div class="filter-header-mobile">
-    <button type="button" id="btn-toggle-filters" class="toggle-mobile-btn">
+  <!-- Cabecera con Toggle (Desktop y Mobile) -->
+  <div class="filter-bar-header">
+    <button type="button" id="btn-toggle-filters" class="toggle-btn" aria-expanded="true">
       <span class="btn-text">🔍 Filtros de Búsqueda</span>
-      <span id="toggle-icon" class="icon">▼</span>
+      <span id="toggle-icon" class="icon">▲</span>
+    </button>
+
+    <button type="button" id="btn-reset-filters" class="btn-reset">
+      Limpiar filtros
     </button>
   </div>
 
-  <div id="filter-content" class="filter-content is-collapsed-mobile">
-    <div class="filter-header-desktop">
-      <h3 class="filter-title">Filtros de Búsqueda</h3>
-      <button type="button" id="btn-reset-filters" class="btn-reset">
-        Limpiar filtros
-      </button>
-    </div>
-
+  <!-- Contenido Desplegable -->
+  <div id="filter-content" class="filter-content">
     <div class="filter-grid">
-      <!-- Distrito -->
+      <!-- 1. Distrito -->
       <div class="filter-group">
         <label for="filter-distrito" class="filter-label">Distrito</label>
         <select id="filter-distrito" class="filter-select">
@@ -35,7 +37,18 @@ const { distritos, aniosEntrega } = Astro.props;
         </select>
       </div>
 
-      <!-- Etapa -->
+      <!-- 2. Empresa / Constructora -->
+      <div class="filter-group">
+        <label for="filter-empresa" class="filter-label">Inmobiliaria</label>
+        <select id="filter-empresa" class="filter-select">
+          <option value="">Todas las inmobiliarias</option>
+          {companies.map((c) => (
+            <option value={c.id.toLowerCase()}>{c.nombre}</option>
+          ))}
+        </select>
+      </div>
+
+      <!-- 3. Etapa -->
       <div class="filter-group">
         <label for="filter-etapa" class="filter-label">Etapa</label>
         <select id="filter-etapa" class="filter-select">
@@ -46,7 +59,7 @@ const { distritos, aniosEntrega } = Astro.props;
         </select>
       </div>
 
-      <!-- Rango de Precios: [Min] - [Max] -->
+      <!-- 4. Rango de Precios: [Min] - [Max] -->
       <div class="filter-group">
         <label class="filter-label">Precio (S/)</label>
         <div class="range-inputs">
@@ -56,7 +69,7 @@ const { distritos, aniosEntrega } = Astro.props;
         </div>
       </div>
 
-      <!-- Rango de Entrega: [Desde] - [Hasta] -->
+      <!-- 5. Rango de Entrega: [Desde] - [Hasta] -->
       <div class="filter-group">
         <label class="filter-label">Entrega (Año)</label>
         <div class="range-inputs">
@@ -77,9 +90,9 @@ const { distritos, aniosEntrega } = Astro.props;
       </div>
     </div>
 
-    <!-- Habitaciones -->
+    <!-- Habitaciones / Espacio -->
     <div class="filter-group-rooms">
-      <span class="filter-label">Habitaciones</span>
+      <span class="filter-label">Habitaciones / Espacio</span>
       <div class="checkbox-group">
         {[1, 2, 3, 4].map((num) => (
           <label class="checkbox-label">
@@ -87,85 +100,73 @@ const { distritos, aniosEntrega } = Astro.props;
             <span>{num === 4 ? '4+ hab' : `${num} hab`}</span>
           </label>
         ))}
+        <label class="checkbox-label">
+          <input type="checkbox" name="filter-rooms" value="0" class="filter-checkbox" />
+          <span>Oficina, local, otros</span>
+        </label>
       </div>
     </div>
   </div>
 </section>
 
 <script>
+  // Toggle interactivo (Desktop & Mobile)
   document.addEventListener('DOMContentLoaded', () => {
     const btnToggle = document.getElementById('btn-toggle-filters');
     const filterContent = document.getElementById('filter-content');
     const toggleIcon = document.getElementById('toggle-icon');
 
     btnToggle?.addEventListener('click', () => {
-      if (filterContent) {
-        filterContent.classList.toggle('is-collapsed-mobile');
-        const isCollapsed = filterContent.classList.contains('is-collapsed-mobile');
-        if (toggleIcon) toggleIcon.textContent = isCollapsed ? '▼' : '▲';
+      if (filterContent && toggleIcon) {
+        const isCollapsed = filterContent.classList.toggle('is-collapsed');
+        btnToggle.setAttribute('aria-expanded', String(!isCollapsed));
+        toggleIcon.textContent = isCollapsed ? '▼' : '▲';
       }
     });
   });
 </script>
 
 <style>
-  /* Borde gris leve y sombra limpia */
   .filter-section {
     background-color: var(--color-surface);
-    border: 1px solid #cbd5e1; /* Borde gris leve */
+    border: 1px solid #cbd5e1;
     border-radius: var(--radius-lg);
     box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem;
     overflow: hidden;
   }
 
-  .toggle-mobile-btn {
-    width: 100%;
-    padding: 0.875rem 1rem;
-    background-color: var(--color-surface);
-    border: none;
+  .filter-bar-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 0.75rem 1.25rem;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .toggle-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--color-remax-blue);
     cursor: pointer;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
   }
 
-  @media (min-width: 1024px) {
-    .filter-header-mobile {
-      display: none;
-    }
+  .toggle-btn:hover {
+    background-color: #eff6ff;
   }
 
-  .filter-content {
-    padding: 1.25rem;
-  }
-
-  .filter-content.is-collapsed-mobile {
-    display: none;
-  }
-
-  @media (min-width: 1024px) {
-    .filter-content.is-collapsed-mobile {
-      display: block !important;
-    }
-  }
-
-  .filter-header-desktop {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .filter-title {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--color-text-main);
+  .icon {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
   }
 
   .btn-reset {
@@ -177,6 +178,18 @@ const { distritos, aniosEntrega } = Astro.props;
     border-radius: 50rem;
     padding: 7px;
     border: none;
+  }
+
+  .btn-reset:hover {
+    background-color: #fef2f2;
+  }
+
+  .filter-content {
+    padding: 1.25rem;
+  }
+
+  .filter-content.is-collapsed {
+    display: none;
   }
 
   .filter-grid {
@@ -194,8 +207,14 @@ const { distritos, aniosEntrega } = Astro.props;
 
   @media (min-width: 1024px) {
     .filter-grid {
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .filter-grid {
+      grid-template-columns: repeat(5, 1fr);
     }
   }
 
@@ -227,6 +246,7 @@ const { distritos, aniosEntrega } = Astro.props;
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 0.65rem center;
     background-size: 0.9rem;
@@ -240,7 +260,7 @@ const { distritos, aniosEntrega } = Astro.props;
     font-size: 0.85rem;
     font-weight: 500;
     color: var(--color-text-main);
-    border: 1px solid #cbd5e1; /* Borde gris leve */
+    border: 1px solid #cbd5e1;
     border-radius: var(--radius-md);
     background-color: #ffffff;
     outline: none;
@@ -263,6 +283,7 @@ const { distritos, aniosEntrega } = Astro.props;
 
   .checkbox-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 1rem;
     margin-top: 0.25rem;
   }

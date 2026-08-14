@@ -16,25 +16,32 @@ const companiesMap = new Map<string, Company>(companies.map((c) => [c.id, c]));
 // 1. Proyectos activos
 const activeProjects = projects.filter((p) => p.estado === 'activo');
 
-// 2. Ordenar por distrito ASC
+// 2. Ordenar proyectos por distrito ASC
 activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensitivity: 'base' }));
 
-// 3. Extraer distritos únicos
+// 3. Distritos únicos con proyectos activos
 const distritosUnicos = Array.from(new Set(activeProjects.map((p) => p.distrito))).sort((a, b) => 
   a.localeCompare(b, 'es', { sensitivity: 'base' })
 );
 
-// 4. Extraer años de entrega únicos
+// 4. EMPRESAS CON AL MENOS UN PROYECTO ACTIVO (Ordenadas alfabéticamente)
+const activeCompanyIds = new Set(activeProjects.map((p) => p.empresaId));
+
+const companiesSorted = companies
+  .filter((c) => activeCompanyIds.has(c.id))
+  .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
+
+// 5. Años de entrega únicos con proyectos activos
 const aniosUnicos = Array.from(
   new Set(activeProjects.map((p) => p.fechaEntrega?.anio).filter((a): a is number => typeof a === 'number'))
 ).sort((a, b) => a - b);
 ---
 
-<BaseLayout title="Remax Family Proyectos">
+<BaseLayout title="Catálogo Privado de Proyectos Inmobiliarios">
   <Header />
 
   <main class="container page-main">
-    <FilterBar distritos={distritosUnicos} aniosEntrega={aniosUnicos} />
+    <FilterBar distritos={distritosUnicos} aniosEntrega={aniosUnicos} companies={companiesSorted} />
 
     <div class="results-header">
       <h2 class="results-title">Proyectos Disponibles</h2>
@@ -45,11 +52,11 @@ const aniosUnicos = Array.from(
       <div class="no-results-box">
         <p class="no-results-icon">🔍</p>
         <h3>No se encontraron proyectos</h3>
-        <p>Prueba cambiando los filtros para ver más opciones.</p>
+        <p>Prueba cambiando los filtros seleccionados para ver más opciones.</p>
       </div>
     </div>
 
-    <!-- Grid de Tarjetas (1 col mobile, 3 col desktop) -->
+    <!-- Grid de Tarjetas -->
     <div class="projects-grid" id="projects-grid">
       {activeProjects.map((project) => (
         <ProjectCard 
@@ -64,6 +71,7 @@ const aniosUnicos = Array.from(
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
+    const empresaSelect = document.getElementById('filter-empresa') as HTMLSelectElement | null;
     const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
     const precioMinInput = document.getElementById('filter-precio-min') as HTMLInputElement | null;
     const precioMaxInput = document.getElementById('filter-precio-max') as HTMLInputElement | null;
@@ -80,21 +88,23 @@ const aniosUnicos = Array.from(
 
     function filterProjects() {
       const distritoVal = distritoSelect?.value.toLowerCase() || '';
+      const empresaVal = empresaSelect?.value.toLowerCase() || '';
       const etapaVal = etapaSelect?.value || '';
       const precioMinVal = precioMinInput?.value ? parseFloat(precioMinInput.value) : null;
       const precioMaxVal = precioMaxInput?.value ? parseFloat(precioMaxInput.value) : null;
       const anioMinVal = anioMinSelect?.value ? parseInt(anioMinSelect.value, 10) : null;
       const anioMaxVal = anioMaxSelect?.value ? parseInt(anioMaxSelect.value, 10) : null;
 
-      const selectedRooms: number[] = [];
+      const selectedRooms: string[] = [];
       roomCheckboxes.forEach((cb) => {
-        if (cb.checked) selectedRooms.push(parseInt(cb.value, 10));
+        if (cb.checked) selectedRooms.push(cb.value);
       });
 
       let visibleCount = 0;
 
       cards.forEach((card) => {
         const cardDistrito = card.dataset.distrito || '';
+        const cardEmpresa = card.dataset.empresa || '';
         const cardEtapa = card.dataset.etapa || '';
         const cardPrecio = parseFloat(card.dataset.precio || '0');
         const cardAnio = parseInt(card.dataset.anio || '0', 10);
@@ -104,12 +114,21 @@ const aniosUnicos = Array.from(
           .map((n) => parseInt(n, 10))
           .filter((n) => !isNaN(n));
 
+        // 1. Filtro Distrito
         const matchesDistrito = !distritoVal || cardDistrito === distritoVal;
+
+        // 2. Filtro Empresa / Constructora
+        const matchesEmpresa = !empresaVal || cardEmpresa === empresaVal;
+
+        // 3. Filtro Etapa
         const matchesEtapa = !etapaVal || cardEtapa === etapaVal;
+
+        // 4. Filtro Precios
         const matchesPrecioMin = !precioMinVal || (cardPrecio > 0 && cardPrecio >= precioMinVal);
         const matchesPrecioMax = !precioMaxVal || (cardPrecio > 0 && cardPrecio <= precioMaxVal);
         const matchesPrecio = matchesPrecioMin && matchesPrecioMax;
 
+        // 5. Filtro Años
         let matchesAnioMin = true;
         let matchesAnioMax = true;
 
@@ -120,18 +139,24 @@ const aniosUnicos = Array.from(
           matchesAnioMin = !anioMinVal || cardAnio >= anioMinVal;
           matchesAnioMax = !anioMaxVal || cardAnio <= anioMaxVal;
         }
-
         const matchesAnio = matchesAnioMin && matchesAnioMax;
 
+        // 6. Filtro Habitaciones / Espacio (OR)
         let matchesHabitaciones = true;
         if (selectedRooms.length > 0) {
-          matchesHabitaciones = selectedRooms.some((r) => {
-            if (r === 4) return cardHabitaciones.some((h) => h >= 4);
-            return cardHabitaciones.includes(r);
+          matchesHabitaciones = selectedRooms.some((val) => {
+            if (val === '0') {
+              return cardHabitaciones.includes(0) || cardHabitaciones.length === 0;
+            }
+            const num = parseInt(val, 10);
+            if (num === 4) {
+              return cardHabitaciones.some((h) => h >= 4);
+            }
+            return cardHabitaciones.includes(num);
           });
         }
 
-        const isVisible = matchesDistrito && matchesEtapa && matchesPrecio && matchesAnio && matchesHabitaciones;
+        const isVisible = matchesDistrito && matchesEmpresa && matchesEtapa && matchesPrecio && matchesAnio && matchesHabitaciones;
 
         if (isVisible) {
           card.classList.remove('hidden');
@@ -155,6 +180,7 @@ const aniosUnicos = Array.from(
     }
 
     distritoSelect?.addEventListener('change', filterProjects);
+    empresaSelect?.addEventListener('change', filterProjects);
     etapaSelect?.addEventListener('change', filterProjects);
     precioMinInput?.addEventListener('input', filterProjects);
     precioMaxInput?.addEventListener('input', filterProjects);
@@ -164,6 +190,7 @@ const aniosUnicos = Array.from(
 
     btnReset?.addEventListener('click', () => {
       if (distritoSelect) distritoSelect.value = '';
+      if (empresaSelect) empresaSelect.value = '';
       if (etapaSelect) etapaSelect.value = '';
       if (precioMinInput) precioMinInput.value = '';
       if (precioMaxInput) precioMaxInput.value = '';
