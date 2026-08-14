@@ -3,12 +3,13 @@
   --color-remax-blue: #003DA5;
   --color-remax-red: #DC1C2E;
   --color-remax-dark: #001f57;
-
+  
   /* Superficies y Neutros */
   --color-bg: #EDF1F7;
   --color-surface: #ffffff;
   --color-text-main: #0f172a;
-  --color-text-muted: #475569; /* Más oscuro para mejor contraste */
+  --color-text-muted: #475569;
+  --color-border: #cbd5e1;
 
   /* Sombras y Bordes */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
@@ -19,6 +20,13 @@
   --shadow-elevated: 0 10px 25px -5px rgb(0 0 0 / 0.1);
 }
 
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  scroll-behavior: smooth;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -27,7 +35,6 @@
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-bg);
   color: var(--color-text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -35,26 +42,74 @@ body {
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
   padding: 0 1rem;
+  background-color: transparent;
 }
 
+/* Disposición general: Columna en mobile, 2 Columnas (Sidebar + Grid) en Desktop */
+.catalog-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+@media (min-width: 1024px) {
+  .catalog-layout {
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    align-items: start;
+    gap: 2rem;
+  }
+}
+
+/* Grid de Tarjetas */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 1.25rem;
-  margin-top: 1.25rem;
-  margin-bottom: 3rem;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 640px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1280px) {
   .projects-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
   }
 }
 
 .hidden {
   display: none !important;
+}
+
+/* Botón flotante Volver Arriba */
+.back-to-top-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 40;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-remax-blue);
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 14px rgba(0, 61, 165, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.back-to-top-btn:hover {
+  background-color: var(--color-remax-red);
+  transform: translateY(-3px) scale(1.05);
 }

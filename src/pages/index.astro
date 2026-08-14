@@ -19,57 +19,84 @@ const activeProjects = projects.filter((p) => p.estado === 'activo');
 // 2. Ordenar proyectos por distrito ASC
 activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensitivity: 'base' }));
 
-// 3. Distritos únicos con proyectos activos
+// 3. Distritos únicos
 const distritosUnicos = Array.from(new Set(activeProjects.map((p) => p.distrito))).sort((a, b) => 
   a.localeCompare(b, 'es', { sensitivity: 'base' })
 );
 
-// 4. EMPRESAS CON AL MENOS UN PROYECTO ACTIVO (Ordenadas alfabéticamente)
+// 4. Empresas activas
 const activeCompanyIds = new Set(activeProjects.map((p) => p.empresaId));
-
 const companiesSorted = companies
   .filter((c) => activeCompanyIds.has(c.id))
   .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
 
-// 5. Años de entrega únicos con proyectos activos
+// 5. Años de entrega únicos
 const aniosUnicos = Array.from(
   new Set(activeProjects.map((p) => p.fechaEntrega?.anio).filter((a): a is number => typeof a === 'number'))
 ).sort((a, b) => a - b);
 ---
 
-<BaseLayout title="Remax Family Proyectos">
+<BaseLayout title="Catálogo Privado de Proyectos Inmobiliarios">
   <Header />
 
   <main class="container page-main">
-    <FilterBar distritos={distritosUnicos} aniosEntrega={aniosUnicos} companies={companiesSorted} />
+    <div class="catalog-layout">
+      <!-- PANEL LATERAL STICKY DE FILTROS -->
+      <FilterBar 
+        distritos={distritosUnicos} 
+        aniosEntrega={aniosUnicos} 
+        companies={companiesSorted} 
+      />
 
-    <div class="results-header">
-      <h2 class="results-title">Proyectos Disponibles</h2>
-      <span id="results-count" class="results-count">{activeProjects.length} proyectos activos</span>
-    </div>
+      <!-- CONTENIDO PRINCIPAL: CHIPS + GRID -->
+      <section class="catalog-content">
+        <!-- FUSIÓN DE TÍTULO Y CONTADOR -->
+        <div class="results-header">
+          <h2 class="results-title">
+            Proyectos disponibles 
+            <span id="results-count" class="results-badge">{activeProjects.length}</span>
+          </h2>
+        </div>
 
-    <div id="no-results" class="no-results hidden">
-      <div class="no-results-box">
-        <p class="no-results-icon">🔍</p>
-        <h3>No se encontraron proyectos</h3>
-        <p>Prueba cambiando los filtros seleccionados para ver más opciones.</p>
-      </div>
-    </div>
+        <!-- BARRA DE CHIPS DE FILTROS ACTIVOS -->
+        <div id="active-chips-container" class="chips-container hidden">
+          <span class="chips-label">Filtros activos:</span>
+          <div id="chips-list" class="chips-list"></div>
+        </div>
 
-    <!-- Grid de Tarjetas -->
-    <div class="projects-grid" id="projects-grid">
-      {activeProjects.map((project) => (
-        <ProjectCard 
-          project={project} 
-          company={companiesMap.get(project.empresaId)} 
-        />
-      ))}
+        <!-- ESTADO VACÍO (SIN RESULTADOS) -->
+        <div id="no-results" class="no-results hidden">
+          <div class="no-results-box">
+            <p class="no-results-icon">🔍</p>
+            <h3 class="no-results-title">No encontramos proyectos con esos filtros.</h3>
+            <button type="button" id="btn-no-results-reset" class="btn-empty-reset">
+              Limpiar filtros
+            </button>
+          </div>
+        </div>
+
+        <!-- GRID DE TARJETAS -->
+        <div class="projects-grid" id="projects-grid">
+          {activeProjects.map((project) => (
+            <ProjectCard 
+              project={project} 
+              company={companiesMap.get(project.empresaId)} 
+            />
+          ))}
+        </div>
+      </section>
     </div>
   </main>
+
+  <!-- BOTÓN VOLVER ARRIBA -->
+  <button type="button" id="btn-back-to-top" class="back-to-top-btn hidden" aria-label="Volver arriba">
+    ▲
+  </button>
 </BaseLayout>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // Referencias a Filtros
     const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
     const empresaSelect = document.getElementById('filter-empresa') as HTMLSelectElement | null;
     const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
@@ -78,14 +105,105 @@ const aniosUnicos = Array.from(
     const anioMinSelect = document.getElementById('filter-anio-min') as HTMLSelectElement | null;
     const anioMaxSelect = document.getElementById('filter-anio-max') as HTMLSelectElement | null;
     const roomCheckboxes = document.querySelectorAll<HTMLInputElement>('input[name="filter-rooms"]');
+    
+    // Botones de Reset
     const btnReset = document.getElementById('btn-reset-filters');
+    const btnNoResultsReset = document.getElementById('btn-no-results-reset');
 
+    // Elementos del DOM
     const cards = document.querySelectorAll<HTMLElement>('.project-card');
     const resultsCountEl = document.getElementById('results-count');
     const noResultsEl = document.getElementById('no-results');
+    const chipsContainer = document.getElementById('active-chips-container');
+    const chipsList = document.getElementById('chips-list');
+    const btnBackToTop = document.getElementById('btn-back-to-top');
 
     const CURRENT_YEAR = new Date().getFullYear();
 
+    // Actualizador de Chips de Filtros Activos
+    function updateActiveChips() {
+      if (!chipsContainer || !chipsList) return;
+      chipsList.innerHTML = '';
+      const chips: { label: string; clear: () => void }[] = [];
+
+      if (distritoSelect?.value) {
+        const text = distritoSelect.options[distritoSelect.selectedIndex].text;
+        chips.push({
+          label: `Distrito: ${text}`,
+          clear: () => { distritoSelect.value = ''; filterProjects(); }
+        });
+      }
+
+      if (empresaSelect?.value) {
+        const text = empresaSelect.options[empresaSelect.selectedIndex].text;
+        chips.push({
+          label: `Empresa: ${text}`,
+          clear: () => { empresaSelect.value = ''; filterProjects(); }
+        });
+      }
+
+      if (etapaSelect?.value) {
+        const text = etapaSelect.options[etapaSelect.selectedIndex].text;
+        chips.push({
+          label: `Etapa: ${text}`,
+          clear: () => { etapaSelect.value = ''; filterProjects(); }
+        });
+      }
+
+      if (precioMinInput?.value) {
+        chips.push({
+          label: `Desde S/ ${Number(precioMinInput.value).toLocaleString('es-PE')}`,
+          clear: () => { precioMinInput.value = ''; filterProjects(); }
+        });
+      }
+
+      if (precioMaxInput?.value) {
+        chips.push({
+          label: `Hasta S/ ${Number(precioMaxInput.value).toLocaleString('es-PE')}`,
+          clear: () => { precioMaxInput.value = ''; filterProjects(); }
+        });
+      }
+
+      if (anioMinSelect?.value) {
+        chips.push({
+          label: `Entrega desde: ${anioMinSelect.value}`,
+          clear: () => { anioMinSelect.value = ''; filterProjects(); }
+        });
+      }
+
+      if (anioMaxSelect?.value) {
+        chips.push({
+          label: `Entrega hasta: ${anioMaxSelect.value}`,
+          clear: () => { anioMaxSelect.value = ''; filterProjects(); }
+        });
+      }
+
+      roomCheckboxes.forEach((cb) => {
+        if (cb.checked) {
+          const labelText = cb.value === '0' ? 'Oficina/Otros' : (cb.value === '4' ? '4+ hab' : `${cb.value} hab`);
+          chips.push({
+            label: labelText,
+            clear: () => { cb.checked = false; filterProjects(); }
+          });
+        }
+      });
+
+      if (chips.length > 0) {
+        chipsContainer.classList.remove('hidden');
+        chips.forEach((chip) => {
+          const chipEl = document.createElement('button');
+          chipEl.type = 'button';
+          chipEl.className = 'filter-chip';
+          chipEl.innerHTML = `<span>${chip.label}</span> <span class="chip-remove">✕</span>`;
+          chipEl.addEventListener('click', chip.clear);
+          chipsList.appendChild(chipEl);
+        });
+      } else {
+        chipsContainer.classList.add('hidden');
+      }
+    }
+
+    // Función Principal de Filtrado
     function filterProjects() {
       const distritoVal = distritoSelect?.value.toLowerCase() || '';
       const empresaVal = empresaSelect?.value.toLowerCase() || '';
@@ -114,24 +232,16 @@ const aniosUnicos = Array.from(
           .map((n) => parseInt(n, 10))
           .filter((n) => !isNaN(n));
 
-        // 1. Filtro Distrito
         const matchesDistrito = !distritoVal || cardDistrito === distritoVal;
-
-        // 2. Filtro Empresa / Constructora
         const matchesEmpresa = !empresaVal || cardEmpresa === empresaVal;
-
-        // 3. Filtro Etapa
         const matchesEtapa = !etapaVal || cardEtapa === etapaVal;
 
-        // 4. Filtro Precios
         const matchesPrecioMin = !precioMinVal || (cardPrecio > 0 && cardPrecio >= precioMinVal);
         const matchesPrecioMax = !precioMaxVal || (cardPrecio > 0 && cardPrecio <= precioMaxVal);
         const matchesPrecio = matchesPrecioMin && matchesPrecioMax;
 
-        // 5. Filtro Años
         let matchesAnioMin = true;
         let matchesAnioMax = true;
-
         if (cardAnio === 0) {
           matchesAnioMin = !anioMinVal || anioMinVal <= CURRENT_YEAR;
           matchesAnioMax = true;
@@ -141,17 +251,12 @@ const aniosUnicos = Array.from(
         }
         const matchesAnio = matchesAnioMin && matchesAnioMax;
 
-        // 6. Filtro Habitaciones / Espacio (OR)
         let matchesHabitaciones = true;
         if (selectedRooms.length > 0) {
           matchesHabitaciones = selectedRooms.some((val) => {
-            if (val === '0') {
-              return cardHabitaciones.includes(0) || cardHabitaciones.length === 0;
-            }
+            if (val === '0') return cardHabitaciones.includes(0) || cardHabitaciones.length === 0;
             const num = parseInt(val, 10);
-            if (num === 4) {
-              return cardHabitaciones.some((h) => h >= 4);
-            }
+            if (num === 4) return cardHabitaciones.some((h) => h >= 4);
             return cardHabitaciones.includes(num);
           });
         }
@@ -166,10 +271,12 @@ const aniosUnicos = Array.from(
         }
       });
 
+      // Actualizar contador integrado
       if (resultsCountEl) {
-        resultsCountEl.textContent = `${visibleCount} ${visibleCount === 1 ? 'proyecto encontrado' : 'proyectos encontrados'}`;
+        resultsCountEl.textContent = String(visibleCount);
       }
 
+      // Toggle de estado vacío
       if (noResultsEl) {
         if (visibleCount === 0) {
           noResultsEl.classList.remove('hidden');
@@ -177,18 +284,11 @@ const aniosUnicos = Array.from(
           noResultsEl.classList.add('hidden');
         }
       }
+
+      updateActiveChips();
     }
 
-    distritoSelect?.addEventListener('change', filterProjects);
-    empresaSelect?.addEventListener('change', filterProjects);
-    etapaSelect?.addEventListener('change', filterProjects);
-    precioMinInput?.addEventListener('input', filterProjects);
-    precioMaxInput?.addEventListener('input', filterProjects);
-    anioMinSelect?.addEventListener('change', filterProjects);
-    anioMaxSelect?.addEventListener('change', filterProjects);
-    roomCheckboxes.forEach((cb) => cb.addEventListener('change', filterProjects));
-
-    btnReset?.addEventListener('click', () => {
+    function resetAllFilters() {
       if (distritoSelect) distritoSelect.value = '';
       if (empresaSelect) empresaSelect.value = '';
       if (etapaSelect) etapaSelect.value = '';
@@ -198,6 +298,32 @@ const aniosUnicos = Array.from(
       if (anioMaxSelect) anioMaxSelect.value = '';
       roomCheckboxes.forEach((cb) => (cb.checked = false));
       filterProjects();
+    }
+
+    // Event listeners
+    distritoSelect?.addEventListener('change', filterProjects);
+    empresaSelect?.addEventListener('change', filterProjects);
+    etapaSelect?.addEventListener('change', filterProjects);
+    precioMinInput?.addEventListener('input', filterProjects);
+    precioMaxInput?.addEventListener('input', filterProjects);
+    anioMinSelect?.addEventListener('change', filterProjects);
+    anioMaxSelect?.addEventListener('change', filterProjects);
+    roomCheckboxes.forEach((cb) => cb.addEventListener('change', filterProjects));
+
+    btnReset?.addEventListener('click', resetAllFilters);
+    btnNoResultsReset?.addEventListener('click', resetAllFilters);
+
+    // Botón Volver Arriba
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 350) {
+        btnBackToTop?.classList.remove('hidden');
+      } else {
+        btnBackToTop?.classList.add('hidden');
+      }
+    });
+
+    btnBackToTop?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
 </script>
@@ -205,41 +331,137 @@ const aniosUnicos = Array.from(
 <style>
   .page-main {
     padding-top: 1.5rem;
-    padding-bottom: 4rem;
+    padding-bottom: 5rem;
   }
 
+  .catalog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* FUSIÓN TÍTULO + CONTADOR */
   .results-header {
     display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-bottom: 1rem;
+    align-items: center;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--color-border);
   }
 
   .results-title {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     font-weight: 800;
+    color: var(--color-text-main);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .results-count {
+  .results-badge {
+    background-color: var(--color-remax-blue);
+    color: #ffffff;
     font-size: 0.85rem;
-    color: var(--color-text-muted);
-    font-weight: 600;
+    font-weight: 700;
+    padding: 0.15rem 0.55rem;
+    border-radius: 9999px;
   }
 
+  /* CHIPS DE FILTROS ACTIVOS */
+  .chips-container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .chips-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+  }
+
+  .chips-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  :global(.filter-chip) {
+    background-color: #eff6ff;
+    color: var(--color-remax-blue);
+    border: 1px solid #bfdbfe;
+    border-radius: 9999px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  :global(.filter-chip:hover) {
+    background-color: #fee2e2;
+    color: var(--color-remax-red);
+    border-color: #fca5a5;
+  }
+
+  :global(.chip-remove) {
+    font-size: 0.7rem;
+    font-weight: 900;
+  }
+
+  /* ESTADO VACÍO (SIN RESULTADOS) */
   .no-results {
-    padding: 3rem 1rem;
+    padding: 4rem 1.5rem;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
     text-align: center;
+    box-shadow: var(--shadow-sm);
   }
 
   .no-results-box {
-    max-width: 400px;
+    max-width: 450px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   .no-results-icon {
-    font-size: 3rem;
-    margin-bottom: 0.5rem;
+    font-size: 2.5rem;
+    margin: 0;
+  }
+
+  .no-results-title {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+  }
+
+  .btn-empty-reset {
+    background-color: var(--color-remax-red);
+    color: #ffffff;
+    border: none;
+    padding: 0.65rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(220, 28, 46, 0.25);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .btn-empty-reset:hover {
+    background-color: #b91c1c;
+    transform: translateY(-2px);
   }
 </style>
