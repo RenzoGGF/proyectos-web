@@ -1905,11 +1905,11 @@
     "imagen": "/images/projects/p-hub-encalada.webp"
   },
   {
-    "id": "p-iq-escalada",
-    "slug": "iq-escalada",
+    "id": "p-iq-encalada",
+    "slug": "iq-encalada",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "IQ ESCALADA",
+    "nombre": "IQ ENCALADA",
     "distrito": "Surco",
     "direccion": "Av. La Encalada, 1344",
     "enlace": "https://drive.google.com/drive/folders/126B15W5j1iL4n7xH1M7Z7Bzp9dsl1MH-",
@@ -1934,7 +1934,7 @@
     ],
     "precioMin": 224918,
     "estado": "activo",
-    "imagen": "/images/projects/p-iq-escalada.webp"
+    "imagen": "/images/projects/p-iq-encalada.webp"
   },
   {
     "id": "p-pacifico-299",
