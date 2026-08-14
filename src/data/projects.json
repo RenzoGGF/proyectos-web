@@ -1,9 +1,9 @@
 [
   {
-    "id": "P001",
+    "id": "p-aspiria",
     "slug": "aspiria",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "ASPIRIA",
     "distrito": "BARRANCO",
     "direccion": "Av. El Sol Este 530",
@@ -36,13 +36,13 @@
     ],
     "precioMin": 299003,
     "estado": "activo",
-    "imagen": "/images/projects/p001.webp"
+    "imagen": "/images/projects/p-aspiria.webp"
   },
   {
-    "id": "P002",
+    "id": "p-grau-10",
     "slug": "grau-10",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "GRAU 10",
     "distrito": "BARRANCO",
     "direccion": "Av. Almirante Miguel Grau 1020",
@@ -76,13 +76,13 @@
     ],
     "precioMin": 405902.68,
     "estado": "activo",
-    "imagen": "/images/projects/p002.webp"
+    "imagen": "/images/projects/p-grau-10.webp"
   },
   {
-    "id": "P003",
+    "id": "p-the-muse",
     "slug": "the-muse",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "THE MUSE",
     "distrito": "BARRANCO",
     "direccion": "Av San Martin 715",
@@ -115,13 +115,13 @@
     ],
     "precioMin": 385164.9,
     "estado": "activo",
-    "imagen": "/images/projects/p003.webp"
+    "imagen": "/images/projects/p-the-muse.webp"
   },
   {
-    "id": "P004",
+    "id": "p-mirador-del-pacifico",
     "slug": "mirador-del-pacifico",
-    "asesorId": "A003",
-    "empresaId": "C003",
+    "asesorId": "a-cesar-alcedo-991967805",
+    "empresaId": "c-phormato-edificaciones",
     "nombre": "MIRADOR DEL PACIFICO",
     "distrito": "LA PUNTA",
     "direccion": "Av. Grau Nro. 907",
@@ -155,13 +155,13 @@
     ],
     "precioMin": 220660,
     "estado": "activo",
-    "imagen": "/images/projects/p004.webp"
+    "imagen": "/images/projects/p-mirador-del-pacifico.webp"
   },
   {
-    "id": "P005",
+    "id": "p-28-de-julio-3194",
     "slug": "28-de-julio-3194",
-    "asesorId": "A004",
-    "empresaId": "C004",
+    "asesorId": "a-molly-ludmir-994041887",
+    "empresaId": "c-mallorca",
     "nombre": "28 DE JULIO 3194",
     "distrito": "LA VICTORIA",
     "direccion": "Av 28 de Julio 3194",
@@ -186,13 +186,13 @@
     "banos": [],
     "precioMin": 120931.2,
     "estado": "activo",
-    "imagen": "/images/projects/p005.webp"
+    "imagen": "/images/projects/p-28-de-julio-3194.webp"
   },
   {
-    "id": "P006",
+    "id": "p-mural",
     "slug": "mural",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "MURAL",
     "distrito": "LINCE",
     "direccion": "Av. Arequipa 1936",
@@ -224,13 +224,13 @@
     ],
     "precioMin": 209735,
     "estado": "activo",
-    "imagen": "/images/projects/p006.webp"
+    "imagen": "/images/projects/p-mural.webp"
   },
   {
-    "id": "P007",
+    "id": "p-bloom",
     "slug": "bloom",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "BLOOM",
     "distrito": "LINCE",
     "direccion": "Manuel Villavicencio 929",
@@ -263,13 +263,13 @@
     ],
     "precioMin": 372117.46,
     "estado": "activo",
-    "imagen": "/images/projects/p007.webp"
+    "imagen": "/images/projects/p-bloom.webp"
   },
   {
-    "id": "P008",
+    "id": "p-parque-castilla",
     "slug": "parque-castilla",
-    "asesorId": "A005",
-    "empresaId": "C005",
+    "asesorId": "a-carmen-acosta-945395535",
+    "empresaId": "c-efron",
     "nombre": "PARQUE CASTILLA",
     "distrito": "LINCE",
     "direccion": "Av Joaquin Bernal 708 , 704",
@@ -299,13 +299,13 @@
     ],
     "precioMin": 429450,
     "estado": "activo",
-    "imagen": "/images/projects/p008.webp"
+    "imagen": "/images/projects/p-parque-castilla.webp"
   },
   {
-    "id": "P009",
+    "id": "p-nius",
     "slug": "nius",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "NIUS",
     "distrito": "MAGDALENA",
     "direccion": "Av. Javier Prado Oeste 140",
@@ -333,13 +333,13 @@
     ],
     "precioMin": 787072,
     "estado": "activo",
-    "imagen": "/images/projects/p009.webp"
+    "imagen": "/images/projects/p-nius.webp"
   },
   {
-    "id": "P010",
+    "id": "p-skyline",
     "slug": "skyline",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "SKYLINE",
     "distrito": "MAGDALENA",
     "direccion": "Calle Comandante Jiménez 329",
@@ -372,13 +372,13 @@
     ],
     "precioMin": 390419.25,
     "estado": "activo",
-    "imagen": "/images/projects/p010.webp"
+    "imagen": "/images/projects/p-skyline.webp"
   },
   {
-    "id": "P011",
+    "id": "p-acacias",
     "slug": "acacias",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "ACACIAS",
     "distrito": "MIRAFLORES",
     "direccion": "Calle Las Acacias 353",
@@ -413,13 +413,13 @@
     ],
     "precioMin": 621133.49,
     "estado": "activo",
-    "imagen": "/images/projects/p011.webp"
+    "imagen": "/images/projects/p-acacias.webp"
   },
   {
-    "id": "P012",
+    "id": "p-affinity",
     "slug": "affinity",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "AFFINITY",
     "distrito": "MIRAFLORES",
     "direccion": "Av. Paseo de la República 6230",
@@ -453,13 +453,13 @@
     ],
     "precioMin": 432048.12,
     "estado": "activo",
-    "imagen": "/images/projects/p012.webp"
+    "imagen": "/images/projects/p-affinity.webp"
   },
   {
-    "id": "P013",
+    "id": "p-legacy",
     "slug": "legacy",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "LEGACY",
     "distrito": "MIRAFLORES",
     "direccion": "Benavides 474",
@@ -491,13 +491,13 @@
     ],
     "precioMin": 629000.7,
     "estado": "activo",
-    "imagen": "/images/projects/p013.webp"
+    "imagen": "/images/projects/p-legacy.webp"
   },
   {
-    "id": "P014",
+    "id": "p-monument",
     "slug": "monument",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "MONUMENT",
     "distrito": "MIRAFLORES",
     "direccion": "Av. 28 de Julio 538",
@@ -530,13 +530,13 @@
     ],
     "precioMin": 767680.55,
     "estado": "activo",
-    "imagen": "/images/projects/p014.webp"
+    "imagen": "/images/projects/p-monument.webp"
   },
   {
-    "id": "P015",
+    "id": "p-urban-heights",
     "slug": "urban-heights",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "URBAN HEIGHTS",
     "distrito": "MIRAFLORES",
     "direccion": "Avenida Paseo De La Republica 6143",
@@ -570,13 +570,13 @@
     ],
     "precioMin": 426405.67,
     "estado": "activo",
-    "imagen": "/images/projects/p015.webp"
+    "imagen": "/images/projects/p-urban-heights.webp"
   },
   {
-    "id": "P016",
+    "id": "p-chamberi-123",
     "slug": "chamberi-123",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "CHAMBERI 123",
     "distrito": "MIRAFLORES",
     "direccion": "Ca. Chamberí 123",
@@ -603,13 +603,13 @@
     "banos": [],
     "precioMin": 1232910,
     "estado": "activo",
-    "imagen": "/images/projects/p016.webp"
+    "imagen": "/images/projects/p-chamberi-123.webp"
   },
   {
-    "id": "P017",
+    "id": "p-llano-zapata-431",
     "slug": "llano-zapata-431",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "LLANO ZAPATA 431",
     "distrito": "MIRAFLORES",
     "direccion": "Ca. Llano Zapata 431",
@@ -637,13 +637,13 @@
     "banos": [],
     "precioMin": 819090,
     "estado": "activo",
-    "imagen": "/images/projects/p017.webp"
+    "imagen": "/images/projects/p-llano-zapata-431.webp"
   },
   {
-    "id": "P018",
+    "id": "p-meiggs-210",
     "slug": "meiggs-210",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "MEIGGS 210",
     "distrito": "MIRAFLORES",
     "direccion": "Ca. Enrique Meiggs 210",
@@ -671,13 +671,13 @@
     "banos": [],
     "precioMin": 1265400,
     "estado": "activo",
-    "imagen": "/images/projects/p018.webp"
+    "imagen": "/images/projects/p-meiggs-210.webp"
   },
   {
-    "id": "P019",
+    "id": "p-manuel-segura-260",
     "slug": "manuel-segura-260",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "MANUEL SEGURA 260",
     "distrito": "MIRAFLORES",
     "direccion": "Ca. Manuel Segura 260",
@@ -706,13 +706,13 @@
     "banos": [],
     "precioMin": 801990,
     "estado": "activo",
-    "imagen": "/images/projects/p019.webp"
+    "imagen": "/images/projects/p-manuel-segura-260.webp"
   },
   {
-    "id": "P020",
+    "id": "p-colon-470",
     "slug": "colon-470",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "COLON 470",
     "distrito": "MIRAFLORES",
     "direccion": "Ca. Colón 470",
@@ -739,13 +739,13 @@
     "banos": [],
     "precioMin": 726408,
     "estado": "activo",
-    "imagen": "/images/projects/p020.webp"
+    "imagen": "/images/projects/p-colon-470.webp"
   },
   {
-    "id": "P021",
+    "id": "p-parque-naciones-unidas-164",
     "slug": "parque-naciones-unidas-164",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "PARQUE NACIONES UNIDAS 164",
     "distrito": "MIRAFLORES",
     "direccion": "Pje. Parque Naciones Unidas 164",
@@ -773,13 +773,13 @@
     "banos": [],
     "precioMin": 3136140,
     "estado": "activo",
-    "imagen": "/images/projects/p021.webp"
+    "imagen": "/images/projects/p-parque-naciones-unidas-164.webp"
   },
   {
-    "id": "P022",
+    "id": "p-bolognesi-472",
     "slug": "bolognesi-472",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "BOLOGNESI 472",
     "distrito": "MIRAFLORES",
     "direccion": "Ca. Bolognesi 472",
@@ -804,13 +804,13 @@
     "banos": [],
     "precioMin": 752400,
     "estado": "activo",
-    "imagen": "/images/projects/p022.webp"
+    "imagen": "/images/projects/p-bolognesi-472.webp"
   },
   {
-    "id": "P023",
+    "id": "p-piura",
     "slug": "piura",
-    "asesorId": "A004",
-    "empresaId": "C004",
+    "asesorId": "a-molly-ludmir-994041887",
+    "empresaId": "c-mallorca",
     "nombre": "PIURA",
     "distrito": "MIRAFLORES",
     "direccion": "Calle Piura 1101",
@@ -842,13 +842,13 @@
     ],
     "precioMin": 1114920,
     "estado": "activo",
-    "imagen": "/images/projects/p023.webp"
+    "imagen": "/images/projects/p-piura.webp"
   },
   {
-    "id": "P024",
+    "id": "p-mandra",
     "slug": "mandra",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "MANDRA",
     "distrito": "MIRAFLORES",
     "direccion": "Av. del Ejercito 1194",
@@ -877,13 +877,13 @@
     ],
     "precioMin": 534792,
     "estado": "activo",
-    "imagen": "/images/projects/p024.webp"
+    "imagen": "/images/projects/p-mandra.webp"
   },
   {
-    "id": "P025",
+    "id": "p-pardo-coast",
     "slug": "pardo-coast",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "PARDO COAST",
     "distrito": "MIRAFLORES",
     "direccion": "Av. José Pardo 1010",
@@ -913,13 +913,13 @@
     ],
     "precioMin": 522494,
     "estado": "activo",
-    "imagen": "/images/projects/p025.webp"
+    "imagen": "/images/projects/p-pardo-coast.webp"
   },
   {
-    "id": "P026",
+    "id": "p-mendiburu",
     "slug": "mendiburu",
-    "asesorId": "A004",
-    "empresaId": "C005",
+    "asesorId": "a-molly-ludmir-994041887",
+    "empresaId": "c-efron",
     "nombre": "MENDIBURU",
     "distrito": "MIRAFLORES",
     "direccion": "Mendiburú 1290",
@@ -951,13 +951,13 @@
     ],
     "precioMin": 412185.24,
     "estado": "activo",
-    "imagen": "/images/projects/p026.webp"
+    "imagen": "/images/projects/p-mendiburu.webp"
   },
   {
-    "id": "P027",
+    "id": "p-dulanto",
     "slug": "dulanto",
-    "asesorId": "A007",
-    "empresaId": "C007",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-grupo-mg",
     "nombre": "DULANTO",
     "distrito": "PUEBLO LIBRE",
     "direccion": "Jr. Cipriano Dulanto 209",
@@ -993,13 +993,13 @@
     ],
     "precioMin": 324298,
     "estado": "activo",
-    "imagen": "/images/projects/p027.webp"
+    "imagen": "/images/projects/p-dulanto.webp"
   },
   {
-    "id": "P028",
+    "id": "p-bolivar-1209",
     "slug": "bolivar-1209",
-    "asesorId": "A007",
-    "empresaId": "C008",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-ter",
     "nombre": "BOLIVAR 1209",
     "distrito": "PUEBLO LIBRE",
     "direccion": "Av. Simón Bolívar 1209",
@@ -1031,13 +1031,13 @@
     ],
     "precioMin": 325688,
     "estado": "activo",
-    "imagen": "/images/projects/p028.webp"
+    "imagen": "/images/projects/p-bolivar-1209.webp"
   },
   {
-    "id": "P029",
+    "id": "p-8-de-octubre",
     "slug": "8-de-octubre",
-    "asesorId": "A004",
-    "empresaId": "C004",
+    "asesorId": "a-molly-ludmir-994041887",
+    "empresaId": "c-mallorca",
     "nombre": "8 DE OCTUBRE",
     "distrito": "PUEBLO LIBRE",
     "direccion": "Jr. Santiago Wagner 2888",
@@ -1073,13 +1073,13 @@
     ],
     "precioMin": 374000,
     "estado": "activo",
-    "imagen": "/images/projects/p029.webp"
+    "imagen": "/images/projects/p-8-de-octubre.webp"
   },
   {
-    "id": "P030",
+    "id": "p-san-bartolo-beach",
     "slug": "san-bartolo-beach",
-    "asesorId": "A003",
-    "empresaId": "C003",
+    "asesorId": "a-cesar-alcedo-991967805",
+    "empresaId": "c-phormato-edificaciones",
     "nombre": "SAN BARTOLO BEACH",
     "distrito": "SAN BARTOLO",
     "direccion": "Av. San Bartolo Nro. 445",
@@ -1112,13 +1112,13 @@
     ],
     "precioMin": 568905,
     "estado": "activo",
-    "imagen": "/images/projects/p030.webp"
+    "imagen": "/images/projects/p-san-bartolo-beach.webp"
   },
   {
-    "id": "P031",
+    "id": "p-prado-harmony",
     "slug": "prado-harmony",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "PRADO HARMONY",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. Javier Prado Oeste 769",
@@ -1151,13 +1151,13 @@
     ],
     "precioMin": 229559,
     "estado": "activo",
-    "imagen": "/images/projects/p031.webp"
+    "imagen": "/images/projects/p-prado-harmony.webp"
   },
   {
-    "id": "P032",
+    "id": "p-tree",
     "slug": "tree",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "TREE",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. Javier Prado Este 413",
@@ -1190,13 +1190,13 @@
     ],
     "precioMin": 352614,
     "estado": "activo",
-    "imagen": "/images/projects/p032.webp"
+    "imagen": "/images/projects/p-tree.webp"
   },
   {
-    "id": "P033",
+    "id": "p-the-summit",
     "slug": "the-summit",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "THE SUMMIT",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. Augusto Pérez Araníbar 1925",
@@ -1228,13 +1228,13 @@
     ],
     "precioMin": 388389,
     "estado": "activo",
-    "imagen": "/images/projects/p033.webp"
+    "imagen": "/images/projects/p-the-summit.webp"
   },
   {
-    "id": "P034",
+    "id": "p-aramburu-living",
     "slug": "aramburu-living",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "ARAMBURU LIVING",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. Aramburú 535",
@@ -1266,13 +1266,13 @@
     ],
     "precioMin": 364570,
     "estado": "activo",
-    "imagen": "/images/projects/p034.webp"
+    "imagen": "/images/projects/p-aramburu-living.webp"
   },
   {
-    "id": "P035",
+    "id": "p-palm-living",
     "slug": "palm-living",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "PALM LIVING",
     "distrito": "SAN ISIDRO",
     "direccion": "Calle las Palmeras 291",
@@ -1304,13 +1304,13 @@
     ],
     "precioMin": 384964,
     "estado": "activo",
-    "imagen": "/images/projects/p035.webp"
+    "imagen": "/images/projects/p-palm-living.webp"
   },
   {
-    "id": "P036",
+    "id": "p-vertyce",
     "slug": "vertyce",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "VERTYCE",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. Javier Prado Este 401",
@@ -1343,13 +1343,13 @@
     ],
     "precioMin": 264503,
     "estado": "activo",
-    "imagen": "/images/projects/p036.webp"
+    "imagen": "/images/projects/p-vertyce.webp"
   },
   {
-    "id": "P037",
+    "id": "p-ascent",
     "slug": "ascent",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "ASCENT",
     "distrito": "SAN ISIDRO",
     "direccion": "Av Rivera Navarrete 450",
@@ -1383,13 +1383,13 @@
     ],
     "precioMin": 642517.57,
     "estado": "activo",
-    "imagen": "/images/projects/p037.webp"
+    "imagen": "/images/projects/p-ascent.webp"
   },
   {
-    "id": "P038",
+    "id": "p-parque-acosta-161",
     "slug": "parque-acosta-161",
-    "asesorId": "A006",
-    "empresaId": "C006",
+    "asesorId": "a-mery-ann-montalvo-996642129",
+    "empresaId": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "PARQUE ACOSTA 161",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. José de Acosta 161",
@@ -1417,13 +1417,13 @@
     "banos": [],
     "precioMin": 928530,
     "estado": "activo",
-    "imagen": "/images/projects/p038.webp"
+    "imagen": "/images/projects/p-parque-acosta-161.webp"
   },
   {
-    "id": "P039",
+    "id": "p-bertolotto",
     "slug": "bertolotto",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "BERTOLOTTO",
     "distrito": "SAN MIGUEL",
     "direccion": "Av. Bertolotto 752",
@@ -1455,13 +1455,13 @@
     ],
     "precioMin": 540000,
     "estado": "activo",
-    "imagen": "/images/projects/p039.webp"
+    "imagen": "/images/projects/p-bertolotto.webp"
   },
   {
-    "id": "P040",
+    "id": "p-costanova",
     "slug": "costanova",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "COSTANOVA",
     "distrito": "SAN MIGUEL",
     "direccion": "Av. Costanera 1650",
@@ -1494,13 +1494,13 @@
     ],
     "precioMin": 158406,
     "estado": "activo",
-    "imagen": "/images/projects/p040.webp"
+    "imagen": "/images/projects/p-costanova.webp"
   },
   {
-    "id": "P041",
+    "id": "p-nueva-costanera",
     "slug": "nueva-costanera",
-    "asesorId": "A008",
-    "empresaId": "C009",
+    "asesorId": "a-efrain-aguilar-941403185",
+    "empresaId": "c-in-urban",
     "nombre": "NUEVA COSTANERA",
     "distrito": "SAN MIGUEL",
     "direccion": "AV COSTANERA 350",
@@ -1532,13 +1532,13 @@
     ],
     "precioMin": 411800,
     "estado": "activo",
-    "imagen": "/images/projects/p041.webp"
+    "imagen": "/images/projects/p-nueva-costanera.webp"
   },
   {
-    "id": "P042",
+    "id": "p-talambo",
     "slug": "talambo",
-    "asesorId": "A009",
-    "empresaId": "C010",
+    "asesorId": "a-wendy-corzo-986156102",
+    "empresaId": "c-constructora-talambo",
     "nombre": "TALAMBO",
     "distrito": "SAN MIGUEL",
     "direccion": "Calle Talambo 161",
@@ -1563,13 +1563,13 @@
     ],
     "precioMin": 329000,
     "estado": "vencido",
-    "imagen": "/images/projects/p042.webp"
+    "imagen": "/images/projects/p-talambo.webp"
   },
   {
-    "id": "P043",
+    "id": "p-venice",
     "slug": "venice",
-    "asesorId": "A010",
-    "empresaId": "C011",
+    "asesorId": "a-maritza-montoro-994041887",
+    "empresaId": "c-motori-sac",
     "nombre": "VENICE",
     "distrito": "SAN MIGUEL",
     "direccion": "Francisca Zubiaga 344, Urb. Maranga",
@@ -1596,13 +1596,13 @@
     "banos": [],
     "precioMin": 270180,
     "estado": "activo",
-    "imagen": "/images/projects/p043.webp"
+    "imagen": "/images/projects/p-venice.webp"
   },
   {
-    "id": "P044",
+    "id": "p-los-pinos-3",
     "slug": "los-pinos-3",
-    "asesorId": "A007",
-    "empresaId": "C007",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-grupo-mg",
     "nombre": "LOS PINOS 3",
     "distrito": "CERCADO DE LIMA",
     "direccion": "Jr. Manuel del Pino 638, Santa Beatriz",
@@ -1632,13 +1632,13 @@
     ],
     "precioMin": 488000,
     "estado": "activo",
-    "imagen": "/images/projects/p044.webp"
+    "imagen": "/images/projects/p-los-pinos-3.webp"
   },
   {
-    "id": "P045",
+    "id": "p-minimal",
     "slug": "minimal",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "MINIMAL",
     "distrito": "CERCADO DE LIMA",
     "direccion": "Av. Arequipa 1444, Santa Beatriz",
@@ -1670,13 +1670,13 @@
     ],
     "precioMin": 199254,
     "estado": "activo",
-    "imagen": "/images/projects/p045.webp"
+    "imagen": "/images/projects/p-minimal.webp"
   },
   {
-    "id": "P046",
+    "id": "p-teo618",
     "slug": "teo618",
-    "asesorId": "A007",
-    "empresaId": "C008",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-ter",
     "nombre": "TEO618",
     "distrito": "CERCADO DE LIMA",
     "direccion": "Calle Teodoro Cardenas 618, Santa Beatriz",
@@ -1708,13 +1708,13 @@
     ],
     "precioMin": 308100,
     "estado": "activo",
-    "imagen": "/images/projects/p046.webp"
+    "imagen": "/images/projects/p-teo618.webp"
   },
   {
-    "id": "P047",
+    "id": "p-centrium",
     "slug": "centrium",
-    "asesorId": "A007",
-    "empresaId": "C007",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-grupo-mg",
     "nombre": "CENTRIUM",
     "distrito": "CERCADO DE LIMA",
     "direccion": "Av. Alejandro Tirado 653, Santa Beatriz",
@@ -1749,13 +1749,13 @@
     ],
     "precioMin": 270420,
     "estado": "activo",
-    "imagen": "/images/projects/p047.webp"
+    "imagen": "/images/projects/p-centrium.webp"
   },
   {
-    "id": "P048",
+    "id": "p-catalina-sky",
     "slug": "catalina-sky",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "CATALINA SKY",
     "distrito": "LA VICTORIA",
     "direccion": "Av. Nicolás Arriola 131, Santa Catalina",
@@ -1788,13 +1788,13 @@
     ],
     "precioMin": 219924,
     "estado": "activo",
-    "imagen": "/images/projects/p048.webp"
+    "imagen": "/images/projects/p-catalina-sky.webp"
   },
   {
-    "id": "P049",
+    "id": "p-lookfeel-2",
     "slug": "lookfeel-2",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "LOOK&FEEL 2",
     "distrito": "SURCO",
     "direccion": "Av. Encalada 1344",
@@ -1824,13 +1824,13 @@
     ],
     "precioMin": 567461,
     "estado": "activo",
-    "imagen": "/images/projects/p049.webp"
+    "imagen": "/images/projects/p-lookfeel-2.webp"
   },
   {
-    "id": "P050",
+    "id": "p-lookfeel-3",
     "slug": "lookfeel-3",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "LOOK&FEEL 3",
     "distrito": "SURCO",
     "direccion": "Av. Encalada 1344",
@@ -1862,13 +1862,13 @@
     ],
     "precioMin": 332838,
     "estado": "activo",
-    "imagen": "/images/projects/p050.webp"
+    "imagen": "/images/projects/p-lookfeel-3.webp"
   },
   {
-    "id": "P051",
+    "id": "p-hub-encalada",
     "slug": "hub-encalada",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "HUB ENCALADA",
     "distrito": "SURCO",
     "direccion": "Av. Encalada 1344",
@@ -1902,13 +1902,13 @@
     ],
     "precioMin": 382531,
     "estado": "activo",
-    "imagen": "/images/projects/p051.webp"
+    "imagen": "/images/projects/p-hub-encalada.webp"
   },
   {
-    "id": "P052",
+    "id": "p-iq-escalada",
     "slug": "iq-escalada",
-    "asesorId": "A001",
-    "empresaId": "C001",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
     "nombre": "IQ ESCALADA",
     "distrito": "SURCO",
     "direccion": "Av. La Encalada, 1344",
@@ -1934,13 +1934,13 @@
     ],
     "precioMin": 224918,
     "estado": "activo",
-    "imagen": "/images/projects/p052.webp"
+    "imagen": "/images/projects/p-iq-escalada.webp"
   },
   {
-    "id": "P053",
+    "id": "p-pacifico-299",
     "slug": "pacifico-299",
-    "asesorId": "A007",
-    "empresaId": "C008",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-ter",
     "nombre": "PACIFICO 299",
     "distrito": "SURCO",
     "direccion": "Calle Mar Caribe 188",
@@ -1975,13 +1975,13 @@
     ],
     "precioMin": 739000,
     "estado": "activo",
-    "imagen": "/images/projects/p053.webp"
+    "imagen": "/images/projects/p-pacifico-299.webp"
   },
   {
-    "id": "P054",
+    "id": "p-parque-monte-algarrobo",
     "slug": "parque-monte-algarrobo",
-    "asesorId": "A003",
-    "empresaId": "C003",
+    "asesorId": "a-cesar-alcedo-991967805",
+    "empresaId": "c-phormato-edificaciones",
     "nombre": "PARQUE MONTE ALGARROBO",
     "distrito": "SURCO",
     "direccion": "Urb. Residencial Monterrico Sur",
@@ -2012,13 +2012,13 @@
     ],
     "precioMin": 472600,
     "estado": "activo",
-    "imagen": "/images/projects/p054.webp"
+    "imagen": "/images/projects/p-parque-monte-algarrobo.webp"
   },
   {
-    "id": "P055",
+    "id": "p-element",
     "slug": "element",
-    "asesorId": "A002",
-    "empresaId": "C002",
+    "asesorId": "a-marcela-cubas-975595610",
+    "empresaId": "c-edifica-inversiones-del-sur-sac",
     "nombre": "ELEMENT",
     "distrito": "SURQUILLO",
     "direccion": "Av. Tomás Marsano 385",
@@ -2050,13 +2050,13 @@
     "banos": [],
     "precioMin": 287005.31,
     "estado": "activo",
-    "imagen": "/images/projects/p055.webp"
+    "imagen": "/images/projects/p-element.webp"
   },
   {
-    "id": "P056",
+    "id": "p-marsano-park",
     "slug": "marsano-park",
-    "asesorId": "A007",
-    "empresaId": "C008",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-ter",
     "nombre": "MARSANO PARK",
     "distrito": "SURQUILLO",
     "direccion": "Av. Tomas Marsano 1855",
@@ -2087,13 +2087,13 @@
     ],
     "precioMin": 353129,
     "estado": "activo",
-    "imagen": "/images/projects/p056.webp"
+    "imagen": "/images/projects/p-marsano-park.webp"
   },
   {
-    "id": "P057",
+    "id": "p-morar",
     "slug": "morar",
-    "asesorId": "A007",
-    "empresaId": "C008",
+    "asesorId": "a-sulma-bustillos-987038940",
+    "empresaId": "c-ter",
     "nombre": "MORAR",
     "distrito": "SURQUILLO",
     "direccion": "Av. Tomas Marsano 2253",
@@ -2121,13 +2121,13 @@
     ],
     "precioMin": 473000,
     "estado": "activo",
-    "imagen": "/images/projects/p057.webp"
+    "imagen": "/images/projects/p-morar.webp"
   },
   {
-    "id": "P058",
+    "id": "p-alto-metro-park",
     "slug": "alto-metro-park",
-    "asesorId": "A011",
-    "empresaId": "C012",
+    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
+    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
     "nombre": "ALTO METRO PARK",
     "distrito": "CALLAO",
     "direccion": "Av. Oscar R. Benavides 5915",
@@ -2159,13 +2159,13 @@
     ],
     "precioMin": 241800,
     "estado": "vencido",
-    "imagen": "/images/projects/p058.webp"
+    "imagen": "/images/projects/p-alto-metro-park.webp"
   },
   {
-    "id": "P059",
+    "id": "p-salaverry",
     "slug": "salaverry",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "SALAVERRY",
     "distrito": "JESUS MARIA",
     "direccion": "Avenida General Salaverry 571",
@@ -2182,13 +2182,13 @@
     "banos": [],
     "precioMin": 560922,
     "estado": "vencido",
-    "imagen": "/images/projects/p059.webp"
+    "imagen": "/images/projects/p-salaverry.webp"
   },
   {
-    "id": "P060",
+    "id": "p-salaverry-ii",
     "slug": "salaverry-ii",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "SALAVERRY II",
     "distrito": "JESUS MARIA",
     "direccion": "Av. General Felipe Salaverry 563",
@@ -2220,13 +2220,13 @@
     ],
     "precioMin": 358000,
     "estado": "vencido",
-    "imagen": "/images/projects/p060.webp"
+    "imagen": "/images/projects/p-salaverry-ii.webp"
   },
   {
-    "id": "P061",
+    "id": "p-concepto-style",
     "slug": "concepto-style",
-    "asesorId": "A011",
-    "empresaId": "C012",
+    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
+    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
     "nombre": "CONCEPTO STYLE",
     "distrito": "MAGDALENA",
     "direccion": "Av. Faustino Sanchez Carrión 820",
@@ -2251,13 +2251,13 @@
     ],
     "precioMin": 685000,
     "estado": "vencido",
-    "imagen": "/images/projects/p061.webp"
+    "imagen": "/images/projects/p-concepto-style.webp"
   },
   {
-    "id": "P062",
+    "id": "p-kannes",
     "slug": "kannes",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "KANNES",
     "distrito": "PLAYA PUERTO VIEJO",
     "direccion": "Playa Puerto Viejo, cerca de la Panamericana Sur",
@@ -2276,13 +2276,13 @@
     "banos": [],
     "precioMin": 650000,
     "estado": "vencido",
-    "imagen": "/images/projects/p062.webp"
+    "imagen": "/images/projects/p-kannes.webp"
   },
   {
-    "id": "P063",
+    "id": "p-country",
     "slug": "country",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "COUNTRY",
     "distrito": "SAN ANTONIO DE CAÑETE",
     "direccion": "Panamericana Sur KM 72",
@@ -2303,13 +2303,13 @@
     "banos": [],
     "precioMin": 560000,
     "estado": "vencido",
-    "imagen": "/images/projects/p063.webp"
+    "imagen": "/images/projects/p-country.webp"
   },
   {
-    "id": "P064",
+    "id": "p-central-site",
     "slug": "central-site",
-    "asesorId": "A011",
-    "empresaId": "C014",
+    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
+    "empresaId": "c-madrid-ingenieros-sac",
     "nombre": "CENTRAL SITE",
     "distrito": "SAN ISIDRO",
     "direccion": "Calle La Habana 160",
@@ -2342,13 +2342,13 @@
     ],
     "precioMin": 899000,
     "estado": "vencido",
-    "imagen": "/images/projects/p064.webp"
+    "imagen": "/images/projects/p-central-site.webp"
   },
   {
-    "id": "P065",
+    "id": "p-rosario",
     "slug": "rosario",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "ROSARIO",
     "distrito": "SAN ISIDRO",
     "direccion": "Av. El Rosario 320, esquina con la calle Choquehuanca.",
@@ -2372,13 +2372,13 @@
     "banos": [],
     "precioMin": 1830000,
     "estado": "vencido",
-    "imagen": "/images/projects/p065.webp"
+    "imagen": "/images/projects/p-rosario.webp"
   },
   {
-    "id": "P066",
+    "id": "p-concepto-ocean-breath",
     "slug": "concepto-ocean-breath",
-    "asesorId": "A011",
-    "empresaId": "C012",
+    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
+    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
     "nombre": "CONCEPTO OCEAN BREATH",
     "distrito": "SAN MIGUEL",
     "direccion": "Av. Costanera 2880",
@@ -2409,13 +2409,13 @@
     ],
     "precioMin": 278100,
     "estado": "vencido",
-    "imagen": "/images/projects/p066.webp"
+    "imagen": "/images/projects/p-concepto-ocean-breath.webp"
   },
   {
-    "id": "P067",
+    "id": "p-concepto-urban-park",
     "slug": "concepto-urban-park",
-    "asesorId": "A011",
-    "empresaId": "C012",
+    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
+    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
     "nombre": "CONCEPTO URBAN PARK",
     "distrito": "CERCADO DE LIMA",
     "direccion": "Av. Petit Thouars 1160",
@@ -2441,13 +2441,13 @@
     ],
     "precioMin": 563853,
     "estado": "vencido",
-    "imagen": "/images/projects/p067.webp"
+    "imagen": "/images/projects/p-concepto-urban-park.webp"
   },
   {
-    "id": "P068",
+    "id": "p-concepto-unity-park",
     "slug": "concepto-unity-park",
-    "asesorId": "A011",
-    "empresaId": "C012",
+    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
+    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
     "nombre": "CONCEPTO UNITY PARK",
     "distrito": "SURCO",
     "direccion": "Avenida caminos del inca 2090",
@@ -2478,13 +2478,13 @@
     ],
     "precioMin": 373772,
     "estado": "vencido",
-    "imagen": "/images/projects/p068.webp"
+    "imagen": "/images/projects/p-concepto-unity-park.webp"
   },
   {
-    "id": "P069",
+    "id": "p-dorue",
     "slug": "dorue",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "DORUE",
     "distrito": "SURQUILLO",
     "direccion": "Domingo Orué 126",
@@ -2511,13 +2511,13 @@
     ],
     "precioMin": 354000,
     "estado": "vencido",
-    "imagen": "/images/projects/p069.webp"
+    "imagen": "/images/projects/p-dorue.webp"
   },
   {
-    "id": "P070",
+    "id": "p-dorue-ii",
     "slug": "dorue-ii",
-    "asesorId": "A012",
-    "empresaId": "C013",
+    "asesorId": "a-maria-fernanda-anza-902991265",
+    "empresaId": "c-desarrolladora-inmobiliaria",
     "nombre": "DORUE II",
     "distrito": "SURQUILLO",
     "direccion": "Av. Domingo Orue 230",
@@ -2543,6 +2543,6 @@
     "banos": [],
     "precioMin": 291000,
     "estado": "vencido",
-    "imagen": "/images/projects/p070.webp"
+    "imagen": "/images/projects/p-dorue-ii.webp"
   }
 ]

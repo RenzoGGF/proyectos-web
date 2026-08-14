@@ -135,7 +135,6 @@ function parseAdvisorString(value: unknown): { nombre: string; telefono: string 
   if (!value) return { nombre: 'SIN ASESOR', telefono: '' };
   const str = String(value).trim();
   
-  // Separa por barra '/' si existen múltiples asesores
   const parts = str.split('/');
   const names: string[] = [];
   const phones: string[] = [];
@@ -149,14 +148,13 @@ function parseAdvisorString(value: unknown): { nombre: string; telefono: string 
       names.push(match[1].trim().toUpperCase());
       phones.push(match[2].replace(/\s+/g, ''));
     } else {
-      // Si un segmento no tiene número de teléfono, conserva el texto como nombre
       names.push(trimmed.toUpperCase());
     }
   }
 
   return {
     nombre: names.join('/'),
-    telefono: phones.join('/')
+    telefono: phones.join(' / ')
   };
 }
 
@@ -197,7 +195,7 @@ function runImport(): void {
   rawRows.forEach((row: Record<string, unknown>, index: number) => {
     const rowIndex = index + 2;
     
-    // 1. Extraer Asesor
+    // 1. Extraer Asesor con ID Determinista
     const rawAsesor = row['ASESOR RESPONSABLE'];
     const { nombre: advisorName, telefono: advisorPhone } = parseAdvisorString(rawAsesor);
     
@@ -213,15 +211,13 @@ function runImport(): void {
     const advisorKey = `${advisorName}_${advisorPhone}`;
     let advisorId = '';
 
-    for (const [key, advisor] of advisorsMap.entries()) {
-      if (key === advisorKey) {
-        advisorId = advisor.id;
-        break;
-      }
-    }
+    if (advisorsMap.has(advisorKey)) {
+      advisorId = advisorsMap.get(advisorKey)!.id;
+    } else {
+      const advSlug = generateSlug(advisorName);
+      const phoneSlug = generateSlug(advisorPhone);
+      advisorId = phoneSlug ? `a-${advSlug}-${phoneSlug}` : `a-${advSlug}`;
 
-    if (!advisorId) {
-      advisorId = `A${String(advisorsMap.size + 1).padStart(3, '0')}`;
       const advisorObj: Advisor = {
         id: advisorId,
         nombre: advisorName,
@@ -236,18 +232,16 @@ function runImport(): void {
       }
     }
 
-    // 2. Extraer Empresa
+    // 2. Extraer Empresa con ID Determinista
     const rawEmpresa = String(row['EMPRESA'] || 'EMPRESA NO ESPECIFICADA').trim().toUpperCase();
-    let companyId = '';
+    const companySlug = generateSlug(rawEmpresa) || 'desconocida';
+    const companyId = `c-${companySlug}`;
 
-    if (companiesMap.has(rawEmpresa)) {
-      companyId = companiesMap.get(rawEmpresa)!.id;
-    } else {
-      companyId = `C${String(companiesMap.size + 1).padStart(3, '0')}`;
+    if (!companiesMap.has(rawEmpresa)) {
       const companyObj: Company = {
         id: companyId,
         nombre: rawEmpresa,
-        logo: `/images/companies/${companyId.toLowerCase()}.webp`
+        logo: `/images/companies/${companyId}.webp`
       };
 
       const val = CompanySchema.safeParse(companyObj);
@@ -258,10 +252,10 @@ function runImport(): void {
       }
     }
 
-    // 3. Extraer Proyecto
-    const projectId = `P${String(index + 1).padStart(3, '0')}`;
+    // 3. Extraer Proyecto con ID Determinista (Basado en Slug)
     const rawNombre = String(row['NOMBRE DEL PROYECTO'] || '').trim();
     const slug = generateSlug(rawNombre);
+    const projectId = `p-${slug}`;
 
     if (!rawNombre) {
       errors.push(`[Fila ${rowIndex}] Nombre del proyecto está vacío.`);
@@ -298,7 +292,7 @@ function runImport(): void {
       banos: parseRange(row['RANGO DE BAÑOS']),
       precioMin: parseNumber(row['PRECIO MINIMO S/']),
       estado: parseEstado(row['ESTADO']),
-      imagen: `/images/projects/${projectId.toLowerCase()}.webp`
+      imagen: `/images/projects/${projectId}.webp`
     };
 
     const projectVal = ProjectSchema.safeParse(projectObj);
@@ -334,7 +328,7 @@ function runImport(): void {
   fs.writeFileSync(path.join(DATA_DIR, 'companies.json'), JSON.stringify(companiesArray, null, 2), 'utf-8');
   fs.writeFileSync(path.join(DATA_DIR, 'projects.json'), JSON.stringify(projects, null, 2), 'utf-8');
 
-  console.log('\n✅ IMPORTACIÓN COMPLETADA CON ÉXITO:');
+  console.log('\n✅ IMPORTACIÓN COMPLETADA CON ÉXITO (IDs deterministas asignados):');
   console.log(`  - ${projects.length} proyectos procesados en "src/data/projects.json"`);
   console.log(`  - ${advisorsArray.length} asesores guardados en "src/data/advisors.json"`);
   console.log(`  - ${companiesArray.length} empresas guardadas en "src/data/companies.json"\n`);

@@ -1,72 +1,72 @@
 [
   {
-    "id": "C001",
+    "id": "c-grupo-tyc",
     "nombre": "GRUPO TYC",
-    "logo": "/images/companies/c001.webp"
+    "logo": "/images/companies/c-grupo-tyc.webp"
   },
   {
-    "id": "C002",
+    "id": "c-edifica-inversiones-del-sur-sac",
     "nombre": "EDIFICA INVERSIONES DEL SUR SAC",
-    "logo": "/images/companies/c002.webp"
+    "logo": "/images/companies/c-edifica-inversiones-del-sur-sac.webp"
   },
   {
-    "id": "C003",
+    "id": "c-phormato-edificaciones",
     "nombre": "PHORMATO EDIFICACIONES",
-    "logo": "/images/companies/c003.webp"
+    "logo": "/images/companies/c-phormato-edificaciones.webp"
   },
   {
-    "id": "C004",
+    "id": "c-mallorca",
     "nombre": "MALLORCA",
-    "logo": "/images/companies/c004.webp"
+    "logo": "/images/companies/c-mallorca.webp"
   },
   {
-    "id": "C005",
+    "id": "c-efron",
     "nombre": "EFRON",
-    "logo": "/images/companies/c005.webp"
+    "logo": "/images/companies/c-efron.webp"
   },
   {
-    "id": "C006",
+    "id": "c-ilussione-constructora-e-inmobiliaria-sac",
     "nombre": "ILUSSIONE CONSTRUCTORA E INMOBILIARIA SAC",
-    "logo": "/images/companies/c006.webp"
+    "logo": "/images/companies/c-ilussione-constructora-e-inmobiliaria-sac.webp"
   },
   {
-    "id": "C007",
+    "id": "c-grupo-mg",
     "nombre": "GRUPO MG",
-    "logo": "/images/companies/c007.webp"
+    "logo": "/images/companies/c-grupo-mg.webp"
   },
   {
-    "id": "C008",
+    "id": "c-ter",
     "nombre": "TER",
-    "logo": "/images/companies/c008.webp"
+    "logo": "/images/companies/c-ter.webp"
   },
   {
-    "id": "C009",
+    "id": "c-in-urban",
     "nombre": "IN URBAN",
-    "logo": "/images/companies/c009.webp"
+    "logo": "/images/companies/c-in-urban.webp"
   },
   {
-    "id": "C010",
+    "id": "c-constructora-talambo",
     "nombre": "CONSTRUCTORA TALAMBO",
-    "logo": "/images/companies/c010.webp"
+    "logo": "/images/companies/c-constructora-talambo.webp"
   },
   {
-    "id": "C011",
+    "id": "c-motori-sac",
     "nombre": "MOTORI SAC",
-    "logo": "/images/companies/c011.webp"
+    "logo": "/images/companies/c-motori-sac.webp"
   },
   {
-    "id": "C012",
+    "id": "c-inversiones-inmobiliarias-del-peru-imagina",
     "nombre": "INVERSIONES INMOBILIARIAS DEL PERU (IMAGINA)",
-    "logo": "/images/companies/c012.webp"
+    "logo": "/images/companies/c-inversiones-inmobiliarias-del-peru-imagina.webp"
   },
   {
-    "id": "C013",
+    "id": "c-desarrolladora-inmobiliaria",
     "nombre": "DESARROLLADORA INMOBILIARIA",
-    "logo": "/images/companies/c013.webp"
+    "logo": "/images/companies/c-desarrolladora-inmobiliaria.webp"
   },
   {
-    "id": "C014",
+    "id": "c-madrid-ingenieros-sac",
     "nombre": "MADRID INGENIEROS SAC",
-    "logo": "/images/companies/c014.webp"
+    "logo": "/images/companies/c-madrid-ingenieros-sac.webp"
   }
 ]
