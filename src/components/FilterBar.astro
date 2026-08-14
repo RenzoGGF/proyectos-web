@@ -117,6 +117,15 @@ const { distritos, aniosEntrega, companies } = Astro.props;
     const filterContent = document.getElementById('filter-content');
     const toggleIcon = document.getElementById('toggle-icon');
 
+    // 1. INICIALIZACIÓN: Si entra desde móvil (< 1024px), colapsar de inicio
+    const isMobile = window.innerWidth < 1024;
+    if (isMobile && filterContent && toggleIcon && btnToggle) {
+      filterContent.classList.add('is-collapsed');
+      btnToggle.setAttribute('aria-expanded', 'false');
+      toggleIcon.textContent = '▼';
+    }
+
+    // 2. TOGGLE AL HACER CLIC
     btnToggle?.addEventListener('click', () => {
       if (filterContent && toggleIcon) {
         const isCollapsed = filterContent.classList.toggle('is-collapsed');
