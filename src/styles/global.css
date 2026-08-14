@@ -48,7 +48,6 @@ body {
   background-color: transparent;
 }
 
-/* Disposición general: Columna en mobile, 2 Columnas (Sidebar + Grid) en Desktop */
 .catalog-layout {
   display: flex;
   flex-direction: column;
@@ -64,7 +63,6 @@ body {
   }
 }
 
-/* Grid de Tarjetas */
 .projects-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -87,29 +85,28 @@ body {
   display: none !important;
 }
 
-/* Botón flotante Volver Arriba */
+/* BOTÓN FLOTANTE "VOLVER ARRIBA" POSICIONADO EN LA PARTE SUPERIOR */
 .back-to-top-btn {
   position: fixed;
-  bottom: 2rem;
-  right: 2rem;
+  top: 5.5rem;
+  right: 1.5rem;
   z-index: 40;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
   background-color: var(--color-remax-blue);
   color: #ffffff;
-  border: 2px solid #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 14px rgba(0, 61, 165, 0.35);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: 1.25rem;
-  font-weight: 900;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.82rem;
+  font-weight: 700;
   cursor: pointer;
   transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
 }
 
 .back-to-top-btn:hover {
   background-color: var(--color-remax-red);
-  transform: translateY(-3px) scale(1.05);
+  transform: translateY(-2px);
 }

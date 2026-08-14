@@ -135,7 +135,7 @@ const { distritos, aniosEntrega, companies } = Astro.props;
   @media (min-width: 1024px) {
     .filter-sidebar {
       position: sticky;
-      top: 85px; /* Sticky debajo del navbar */
+      top: 85px;
       max-height: calc(100vh - 105px);
       overflow-y: auto;
     }
@@ -153,36 +153,53 @@ const { distritos, aniosEntrega, companies } = Astro.props;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.85rem 1rem;
+    padding: 0.75rem 1rem;
     background-color: var(--color-surface);
     border-bottom: 1px solid #e2e8f0;
   }
 
+  /* ÍCONO PEGADO AL TEXTO EN DESKTOP Y MOBILE */
   .toggle-btn {
     background: none;
     border: none;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: 0.95rem;
+    gap: 0.35rem; /* Separación corta y controlada */
+    font-size: 0.92rem;
     font-weight: 800;
     color: var(--color-remax-blue);
     cursor: pointer;
+    padding: 0.25rem 0.35rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s ease;
   }
 
+  .toggle-btn:hover {
+    background-color: #eff6ff;
+  }
+
+  .icon {
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+
+  /* BOTÓN "LIMPIAR" CON FONDO ROJO */
   .btn-reset {
-    background: var(--color-remax-red);
-    color: var(--color-surface);
-    font-size: 0.85rem;
+    background-color: var(--color-remax-red);
+    color: #ffffff;
+    border: none;
+    font-size: 0.78rem;
     font-weight: 700;
     cursor: pointer;
-    border-radius: 10rem;
-    padding: 7px;
-    border: none;
+    padding: 0.35rem 0.7rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 6px rgba(220, 28, 46, 0.2);
+    transition: background-color 0.2s ease, transform 0.2s ease;
   }
 
   .btn-reset:hover {
-    background-color: #ff2d2d;
+    background-color: #b91c1c;
+    transform: translateY(-1px);
   }
 
   .filter-content {
