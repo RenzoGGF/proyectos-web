@@ -45,28 +45,13 @@
     "logo": "/images/companies/c-in-urban.webp"
   },
   {
-    "id": "c-constructora-talambo",
-    "nombre": "CONSTRUCTORA TALAMBO",
-    "logo": "/images/companies/c-constructora-talambo.webp"
-  },
-  {
     "id": "c-motori-sac",
     "nombre": "MOTORI SAC",
     "logo": "/images/companies/c-motori-sac.webp"
   },
   {
-    "id": "c-inversiones-inmobiliarias-del-peru-imagina",
-    "nombre": "INVERSIONES INMOBILIARIAS DEL PERU (IMAGINA)",
-    "logo": "/images/companies/c-inversiones-inmobiliarias-del-peru-imagina.webp"
-  },
-  {
-    "id": "c-desarrolladora-inmobiliaria",
-    "nombre": "DESARROLLADORA INMOBILIARIA",
-    "logo": "/images/companies/c-desarrolladora-inmobiliaria.webp"
-  },
-  {
-    "id": "c-madrid-ingenieros-sac",
-    "nombre": "MADRID INGENIEROS SAC",
-    "logo": "/images/companies/c-madrid-ingenieros-sac.webp"
+    "id": "c-constructora-talambo",
+    "nombre": "CONSTRUCTORA TALAMBO",
+    "logo": "/images/companies/c-constructora-talambo.webp"
   }
 ]

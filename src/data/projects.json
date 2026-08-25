@@ -1,42 +1,40 @@
 [
   {
-    "id": "p-aspiria",
-    "slug": "aspiria",
+    "id": "p-aramburu-living",
+    "slug": "aramburu-living",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "ASPIRIA",
-    "distrito": "Barranco",
-    "direccion": "Av. El Sol Este 530",
-    "enlace": "https://drive.google.com/drive/folders/1jINnOWyol778LMswpJZyPpmWdofg4okz",
+    "nombre": "ARAMBURU LIVING",
+    "distrito": "San Isidro",
+    "direccion": "Av. Aramburú 535",
+    "enlace": "https://drive.google.com/drive/folders/1G0hoNlt8KP4AgXAEefhV6__xnC_BRxlg",
     "etapa": "en_construccion",
     "fechaEntrega": {
-      "texto": "2026 3T",
+      "texto": "2026 4T",
       "anio": 2026,
-      "trimestre": 3
+      "trimestre": 4
     },
     "financiamiento": [
-      "Propio"
+      "BBVA"
     ],
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 29,
+    "disponibles": 7,
     "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
     "departamentosPorPiso": 10,
-    "areaMin": 24.35,
+    "areaMin": 56.73,
+    "areaMax": 58.73,
     "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
       1,
       2
     ],
-    "precioMin": 299003,
+    "banos": [
+      2
+    ],
+    "precioMin": 440737,
     "estado": "activo",
-    "imagen": "/images/projects/p-aspiria.webp"
+    "imagen": "/images/projects/p-aramburu-living.webp"
   },
   {
     "id": "p-grau-10",
@@ -60,21 +58,20 @@
       "Flat",
       "Duplex"
     ],
-    "disponibles": 132,
+    "disponibles": 127,
     "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
     "departamentosPorPiso": 17,
     "areaMin": 40,
+    "areaMax": 106.73,
     "habitaciones": [
       1,
-      2,
-      3
+      2
     ],
     "banos": [
       1,
       2
     ],
-    "precioMin": 405902.68,
+    "precioMin": 405069,
     "estado": "activo",
     "imagen": "/images/projects/p-grau-10.webp"
   },
@@ -100,20 +97,21 @@
       "Flat",
       "Loft"
     ],
-    "disponibles": 203,
+    "disponibles": 198,
     "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
     "departamentosPorPiso": 24,
     "areaMin": 40,
+    "areaMax": 119.34,
     "habitaciones": [
       1,
-      2
+      2,
+      3
     ],
     "banos": [
       1,
       2
     ],
-    "precioMin": 385164.9,
+    "precioMin": 395296,
     "estado": "activo",
     "imagen": "/images/projects/p-the-muse.webp"
   },
@@ -140,7 +138,6 @@
       "Duplex"
     ],
     "disponibles": 9,
-    "pisoMasAltoVenta": 5,
     "departamentosPorPiso": 2,
     "areaMin": 46.5,
     "habitaciones": [
@@ -178,9 +175,8 @@
       "Stand",
       "Deposito"
     ],
-    "disponibles": 9,
+    "disponibles": 21,
     "pisosProyecto": 4,
-    "pisoMasAltoVenta": 4,
     "areaMin": 7,
     "habitaciones": [],
     "banos": [],
@@ -189,18 +185,18 @@
     "imagen": "/images/projects/p-28-de-julio-3194.webp"
   },
   {
-    "id": "p-mural",
-    "slug": "mural",
+    "id": "p-aspiria",
+    "slug": "aspiria",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "MURAL",
-    "distrito": "Lince",
-    "direccion": "Av. Arequipa 1936",
-    "enlace": "https://drive.google.com/drive/folders/1C4kmz8surrQ6QQO9UHw5lBHmM-T9RyWb",
+    "nombre": "ASPIRIA",
+    "distrito": "Barranco",
+    "direccion": "Av. El Sol Este 530",
+    "enlace": "https://drive.google.com/drive/folders/1jINnOWyol778LMswpJZyPpmWdofg4okz",
     "etapa": "en_construccion",
     "fechaEntrega": {
-      "texto": "2027 3T",
-      "anio": 2027,
+      "texto": "2026 3T",
+      "anio": 2026,
       "trimestre": 3
     },
     "financiamiento": [
@@ -209,22 +205,23 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 114,
-    "pisosProyecto": 23,
-    "pisoMasAltoVenta": 23,
-    "departamentosPorPiso": 12,
-    "areaMin": 21.95,
+    "disponibles": 19,
+    "pisosProyecto": 22,
+    "departamentosPorPiso": 10,
+    "areaMin": 38.05,
+    "areaMax": 82.96,
     "habitaciones": [
       1,
-      2
+      2,
+      3
     ],
     "banos": [
       1,
       2
     ],
-    "precioMin": 209735,
+    "precioMin": 335645,
     "estado": "activo",
-    "imagen": "/images/projects/p-mural.webp"
+    "imagen": "/images/projects/p-aspiria.webp"
   },
   {
     "id": "p-bloom",
@@ -247,11 +244,11 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 86,
+    "disponibles": 82,
     "pisosProyecto": 23,
-    "pisoMasAltoVenta": 23,
     "departamentosPorPiso": 8,
     "areaMin": 36.5,
+    "areaMax": 114.94,
     "habitaciones": [
       1,
       2,
@@ -259,9 +256,10 @@
     ],
     "banos": [
       1,
-      2
+      2,
+      3
     ],
-    "precioMin": 372117.46,
+    "precioMin": 372117,
     "estado": "activo",
     "imagen": "/images/projects/p-bloom.webp"
   },
@@ -285,7 +283,6 @@
     ],
     "disponibles": 8,
     "pisosProyecto": 16,
-    "pisoMasAltoVenta": 16,
     "departamentosPorPiso": 4,
     "areaMin": 49.29,
     "habitaciones": [
@@ -302,38 +299,39 @@
     "imagen": "/images/projects/p-parque-castilla.webp"
   },
   {
-    "id": "p-nius",
-    "slug": "nius",
+    "id": "p-bertolotto",
+    "slug": "bertolotto",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "NIUS",
-    "distrito": "Magdalena",
-    "direccion": "Av. Javier Prado Oeste 140",
-    "enlace": "https://drive.google.com/drive/folders/1oMHxFyTAZpy-hLC57RZYnOJ2RTZofPuy",
+    "nombre": "BERTOLOTTO",
+    "distrito": "San Miguel",
+    "direccion": "Av. Bertolotto 752",
+    "enlace": "https://drive.google.com/drive/folders/1-ArNviCd11iRtHFL-ydulrALWk3sLYYC",
     "etapa": "entrega_inmediata",
     "fechaEntrega": null,
     "financiamiento": [
-      "Propio"
+      "BBVA",
+      "GNB",
+      "Interbank"
     ],
     "tipologia": [
-      "Flat",
-      "Duplex"
+      "Flat"
     ],
     "disponibles": 2,
-    "pisosProyecto": 27,
-    "pisoMasAltoVenta": 27,
-    "departamentosPorPiso": 6,
-    "areaMin": 104.11,
+    "pisosProyecto": 17,
+    "departamentosPorPiso": 30,
+    "areaMin": 88.86,
+    "areaMax": 106.13,
     "habitaciones": [
+      2
+    ],
+    "banos": [
       2,
       3
     ],
-    "banos": [
-      3
-    ],
-    "precioMin": 787072,
+    "precioMin": 546962,
     "estado": "activo",
-    "imagen": "/images/projects/p-nius.webp"
+    "imagen": "/images/projects/p-bertolotto.webp"
   },
   {
     "id": "p-skyline",
@@ -356,11 +354,11 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 84,
+    "disponibles": 90,
     "pisosProyecto": 18,
-    "pisoMasAltoVenta": 15,
     "departamentosPorPiso": 22,
-    "areaMin": 28.91,
+    "areaMin": 40,
+    "areaMax": 91.61,
     "habitaciones": [
       1,
       2,
@@ -370,16 +368,16 @@
       1,
       2
     ],
-    "precioMin": 390419.25,
+    "precioMin": 395374,
     "estado": "activo",
     "imagen": "/images/projects/p-skyline.webp"
   },
   {
-    "id": "p-acacias",
-    "slug": "acacias",
+    "id": "p-acacias-353",
+    "slug": "acacias-353",
     "asesorId": "a-marcela-cubas-975595610",
     "empresaId": "c-edifica-inversiones-del-sur-sac",
-    "nombre": "ACACIAS",
+    "nombre": "ACACIAS 353",
     "distrito": "Miraflores",
     "direccion": "Calle Las Acacias 353",
     "enlace": "https://www.dropbox.com/scl/fo/zh8zyeea685724doeqfdb/AFCf2Rj964t_cVkbmrgNh2I/e.%20Proyectos%20en%20Miraflores/Proyecto%20Acacias?rlkey=os4bsfj1if9iumcavw2m0lt48&e=1&dl=0",
@@ -396,24 +394,22 @@
       "Flat",
       "Duplex"
     ],
-    "disponibles": 22,
+    "disponibles": 19,
     "pisosProyecto": 8,
-    "pisoMasAltoVenta": 8,
     "departamentosPorPiso": 15,
-    "areaMin": 64.13,
+    "areaMin": 65.41,
+    "areaMax": 194.21,
     "habitaciones": [
       1,
-      2,
-      3
+      2
     ],
     "banos": [
       2,
-      3,
-      4
+      3
     ],
-    "precioMin": 621133.49,
+    "precioMin": 762833,
     "estado": "activo",
-    "imagen": "/images/projects/p-acacias.webp"
+    "imagen": "/images/projects/p-acacias-353.webp"
   },
   {
     "id": "p-affinity",
@@ -437,11 +433,11 @@
       "Flat",
       "Duplex"
     ],
-    "disponibles": 65,
+    "disponibles": 63,
     "pisosProyecto": 20,
-    "pisoMasAltoVenta": 19,
     "departamentosPorPiso": 5,
-    "areaMin": 40,
+    "areaMin": 40.01,
+    "areaMax": 119.05,
     "habitaciones": [
       1,
       2
@@ -451,7 +447,7 @@
       2,
       3
     ],
-    "precioMin": 432048.12,
+    "precioMin": 435837,
     "estado": "activo",
     "imagen": "/images/projects/p-affinity.webp"
   },
@@ -476,20 +472,19 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 73,
+    "disponibles": 110,
     "pisosProyecto": 17,
-    "pisoMasAltoVenta": 15,
     "departamentosPorPiso": 8,
     "areaMin": 60.05,
+    "areaMax": 75.93,
     "habitaciones": [
-      2,
-      3
-    ],
-    "banos": [
       1,
       2
     ],
-    "precioMin": 629000.7,
+    "banos": [
+      2
+    ],
+    "precioMin": 621627,
     "estado": "activo",
     "imagen": "/images/projects/p-legacy.webp"
   },
@@ -515,20 +510,20 @@
       "Flat",
       "Duplex"
     ],
-    "disponibles": 64,
+    "disponibles": 57,
     "pisosProyecto": 18,
-    "pisoMasAltoVenta": 18,
     "departamentosPorPiso": 11,
-    "areaMin": 68,
+    "areaMin": 68.01,
+    "areaMax": 173.87,
     "habitaciones": [
       1,
       2
     ],
     "banos": [
-      1,
-      2
+      2,
+      3
     ],
-    "precioMin": 767680.55,
+    "precioMin": 816850,
     "estado": "activo",
     "imagen": "/images/projects/p-monument.webp"
   },
@@ -554,11 +549,11 @@
       "Flat",
       "Duplex"
     ],
-    "disponibles": 25,
+    "disponibles": 15,
     "pisosProyecto": 21,
-    "pisoMasAltoVenta": 21,
     "departamentosPorPiso": 8,
     "areaMin": 40,
+    "areaMax": 150.09,
     "habitaciones": [
       1,
       2
@@ -568,7 +563,7 @@
       2,
       3
     ],
-    "precioMin": 426405.67,
+    "precioMin": 447891,
     "estado": "activo",
     "imagen": "/images/projects/p-urban-heights.webp"
   },
@@ -594,7 +589,6 @@
     ],
     "disponibles": 3,
     "pisosProyecto": 8,
-    "pisoMasAltoVenta": 8,
     "areaMin": 102.49,
     "habitaciones": [
       2,
@@ -628,7 +622,6 @@
     ],
     "disponibles": 4,
     "pisosProyecto": 8,
-    "pisoMasAltoVenta": 8,
     "areaMin": 80,
     "habitaciones": [
       2,
@@ -661,7 +654,6 @@
     ],
     "disponibles": 5,
     "pisosProyecto": 5,
-    "pisoMasAltoVenta": 5,
     "areaMin": 142.72,
     "habitaciones": [
       1,
@@ -697,7 +689,6 @@
     ],
     "disponibles": 12,
     "pisosProyecto": 8,
-    "pisoMasAltoVenta": 8,
     "areaMin": 77.72,
     "habitaciones": [
       2,
@@ -729,7 +720,6 @@
     ],
     "disponibles": 8,
     "pisosProyecto": 8,
-    "pisoMasAltoVenta": 8,
     "areaMin": 64.33,
     "habitaciones": [
       1,
@@ -764,7 +754,6 @@
     ],
     "disponibles": 2,
     "pisosProyecto": 9,
-    "pisoMasAltoVenta": 8,
     "departamentosPorPiso": 1,
     "areaMin": 254.86,
     "habitaciones": [
@@ -795,7 +784,6 @@
     ],
     "disponibles": 5,
     "pisosProyecto": 11,
-    "pisoMasAltoVenta": 10,
     "areaMin": 70.26,
     "habitaciones": [
       1,
@@ -830,7 +818,6 @@
     ],
     "disponibles": 13,
     "pisosProyecto": 8,
-    "pisoMasAltoVenta": 8,
     "departamentosPorPiso": 2,
     "areaMin": 110.42,
     "habitaciones": [
@@ -845,53 +832,57 @@
     "imagen": "/images/projects/p-piura.webp"
   },
   {
-    "id": "p-mandra",
-    "slug": "mandra",
+    "id": "p-catalina-sky",
+    "slug": "catalina-sky",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "MANDRA",
-    "distrito": "Miraflores",
-    "direccion": "Av. del Ejercito 1194",
-    "enlace": "https://drive.google.com/drive/folders/19rJddN1GzgdFXjMboNu6S4jzPI4bj4Xy",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
+    "nombre": "CATALINA SKY",
+    "distrito": "La Victoria",
+    "direccion": "Av. Nicolás Arriola 131, Santa Catalina",
+    "enlace": "https://drive.google.com/drive/folders/1aYZ8FfjbZr2VZ4b-YAygBpaNML17fdMl",
+    "etapa": "en_planos",
+    "fechaEntrega": {
+      "texto": "2028 1T",
+      "anio": 2028,
+      "trimestre": 1
+    },
     "financiamiento": [
-      "Propio"
+      "BBVA"
     ],
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 13,
-    "pisosProyecto": 16,
-    "pisoMasAltoVenta": 15,
-    "departamentosPorPiso": 12,
-    "areaMin": 75.64,
+    "disponibles": 184,
+    "pisosProyecto": 37,
+    "departamentosPorPiso": 11,
+    "areaMin": 25.18,
+    "areaMax": 75.1,
     "habitaciones": [
       1,
       2,
       3
     ],
     "banos": [
-      2,
-      3
+      1,
+      2
     ],
-    "precioMin": 534792,
+    "precioMin": 224323,
     "estado": "activo",
-    "imagen": "/images/projects/p-mandra.webp"
+    "imagen": "/images/projects/p-catalina-sky.webp"
   },
   {
-    "id": "p-pardo-coast",
-    "slug": "pardo-coast",
+    "id": "p-costanova",
+    "slug": "costanova",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "PARDO COAST",
-    "distrito": "Miraflores",
-    "direccion": "Av. José Pardo 1010",
-    "enlace": "https://drive.google.com/drive/folders/1RSZ2x9z3zHLB62CLbA2FxozkrPJEfNQy",
-    "etapa": "en_construccion",
+    "nombre": "COSTANOVA",
+    "distrito": "San Miguel",
+    "direccion": "Av. Costanera 1650",
+    "enlace": "https://drive.google.com/drive/folders/1WdigfZxjxsiCLtosUjQrF6mD_yyjhUC-",
+    "etapa": "en_planos",
     "fechaEntrega": {
-      "texto": "2026 4T",
-      "anio": 2026,
+      "texto": "2028 4T",
+      "anio": 2028,
       "trimestre": 4
     },
     "financiamiento": [
@@ -900,20 +891,23 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 8,
+    "disponibles": 363,
     "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
-    "departamentosPorPiso": 6,
-    "areaMin": 51.63,
+    "departamentosPorPiso": 26,
+    "areaMin": 23.41,
+    "areaMax": 158.57,
     "habitaciones": [
-      2
+      1,
+      2,
+      3
     ],
     "banos": [
+      1,
       2
     ],
-    "precioMin": 522494,
+    "precioMin": 160703,
     "estado": "activo",
-    "imagen": "/images/projects/p-pardo-coast.webp"
+    "imagen": "/images/projects/p-costanova.webp"
   },
   {
     "id": "p-mendiburu",
@@ -939,7 +933,6 @@
     ],
     "disponibles": 26,
     "pisosProyecto": 12,
-    "pisoMasAltoVenta": 12,
     "areaMin": 52.5,
     "habitaciones": [
       1,
@@ -978,7 +971,6 @@
     ],
     "disponibles": 39,
     "pisosProyecto": 13,
-    "pisoMasAltoVenta": 13,
     "departamentosPorPiso": 6,
     "areaMin": 61.3,
     "habitaciones": [
@@ -1016,7 +1008,6 @@
     ],
     "disponibles": 12,
     "pisosProyecto": 23,
-    "pisoMasAltoVenta": 23,
     "departamentosPorPiso": 5,
     "areaMin": 45,
     "habitaciones": [
@@ -1044,9 +1035,9 @@
     "enlace": "https://nexoinmobiliario.pe/departamentos/pueblo-libre/8-de-octubre-3110",
     "etapa": "en_construccion",
     "fechaEntrega": {
-      "texto": "2026 3T",
+      "texto": "2026 2T",
       "anio": 2026,
-      "trimestre": 3
+      "trimestre": 2
     },
     "financiamiento": [
       "BCP"
@@ -1058,7 +1049,6 @@
     ],
     "disponibles": 16,
     "pisosProyecto": 11,
-    "pisoMasAltoVenta": 11,
     "areaMin": 54,
     "habitaciones": [
       1,
@@ -1099,7 +1089,6 @@
     ],
     "disponibles": 7,
     "pisosProyecto": 5,
-    "pisoMasAltoVenta": 5,
     "areaMin": 120.99,
     "habitaciones": [
       3,
@@ -1115,134 +1104,18 @@
     "imagen": "/images/projects/p-san-bartolo-beach.webp"
   },
   {
-    "id": "p-prado-harmony",
-    "slug": "prado-harmony",
+    "id": "p-hub-encalada",
+    "slug": "hub-encalada",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "PRADO HARMONY",
-    "distrito": "San Isidro",
-    "direccion": "Av. Javier Prado Oeste 769",
-    "enlace": "https://drive.google.com/drive/folders/1ekN5I_9BLbirbZlpaDOJRN-k_5T9b0T9",
+    "nombre": "HUB ENCALADA",
+    "distrito": "Surco",
+    "direccion": "Av. Encalada 1344",
+    "enlace": "https://drive.google.com/drive/folders/1SSw5hqpJgcipOA2zHsTLNlCo1jdoB0RF",
     "etapa": "en_planos",
     "fechaEntrega": {
-      "texto": "2028 4T",
-      "anio": 2028,
-      "trimestre": 4
-    },
-    "financiamiento": [
-      "Propio"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 441,
-    "pisosProyecto": 33,
-    "pisoMasAltoVenta": 33,
-    "departamentosPorPiso": 19,
-    "areaMin": 26.49,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 229559,
-    "estado": "activo",
-    "imagen": "/images/projects/p-prado-harmony.webp"
-  },
-  {
-    "id": "p-tree",
-    "slug": "tree",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "TREE",
-    "distrito": "San Isidro",
-    "direccion": "Av. Javier Prado Este 413",
-    "enlace": "https://drive.google.com/drive/folders/1SKMuWmXYgqEmC31NrPg9aNwV4BThOBbF",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2027 1T",
+      "texto": "2027 4T",
       "anio": 2027,
-      "trimestre": 1
-    },
-    "financiamiento": [
-      "Propio"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 83,
-    "pisosProyecto": 33,
-    "pisoMasAltoVenta": 33,
-    "departamentosPorPiso": 10,
-    "areaMin": 39.81,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 352614,
-    "estado": "activo",
-    "imagen": "/images/projects/p-tree.webp"
-  },
-  {
-    "id": "p-the-summit",
-    "slug": "the-summit",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "THE SUMMIT",
-    "distrito": "San Isidro",
-    "direccion": "Av. Augusto Pérez Araníbar 1925",
-    "enlace": "https://drive.google.com/drive/folders/1NOmjQ5QtQY9c5IRXrN-nWgaCsuegSOt2",
-    "etapa": "en_planos",
-    "fechaEntrega": {
-      "texto": "2028 1T",
-      "anio": 2028,
-      "trimestre": 1
-    },
-    "financiamiento": [
-      "Propio"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 128,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 21,
-    "departamentosPorPiso": 12,
-    "areaMin": 48.63,
-    "habitaciones": [
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 388389,
-    "estado": "activo",
-    "imagen": "/images/projects/p-the-summit.webp"
-  },
-  {
-    "id": "p-aramburu-living",
-    "slug": "aramburu-living",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "ARAMBURU LIVING",
-    "distrito": "San Isidro",
-    "direccion": "Av. Aramburú 535",
-    "enlace": "https://drive.google.com/drive/folders/1G0hoNlt8KP4AgXAEefhV6__xnC_BRxlg",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2026 4T",
-      "anio": 2026,
       "trimestre": 4
     },
     "financiamiento": [
@@ -1251,32 +1124,178 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 16,
-    "pisosProyecto": 22,
-    "pisoMasAltoVenta": 19,
+    "disponibles": 51,
+    "pisosProyecto": 14,
     "departamentosPorPiso": 10,
-    "areaMin": 56.73,
+    "areaMin": 40.38,
+    "areaMax": 85.45,
     "habitaciones": [
       1,
-      2
+      2,
+      3
     ],
     "banos": [
       1,
-      2
+      2,
+      3
     ],
-    "precioMin": 364570,
+    "precioMin": 388430,
     "estado": "activo",
-    "imagen": "/images/projects/p-aramburu-living.webp"
+    "imagen": "/images/projects/p-hub-encalada.webp"
   },
   {
-    "id": "p-palm-living",
-    "slug": "palm-living",
+    "id": "p-iq-encalada",
+    "slug": "iq-encalada",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "PALM LIVING",
-    "distrito": "San Isidro",
-    "direccion": "Calle las Palmeras 291",
-    "enlace": "https://drive.google.com/drive/folders/1pA1W8rdEZuaLpCwfZfS6RLLyUc1bVgmv",
+    "nombre": "IQ ENCALADA",
+    "distrito": "Surco",
+    "direccion": "Av. La Encalada, 1344",
+    "enlace": "https://drive.google.com/drive/folders/126B15W5j1iL4n7xH1M7Z7Bzp9dsl1MH-",
+    "etapa": "en_planos",
+    "fechaEntrega": {
+      "texto": "2029 2T",
+      "anio": 2029,
+      "trimestre": 2
+    },
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Oficina"
+    ],
+    "disponibles": 277,
+    "areaMin": 26.86,
+    "areaMax": 83.84,
+    "habitaciones": [
+      0
+    ],
+    "banos": [
+      0
+    ],
+    "precioMin": 224919,
+    "estado": "activo",
+    "imagen": "/images/projects/p-iq-encalada.webp"
+  },
+  {
+    "id": "p-look-and-feel-2",
+    "slug": "look-and-feel-2",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "LOOK AND FEEL 2",
+    "distrito": "Surco",
+    "direccion": "Av. Encalada 1344",
+    "enlace": "https://drive.google.com/drive/folders/1hm5Sc78cxd5rnkvSTVrZm462Ha-VbpvN",
+    "etapa": "en_construccion",
+    "fechaEntrega": {
+      "texto": "2026 3T",
+      "anio": 2026,
+      "trimestre": 3
+    },
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat"
+    ],
+    "disponibles": 25,
+    "pisosProyecto": 17,
+    "departamentosPorPiso": 12,
+    "areaMin": 47.64,
+    "areaMax": 113.65,
+    "habitaciones": [
+      1,
+      2,
+      3
+    ],
+    "banos": [
+      2
+    ],
+    "precioMin": 449308,
+    "estado": "activo",
+    "imagen": "/images/projects/p-look-and-feel-2.webp"
+  },
+  {
+    "id": "p-look-and-feel-3",
+    "slug": "look-and-feel-3",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "LOOK AND FEEL 3",
+    "distrito": "Surco",
+    "direccion": "Av. Encalada 1344",
+    "enlace": "https://drive.google.com/drive/folders/1CWo7YdBPVmg1SKrIaZBXoWQKfDC0OmEO",
+    "etapa": "en_planos",
+    "fechaEntrega": {
+      "texto": "2029 2T",
+      "anio": 2029,
+      "trimestre": 2
+    },
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat"
+    ],
+    "disponibles": 307,
+    "areaMin": 43.23,
+    "areaMax": 97.44,
+    "habitaciones": [
+      1,
+      2,
+      3
+    ],
+    "banos": [
+      2,
+      3
+    ],
+    "precioMin": 339177,
+    "estado": "activo",
+    "imagen": "/images/projects/p-look-and-feel-3.webp"
+  },
+  {
+    "id": "p-mandra",
+    "slug": "mandra",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "MANDRA",
+    "distrito": "Miraflores",
+    "direccion": "Av. del Ejercito 1194",
+    "enlace": "https://drive.google.com/drive/folders/19rJddN1GzgdFXjMboNu6S4jzPI4bj4Xy",
+    "etapa": "entrega_inmediata",
+    "fechaEntrega": null,
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat"
+    ],
+    "disponibles": 14,
+    "pisosProyecto": 16,
+    "departamentosPorPiso": 12,
+    "areaMin": 75.64,
+    "areaMax": 120.7,
+    "habitaciones": [
+      1,
+      2,
+      3
+    ],
+    "banos": [
+      2,
+      3
+    ],
+    "precioMin": 534792,
+    "estado": "activo",
+    "imagen": "/images/projects/p-mandra.webp"
+  },
+  {
+    "id": "p-minimal",
+    "slug": "minimal",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "MINIMAL",
+    "distrito": "Cercado De Lima",
+    "direccion": "Av. Arequipa 1444, Santa Beatriz",
+    "enlace": "https://drive.google.com/drive/folders/1Hhxe0KKWOR2tIuS5ih-UAWA68VinFZ4m",
     "etapa": "en_construccion",
     "fechaEntrega": {
       "texto": "2027 1T",
@@ -1289,11 +1308,11 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 46,
-    "pisosProyecto": 33,
-    "pisoMasAltoVenta": 32,
-    "departamentosPorPiso": 8,
-    "areaMin": 45.82,
+    "disponibles": 154,
+    "pisosProyecto": 30,
+    "departamentosPorPiso": 11,
+    "areaMin": 23.97,
+    "areaMax": 75.39,
     "habitaciones": [
       1,
       2
@@ -1302,48 +1321,9 @@
       1,
       2
     ],
-    "precioMin": 384964,
+    "precioMin": 198353,
     "estado": "activo",
-    "imagen": "/images/projects/p-palm-living.webp"
-  },
-  {
-    "id": "p-vertyce",
-    "slug": "vertyce",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "VERTYCE",
-    "distrito": "San Isidro",
-    "direccion": "Av. Javier Prado Este 401",
-    "enlace": "https://drive.google.com/drive/folders/1pN71q6Y2hGP32R0jIF5vTgKysN_7Xosz",
-    "etapa": "en_planos",
-    "fechaEntrega": {
-      "texto": "2029 4T",
-      "anio": 2029,
-      "trimestre": 4
-    },
-    "financiamiento": [
-      "Propio"
-    ],
-    "tipologia": [
-      "Flat",
-      "Oficina"
-    ],
-    "disponibles": 80,
-    "pisosProyecto": 32,
-    "pisoMasAltoVenta": 32,
-    "areaMin": 44.58,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 264503,
-    "estado": "activo",
-    "imagen": "/images/projects/p-vertyce.webp"
+    "imagen": "/images/projects/p-minimal.webp"
   },
   {
     "id": "p-ascent",
@@ -1367,21 +1347,20 @@
       "Flat",
       "Duplex"
     ],
-    "disponibles": 56,
+    "disponibles": 50,
     "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
     "departamentosPorPiso": 8,
     "areaMin": 60,
+    "areaMax": 122.2,
     "habitaciones": [
       1,
-      2,
-      3
+      2
     ],
     "banos": [
       2,
       3
     ],
-    "precioMin": 642517.57,
+    "precioMin": 706472,
     "estado": "activo",
     "imagen": "/images/projects/p-ascent.webp"
   },
@@ -1408,7 +1387,6 @@
     ],
     "disponibles": 20,
     "pisosProyecto": 5,
-    "pisoMasAltoVenta": 5,
     "areaMin": 91.07,
     "habitaciones": [
       2,
@@ -1420,57 +1398,19 @@
     "imagen": "/images/projects/p-parque-acosta-161.webp"
   },
   {
-    "id": "p-bertolotto",
-    "slug": "bertolotto",
+    "id": "p-mural",
+    "slug": "mural",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "BERTOLOTTO",
-    "distrito": "San Miguel",
-    "direccion": "Av. Bertolotto 752",
-    "enlace": "https://drive.google.com/drive/folders/1-ArNviCd11iRtHFL-ydulrALWk3sLYYC",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [
-      "BBVA",
-      "GNB",
-      "Interbank"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 2,
-    "pisosProyecto": 17,
-    "pisoMasAltoVenta": 17,
-    "departamentosPorPiso": 30,
-    "areaMin": 21.31,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2,
-      3
-    ],
-    "precioMin": 540000,
-    "estado": "activo",
-    "imagen": "/images/projects/p-bertolotto.webp"
-  },
-  {
-    "id": "p-costanova",
-    "slug": "costanova",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "COSTANOVA",
-    "distrito": "San Miguel",
-    "direccion": "Av. Costanera 1650",
-    "enlace": "https://drive.google.com/drive/folders/1WdigfZxjxsiCLtosUjQrF6mD_yyjhUC-",
-    "etapa": "en_planos",
+    "nombre": "MURAL",
+    "distrito": "Lince",
+    "direccion": "Av. Arequipa 1936",
+    "enlace": "https://drive.google.com/drive/folders/1C4kmz8surrQ6QQO9UHw5lBHmM-T9RyWb",
+    "etapa": "en_construccion",
     "fechaEntrega": {
-      "texto": "2028 4T",
-      "anio": 2028,
-      "trimestre": 4
+      "texto": "2027 3T",
+      "anio": 2027,
+      "trimestre": 3
     },
     "financiamiento": [
       "Propio"
@@ -1478,23 +1418,57 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 371,
-    "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
-    "departamentosPorPiso": 26,
-    "areaMin": 23.41,
+    "disponibles": 115,
+    "pisosProyecto": 23,
+    "departamentosPorPiso": 12,
+    "areaMin": 21.95,
+    "areaMax": 73.35,
     "habitaciones": [
       1,
-      2,
-      3
+      2
     ],
     "banos": [
       1,
       2
     ],
-    "precioMin": 158406,
+    "precioMin": 213605,
     "estado": "activo",
-    "imagen": "/images/projects/p-costanova.webp"
+    "imagen": "/images/projects/p-mural.webp"
+  },
+  {
+    "id": "p-nius",
+    "slug": "nius",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "NIUS",
+    "distrito": "Magdalena",
+    "direccion": "Av. Javier Prado Oeste 140",
+    "enlace": "https://drive.google.com/drive/folders/1oMHxFyTAZpy-hLC57RZYnOJ2RTZofPuy",
+    "etapa": "entrega_inmediata",
+    "fechaEntrega": null,
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat",
+      "Duplex"
+    ],
+    "disponibles": 3,
+    "pisosProyecto": 27,
+    "departamentosPorPiso": 6,
+    "areaMin": 59.9,
+    "areaMax": 126.81,
+    "habitaciones": [
+      2,
+      3
+    ],
+    "banos": [
+      2,
+      3
+    ],
+    "precioMin": 541021,
+    "estado": "activo",
+    "imagen": "/images/projects/p-nius.webp"
   },
   {
     "id": "p-nueva-costanera",
@@ -1519,7 +1493,6 @@
     ],
     "disponibles": 12,
     "pisosProyecto": 13,
-    "pisoMasAltoVenta": 12,
     "areaMin": 55.28,
     "habitaciones": [
       1,
@@ -1533,37 +1506,6 @@
     "precioMin": 411800,
     "estado": "activo",
     "imagen": "/images/projects/p-nueva-costanera.webp"
-  },
-  {
-    "id": "p-talambo",
-    "slug": "talambo",
-    "asesorId": "a-wendy-corzo-986156102",
-    "empresaId": "c-constructora-talambo",
-    "nombre": "TALAMBO",
-    "distrito": "San Miguel",
-    "direccion": "Calle Talambo 161",
-    "enlace": "https://encalada.company/proyecto/",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 2,
-    "pisosProyecto": 9,
-    "pisoMasAltoVenta": 7,
-    "departamentosPorPiso": 2,
-    "areaMin": 65,
-    "habitaciones": [
-      1,
-      2
-    ],
-    "banos": [
-      2
-    ],
-    "precioMin": 329000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-talambo.webp"
   },
   {
     "id": "p-venice",
@@ -1585,7 +1527,6 @@
     ],
     "disponibles": 5,
     "pisosProyecto": 9,
-    "pisoMasAltoVenta": 9,
     "departamentosPorPiso": 3,
     "areaMin": 42,
     "habitaciones": [
@@ -1621,7 +1562,6 @@
     ],
     "disponibles": 1,
     "pisosProyecto": 15,
-    "pisoMasAltoVenta": 15,
     "departamentosPorPiso": 6,
     "areaMin": 81.9,
     "habitaciones": [
@@ -1635,14 +1575,14 @@
     "imagen": "/images/projects/p-los-pinos-3.webp"
   },
   {
-    "id": "p-minimal",
-    "slug": "minimal",
+    "id": "p-palm-living",
+    "slug": "palm-living",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "MINIMAL",
-    "distrito": "Cercado De Lima",
-    "direccion": "Av. Arequipa 1444, Santa Beatriz",
-    "enlace": "https://drive.google.com/drive/folders/1Hhxe0KKWOR2tIuS5ih-UAWA68VinFZ4m",
+    "nombre": "PALM LIVING",
+    "distrito": "San Isidro",
+    "direccion": "Calle las Palmeras 291",
+    "enlace": "https://drive.google.com/drive/folders/1pA1W8rdEZuaLpCwfZfS6RLLyUc1bVgmv",
     "etapa": "en_construccion",
     "fechaEntrega": {
       "texto": "2027 1T",
@@ -1655,22 +1595,23 @@
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 165,
-    "pisosProyecto": 30,
-    "pisoMasAltoVenta": 30,
-    "departamentosPorPiso": 11,
-    "areaMin": 23.97,
+    "disponibles": 41,
+    "pisosProyecto": 33,
+    "departamentosPorPiso": 8,
+    "areaMin": 45.67,
+    "areaMax": 80.51,
     "habitaciones": [
       1,
-      2
+      2,
+      3
     ],
     "banos": [
       1,
       2
     ],
-    "precioMin": 199254,
+    "precioMin": 384965,
     "estado": "activo",
-    "imagen": "/images/projects/p-minimal.webp"
+    "imagen": "/images/projects/p-palm-living.webp"
   },
   {
     "id": "p-teo618",
@@ -1695,7 +1636,6 @@
     ],
     "disponibles": 33,
     "pisosProyecto": 29,
-    "pisoMasAltoVenta": 28,
     "departamentosPorPiso": 5,
     "areaMin": 40,
     "habitaciones": [
@@ -1735,7 +1675,6 @@
     ],
     "disponibles": 71,
     "pisosProyecto": 30,
-    "pisoMasAltoVenta": 30,
     "departamentosPorPiso": 6,
     "areaMin": 53.43,
     "habitaciones": [
@@ -1752,14 +1691,88 @@
     "imagen": "/images/projects/p-centrium.webp"
   },
   {
-    "id": "p-catalina-sky",
-    "slug": "catalina-sky",
+    "id": "p-pardo-coast",
+    "slug": "pardo-coast",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "CATALINA SKY",
-    "distrito": "La Victoria",
-    "direccion": "Av. Nicolás Arriola 131, Santa Catalina",
-    "enlace": "https://drive.google.com/drive/folders/1aYZ8FfjbZr2VZ4b-YAygBpaNML17fdMl",
+    "nombre": "PARDO COAST",
+    "distrito": "Miraflores",
+    "direccion": "Av. José Pardo 1010",
+    "enlace": "https://drive.google.com/drive/folders/1RSZ2x9z3zHLB62CLbA2FxozkrPJEfNQy",
+    "etapa": "en_construccion",
+    "fechaEntrega": {
+      "texto": "2026 4T",
+      "anio": 2026,
+      "trimestre": 4
+    },
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat"
+    ],
+    "disponibles": 8,
+    "pisosProyecto": 22,
+    "departamentosPorPiso": 6,
+    "areaMin": 63.8,
+    "areaMax": 103.89,
+    "habitaciones": [
+      2
+    ],
+    "banos": [
+      2
+    ],
+    "precioMin": 769838,
+    "estado": "activo",
+    "imagen": "/images/projects/p-pardo-coast.webp"
+  },
+  {
+    "id": "p-prado-harmony",
+    "slug": "prado-harmony",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "PRADO HARMONY",
+    "distrito": "San Isidro",
+    "direccion": "Av. Javier Prado Oeste 769",
+    "enlace": "https://drive.google.com/drive/folders/1ekN5I_9BLbirbZlpaDOJRN-k_5T9b0T9",
+    "etapa": "en_planos",
+    "fechaEntrega": {
+      "texto": "2028 4T",
+      "anio": 2028,
+      "trimestre": 4
+    },
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat"
+    ],
+    "disponibles": 426,
+    "pisosProyecto": 33,
+    "departamentosPorPiso": 19,
+    "areaMin": 26.49,
+    "areaMax": 75.42,
+    "habitaciones": [
+      1,
+      2
+    ],
+    "banos": [
+      1,
+      2
+    ],
+    "precioMin": 229559,
+    "estado": "activo",
+    "imagen": "/images/projects/p-prado-harmony.webp"
+  },
+  {
+    "id": "p-the-summit",
+    "slug": "the-summit",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "THE SUMMIT",
+    "distrito": "San Isidro",
+    "direccion": "Av. Augusto Pérez Araníbar 1925",
+    "enlace": "https://drive.google.com/drive/folders/1NOmjQ5QtQY9c5IRXrN-nWgaCsuegSOt2",
     "etapa": "en_planos",
     "fechaEntrega": {
       "texto": "2028 1T",
@@ -1767,18 +1780,17 @@
       "trimestre": 1
     },
     "financiamiento": [
-      "BBVA"
+      "Propio"
     ],
     "tipologia": [
       "Flat"
     ],
-    "disponibles": 196,
-    "pisosProyecto": 37,
-    "pisoMasAltoVenta": 36,
-    "departamentosPorPiso": 11,
-    "areaMin": 25.18,
+    "disponibles": 114,
+    "pisosProyecto": 21,
+    "departamentosPorPiso": 12,
+    "areaMin": 48.63,
+    "areaMax": 76.57,
     "habitaciones": [
-      1,
       2,
       3
     ],
@@ -1786,155 +1798,88 @@
       1,
       2
     ],
-    "precioMin": 219924,
+    "precioMin": 388389,
     "estado": "activo",
-    "imagen": "/images/projects/p-catalina-sky.webp"
+    "imagen": "/images/projects/p-the-summit.webp"
   },
   {
-    "id": "p-lookfeel-2",
-    "slug": "lookfeel-2",
+    "id": "p-tree",
+    "slug": "tree",
     "asesorId": "a-marco-antonio-herrera-989190382",
     "empresaId": "c-grupo-tyc",
-    "nombre": "LOOK&FEEL 2",
-    "distrito": "Surco",
-    "direccion": "Av. Encalada 1344",
-    "enlace": "https://drive.google.com/drive/folders/1hm5Sc78cxd5rnkvSTVrZm462Ha-VbpvN",
+    "nombre": "TREE",
+    "distrito": "San Isidro",
+    "direccion": "Av. Javier Prado Este 413",
+    "enlace": "https://drive.google.com/drive/folders/1SKMuWmXYgqEmC31NrPg9aNwV4BThOBbF",
     "etapa": "en_construccion",
     "fechaEntrega": {
-      "texto": "2026 3T",
-      "anio": 2026,
-      "trimestre": 3
-    },
-    "financiamiento": [
-      "Propio"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 29,
-    "pisosProyecto": 17,
-    "pisoMasAltoVenta": 13,
-    "departamentosPorPiso": 12,
-    "areaMin": 47.64,
-    "habitaciones": [
-      2
-    ],
-    "banos": [
-      2
-    ],
-    "precioMin": 567461,
-    "estado": "activo",
-    "imagen": "/images/projects/p-lookfeel-2.webp"
-  },
-  {
-    "id": "p-lookfeel-3",
-    "slug": "lookfeel-3",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "LOOK&FEEL 3",
-    "distrito": "Surco",
-    "direccion": "Av. Encalada 1344",
-    "enlace": "https://drive.google.com/drive/folders/1CWo7YdBPVmg1SKrIaZBXoWQKfDC0OmEO",
-    "etapa": "en_planos",
-    "fechaEntrega": {
-      "texto": "2029 2T",
-      "anio": 2029,
-      "trimestre": 2
-    },
-    "financiamiento": [
-      "Propio"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 313,
-    "pisoMasAltoVenta": 21,
-    "areaMin": 43.23,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2,
-      3
-    ],
-    "precioMin": 332838,
-    "estado": "activo",
-    "imagen": "/images/projects/p-lookfeel-3.webp"
-  },
-  {
-    "id": "p-hub-encalada",
-    "slug": "hub-encalada",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "HUB ENCALADA",
-    "distrito": "Surco",
-    "direccion": "Av. Encalada 1344",
-    "enlace": "https://drive.google.com/drive/folders/1SSw5hqpJgcipOA2zHsTLNlCo1jdoB0RF",
-    "etapa": "en_planos",
-    "fechaEntrega": {
-      "texto": "2027 4T",
+      "texto": "2027 1T",
       "anio": 2027,
+      "trimestre": 1
+    },
+    "financiamiento": [
+      "Propio"
+    ],
+    "tipologia": [
+      "Flat",
+      "Oficina"
+    ],
+    "disponibles": 81,
+    "pisosProyecto": 33,
+    "departamentosPorPiso": 10,
+    "areaMin": 39.81,
+    "areaMax": 82.41,
+    "habitaciones": [
+      1,
+      2
+    ],
+    "banos": [
+      1,
+      2
+    ],
+    "precioMin": 352614,
+    "estado": "activo",
+    "imagen": "/images/projects/p-tree.webp"
+  },
+  {
+    "id": "p-vertyce",
+    "slug": "vertyce",
+    "asesorId": "a-marco-antonio-herrera-989190382",
+    "empresaId": "c-grupo-tyc",
+    "nombre": "VERTYCE",
+    "distrito": "San Isidro",
+    "direccion": "Av. Javier Prado Este 401",
+    "enlace": "https://drive.google.com/drive/folders/1pN71q6Y2hGP32R0jIF5vTgKysN_7Xosz",
+    "etapa": "en_planos",
+    "fechaEntrega": {
+      "texto": "2029 4T",
+      "anio": 2029,
       "trimestre": 4
     },
     "financiamiento": [
-      "BBVA"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 55,
-    "pisosProyecto": 14,
-    "pisoMasAltoVenta": 13,
-    "departamentosPorPiso": 10,
-    "areaMin": 40.83,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2,
-      3
-    ],
-    "precioMin": 382531,
-    "estado": "activo",
-    "imagen": "/images/projects/p-hub-encalada.webp"
-  },
-  {
-    "id": "p-iq-encalada",
-    "slug": "iq-encalada",
-    "asesorId": "a-marco-antonio-herrera-989190382",
-    "empresaId": "c-grupo-tyc",
-    "nombre": "IQ ENCALADA",
-    "distrito": "Surco",
-    "direccion": "Av. La Encalada, 1344",
-    "enlace": "https://drive.google.com/drive/folders/126B15W5j1iL4n7xH1M7Z7Bzp9dsl1MH-",
-    "etapa": "en_planos",
-    "fechaEntrega": {
-      "texto": "2029 2T",
-      "anio": 2029,
-      "trimestre": 2
-    },
-    "financiamiento": [
       "Propio"
     ],
     "tipologia": [
+      "Flat",
       "Oficina"
     ],
-    "disponibles": 283,
-    "pisoMasAltoVenta": 19,
-    "areaMin": 26.86,
-    "habitaciones": [],
-    "banos": [
-      1
+    "disponibles": 276,
+    "pisosProyecto": 32,
+    "areaMin": 25.4,
+    "areaMax": 92.98,
+    "habitaciones": [
+      0,
+      1,
+      2,
+      3
     ],
-    "precioMin": 224918,
+    "banos": [
+      1,
+      2
+    ],
+    "precioMin": 264503,
     "estado": "activo",
-    "imagen": "/images/projects/p-iq-encalada.webp"
+    "imagen": "/images/projects/p-vertyce.webp"
   },
   {
     "id": "p-pacifico-299",
@@ -1960,7 +1905,6 @@
     ],
     "disponibles": 6,
     "pisosProyecto": 5,
-    "pisoMasAltoVenta": 5,
     "departamentosPorPiso": 2,
     "areaMin": 108,
     "habitaciones": [
@@ -2037,18 +1981,21 @@
       "Loft",
       "Duplex"
     ],
-    "disponibles": 75,
+    "disponibles": 61,
     "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
     "departamentosPorPiso": 13,
     "areaMin": 28.91,
+    "areaMax": 106.07,
     "habitaciones": [
+      1,
+      2
+    ],
+    "banos": [
       1,
       2,
       3
     ],
-    "banos": [],
-    "precioMin": 287005.31,
+    "precioMin": 289020,
     "estado": "activo",
     "imagen": "/images/projects/p-element.webp"
   },
@@ -2075,7 +2022,6 @@
     ],
     "disponibles": 28,
     "pisosProyecto": 32,
-    "pisoMasAltoVenta": 30,
     "departamentosPorPiso": 5,
     "areaMin": 48.5,
     "habitaciones": [
@@ -2101,8 +2047,7 @@
     "etapa": "entrega_inmediata",
     "fechaEntrega": null,
     "financiamiento": [
-      "BanBif",
-      "BCP",
+      "BanBif- BCP",
       "BBVA",
       "Pichincha",
       "GNB",
@@ -2115,7 +2060,6 @@
     ],
     "disponibles": 4,
     "pisosProyecto": 34,
-    "pisoMasAltoVenta": 34,
     "departamentosPorPiso": 5,
     "areaMin": 66,
     "habitaciones": [
@@ -2129,425 +2073,33 @@
     "imagen": "/images/projects/p-morar.webp"
   },
   {
-    "id": "p-alto-metro-park",
-    "slug": "alto-metro-park",
-    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
-    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
-    "nombre": "ALTO METRO PARK",
-    "distrito": "Callao",
-    "direccion": "Av. Oscar R. Benavides 5915",
-    "enlace": "https://nexoinmobiliario.pe/departamentos/callao/alto-metro-park-3895",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2028 1T",
-      "anio": 2028,
-      "trimestre": 1
-    },
-    "financiamiento": [
-      "BCP"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 306,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 21,
-    "areaMin": 50.66,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 241800,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-alto-metro-park.webp"
-  },
-  {
-    "id": "p-salaverry",
-    "slug": "salaverry",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "SALAVERRY",
-    "distrito": "Jesus Maria",
-    "direccion": "Avenida General Salaverry 571",
-    "enlace": "https://drive.google.com/drive/folders/14dgSx2y7vcsYpQqsPr7QjURhw_Q7UGsQ",
+    "id": "p-talambo",
+    "slug": "talambo",
+    "asesorId": "a-wendy-corzo-986156102",
+    "empresaId": "c-constructora-talambo",
+    "nombre": "TALAMBO",
+    "distrito": "San Miguel",
+    "direccion": "Calle Talambo 161",
+    "enlace": "https://encalada.company/proyecto/",
     "etapa": "entrega_inmediata",
     "fechaEntrega": null,
     "financiamiento": [],
-    "tipologia": [],
-    "disponibles": 3,
-    "pisosProyecto": 22,
-    "pisoMasAltoVenta": 17,
-    "areaMin": 57,
-    "habitaciones": [],
-    "banos": [],
-    "precioMin": 560922,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-salaverry.webp"
-  },
-  {
-    "id": "p-salaverry-ii",
-    "slug": "salaverry-ii",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "SALAVERRY II",
-    "distrito": "Jesus Maria",
-    "direccion": "Av. General Felipe Salaverry 563",
-    "enlace": "https://drive.google.com/drive/folders/1S_Qvcg0Kg8vuodUdgn75XlY4dHEeMHzs",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2027 4T",
-      "anio": 2027,
-      "trimestre": 4
-    },
-    "financiamiento": [
-      "BBVA"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 126,
-    "pisosProyecto": 22,
-    "pisoMasAltoVenta": 22,
-    "areaMin": 38.91,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 358000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-salaverry-ii.webp"
-  },
-  {
-    "id": "p-concepto-style",
-    "slug": "concepto-style",
-    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
-    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
-    "nombre": "CONCEPTO STYLE",
-    "distrito": "Magdalena",
-    "direccion": "Av. Faustino Sanchez Carrión 820",
-    "enlace": "https://aparta.pe/wp-content/uploads/2023/10/BROCHURE_CONCEPTOSTYLEV6_compressed.pdf",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [
-      "Interbank"
-    ],
     "tipologia": [
       "Flat"
     ],
     "disponibles": 2,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 20,
-    "areaMin": 74.09,
-    "habitaciones": [
-      3
-    ],
-    "banos": [
-      2
-    ],
-    "precioMin": 685000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-concepto-style.webp"
-  },
-  {
-    "id": "p-kannes",
-    "slug": "kannes",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "KANNES",
-    "distrito": "Playa Puerto Viejo",
-    "direccion": "Playa Puerto Viejo, cerca de la Panamericana Sur",
-    "enlace": "https://drive.google.com/drive/folders/133ITINs0jd3A3blreF-6OY9u2x1C8GZ-",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [],
-    "tipologia": [
-      "Casa"
-    ],
-    "disponibles": 38,
-    "pisosProyecto": 1,
-    "pisoMasAltoVenta": 1,
-    "areaMin": 135,
-    "habitaciones": [],
-    "banos": [],
-    "precioMin": 650000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-kannes.webp"
-  },
-  {
-    "id": "p-country",
-    "slug": "country",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "COUNTRY",
-    "distrito": "San Antonio De Cañete",
-    "direccion": "Panamericana Sur KM 72",
-    "enlace": "https://drive.google.com/drive/folders/1-y8y22k72RMtDZi05V2PMd-rEeCXernk",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [],
-    "tipologia": [
-      "Casa"
-    ],
-    "disponibles": 85,
-    "pisosProyecto": 1,
-    "pisoMasAltoVenta": 1,
-    "areaMin": 142,
-    "habitaciones": [
-      4
-    ],
-    "banos": [],
-    "precioMin": 560000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-country.webp"
-  },
-  {
-    "id": "p-central-site",
-    "slug": "central-site",
-    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
-    "empresaId": "c-madrid-ingenieros-sac",
-    "nombre": "CENTRAL SITE",
-    "distrito": "San Isidro",
-    "direccion": "Calle La Habana 160",
-    "enlace": "https://nexoinmobiliario.pe/departamentos/san-isidro/central-site-3257",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2026 3T",
-      "anio": 2026,
-      "trimestre": 3
-    },
-    "financiamiento": [
-      "BBVA"
-    ],
-    "tipologia": [
-      "Flat",
-      "Duplex"
-    ],
-    "disponibles": 5,
-    "pisosProyecto": 11,
-    "pisoMasAltoVenta": 8,
-    "areaMin": 97.83,
-    "habitaciones": [
-      2,
-      3
-    ],
-    "banos": [
-      2,
-      3,
-      4
-    ],
-    "precioMin": 899000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-central-site.webp"
-  },
-  {
-    "id": "p-rosario",
-    "slug": "rosario",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "ROSARIO",
-    "distrito": "San Isidro",
-    "direccion": "Av. El Rosario 320, esquina con la calle Choquehuanca.",
-    "enlace": "https://drive.google.com/drive/folders/1cfRmUgQs7tZxdnhgX3_IVQzltJCgFK4Y",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2026 3T",
-      "anio": 2026,
-      "trimestre": 3
-    },
-    "financiamiento": [],
-    "tipologia": [
-      "Subsuelo",
-      "Flat"
-    ],
-    "disponibles": 12,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 21,
-    "areaMin": 100,
-    "habitaciones": [],
-    "banos": [],
-    "precioMin": 1830000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-rosario.webp"
-  },
-  {
-    "id": "p-concepto-ocean-breath",
-    "slug": "concepto-ocean-breath",
-    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
-    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
-    "nombre": "CONCEPTO OCEAN BREATH",
-    "distrito": "San Miguel",
-    "direccion": "Av. Costanera 2880",
-    "enlace": "https://nexoinmobiliario.pe/departamentos/san-miguel/concepto-ocean-breath-3896",
-    "etapa": "en_planos",
-    "fechaEntrega": {
-      "texto": "2028 4T",
-      "anio": 2028,
-      "trimestre": 4
-    },
-    "financiamiento": [
-      "Interbank"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 170,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 40.65,
-    "areaMin": 39.38,
+    "pisosProyecto": 9,
+    "departamentosPorPiso": 2,
+    "areaMin": 65,
     "habitaciones": [
       1,
       2
     ],
     "banos": [
-      1,
       2
     ],
-    "precioMin": 278100,
+    "precioMin": 329000,
     "estado": "vencido",
-    "imagen": "/images/projects/p-concepto-ocean-breath.webp"
-  },
-  {
-    "id": "p-concepto-urban-park",
-    "slug": "concepto-urban-park",
-    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
-    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
-    "nombre": "CONCEPTO URBAN PARK",
-    "distrito": "Cercado De Lima",
-    "direccion": "Av. Petit Thouars 1160",
-    "enlace": "https://www.imagina.pe/proyectos/concepto-urban-park-santa-beatriz/",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 10,
-    "pisosProyecto": 20,
-    "pisoMasAltoVenta": 20,
-    "areaMin": 40.65,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 563853,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-concepto-urban-park.webp"
-  },
-  {
-    "id": "p-concepto-unity-park",
-    "slug": "concepto-unity-park",
-    "asesorId": "a-sulma-bustillosmaria-fernanda-anza-987038940-902991265",
-    "empresaId": "c-inversiones-inmobiliarias-del-peru-imagina",
-    "nombre": "CONCEPTO UNITY PARK",
-    "distrito": "Surco",
-    "direccion": "Avenida caminos del inca 2090",
-    "enlace": "https://nexoinmobiliario.pe/departamentos/santiago-de-surco/concepto-unity-park-3413",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2028 1T",
-      "anio": 2028,
-      "trimestre": 1
-    },
-    "financiamiento": [
-      "BCP"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 29,
-    "pisosProyecto": 15,
-    "pisoMasAltoVenta": 16,
-    "areaMin": 40.01,
-    "habitaciones": [
-      1,
-      2,
-      3
-    ],
-    "banos": [
-      2
-    ],
-    "precioMin": 373772,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-concepto-unity-park.webp"
-  },
-  {
-    "id": "p-dorue",
-    "slug": "dorue",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "DORUE",
-    "distrito": "Surquillo",
-    "direccion": "Domingo Orué 126",
-    "enlace": "https://drive.google.com/drive/folders/1GaMyc385NUpzA4gCQ-_Fd9P4G7mvEbJn",
-    "etapa": "entrega_inmediata",
-    "fechaEntrega": null,
-    "financiamiento": [
-      "Interbank"
-    ],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 11,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 21,
-    "areaMin": 39.14,
-    "habitaciones": [
-      1,
-      2
-    ],
-    "banos": [
-      1,
-      2
-    ],
-    "precioMin": 354000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-dorue.webp"
-  },
-  {
-    "id": "p-dorue-ii",
-    "slug": "dorue-ii",
-    "asesorId": "a-maria-fernanda-anza-902991265",
-    "empresaId": "c-desarrolladora-inmobiliaria",
-    "nombre": "DORUE II",
-    "distrito": "Surquillo",
-    "direccion": "Av. Domingo Orue 230",
-    "enlace": "https://drive.google.com/drive/folders/1Zpa7TeSWhfI3LU-d-ymQzh6kaTnZBQPR",
-    "etapa": "en_construccion",
-    "fechaEntrega": {
-      "texto": "2027 4T",
-      "anio": 2027,
-      "trimestre": 4
-    },
-    "financiamiento": [],
-    "tipologia": [
-      "Flat"
-    ],
-    "disponibles": 191,
-    "pisosProyecto": 21,
-    "pisoMasAltoVenta": 21.1,
-    "areaMin": 35.62,
-    "habitaciones": [
-      1,
-      2
-    ],
-    "banos": [],
-    "precioMin": 291000,
-    "estado": "vencido",
-    "imagen": "/images/projects/p-dorue-ii.webp"
+    "imagen": "/images/projects/p-talambo.webp"
   }
 ]

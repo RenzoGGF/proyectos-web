@@ -37,6 +37,7 @@ export interface Project {
   pisoMasAltoVenta?: number;
   departamentosPorPiso?: number;
   areaMin?: number;
+  areaMax?: number;
   habitaciones: number[];
   banos: number[];
   precioMin?: number;

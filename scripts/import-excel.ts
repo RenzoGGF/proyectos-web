@@ -31,7 +31,7 @@ const FechaEntregaSchema = z.object({
   texto: z.string(),
   anio: z.number().int().min(2020).max(2100),
   trimestre: z.number().int().min(1).max(4).nullable()
-}).nullable();
+}).nullable().optional();
 
 const ProjectSchema = z.object({
   id: z.string().min(1),
@@ -42,19 +42,23 @@ const ProjectSchema = z.object({
   distrito: z.string().min(1, 'El distrito es obligatorio'),
   direccion: z.string().optional(),
   enlace: z.string().optional(),
-  etapa: z.enum(['en_planos', 'en_construccion', 'entrega_inmediata']).nullable(),
+  
+  // CAMPOS OPCIONALES Y PERMISIVOS CON 0
+  etapa: z.enum(['en_planos', 'en_construccion', 'entrega_inmediata']).nullable().optional(),
   fechaEntrega: FechaEntregaSchema,
-  financiamiento: z.array(z.string()),
-  tipologia: z.array(z.string()),
-  disponibles: z.number().positive().optional(),
-  pisosProyecto: z.number().positive().optional(),
-  pisoMasAltoVenta: z.number().positive().optional(),
-  departamentosPorPiso: z.number().positive().optional(),
-  areaMin: z.number().positive('El área mínima debe ser un número positivo').optional(),
-  habitaciones: z.array(z.number().int().positive()),
-  banos: z.array(z.number().int().positive()),
-  precioMin: z.number().positive('El precio mínimo debe ser un número positivo').optional(),
-  estado: z.enum(['activo', 'vencido']),
+  financiamiento: z.array(z.string()).default([]),
+  tipologia: z.array(z.string()).default([]),
+  habitaciones: z.array(z.number().int().min(0)).default([]),
+  banos: z.array(z.number().int().min(0)).default([]),
+  
+  disponibles: z.number().min(0).optional(),
+  pisosProyecto: z.number().min(0).optional(),
+  pisoMasAltoVenta: z.number().min(0).optional(),
+  departamentosPorPiso: z.number().min(0).optional(),
+  areaMin: z.number().min(0).optional(),
+  areaMax: z.number().min(0).optional(),
+  precioMin: z.number().min(0).optional(),
+  estado: z.enum(['activo', 'vencido']).default('activo'),
   imagen: z.string().min(1)
 });
 
@@ -90,7 +94,7 @@ function parseEtapa(value: unknown): Etapa | null {
   return null;
 }
 
-function parseFechaEntrega(value: unknown, etapa: Etapa | null): FechaEntrega | null {
+function parseFechaEntrega(value: unknown, etapa: Etapa | null | undefined): FechaEntrega | null {
   if (etapa === 'entrega_inmediata') return null;
   if (!value) return null;
 
@@ -158,6 +162,15 @@ function parseAdvisorString(value: unknown): { nombre: string; telefono: string 
   };
 }
 
+function getRowValue(row: Record<string, unknown>, possibleKeys: string[]): unknown {
+  for (const key of possibleKeys) {
+    if (row[key] !== undefined && row[key] !== '') {
+      return row[key];
+    }
+  }
+  return undefined;
+}
+
 // ==========================================
 // PROCESAMIENTO PRINCIPAL
 // ==========================================
@@ -167,7 +180,6 @@ function runImport(): void {
 
   if (!fs.existsSync(EXCEL_PATH)) {
     console.error(`❌ Error crítico: No se encontró el archivo de origen en "${EXCEL_PATH}".`);
-    console.error('Por favor, coloca el archivo Excel en "data/proyectos.xlsx" y vuelve a intentarlo.');
     process.exit(1);
   }
 
@@ -195,8 +207,8 @@ function runImport(): void {
   rawRows.forEach((row: Record<string, unknown>, index: number) => {
     const rowIndex = index + 2;
     
-    // 1. Extraer Asesor con ID Determinista
-    const rawAsesor = row['ASESOR RESPONSABLE'];
+    // 1. Asesor
+    const rawAsesor = getRowValue(row, ['ASESOR RESPONSABLE', 'ASESOR']);
     const { nombre: advisorName, telefono: advisorPhone } = parseAdvisorString(rawAsesor);
     
     if (advisorNameMap.has(advisorName) && advisorNameMap.get(advisorName) !== advisorPhone) {
@@ -232,8 +244,8 @@ function runImport(): void {
       }
     }
 
-    // 2. Extraer Empresa con ID Determinista
-    const rawEmpresa = String(row['EMPRESA'] || 'EMPRESA NO ESPECIFICADA').trim().toUpperCase();
+    // 2. Empresa
+    const rawEmpresa = String(getRowValue(row, ['EMPRESA', 'INMOBILIARIA']) || 'EMPRESA NO ESPECIFICADA').trim().toUpperCase();
     const companySlug = generateSlug(rawEmpresa) || 'desconocida';
     const companyId = `c-${companySlug}`;
 
@@ -252,8 +264,8 @@ function runImport(): void {
       }
     }
 
-    // 3. Extraer Proyecto con ID Determinista (Basado en Slug)
-    const rawNombre = String(row['NOMBRE DEL PROYECTO'] || '').trim();
+    // 3. Proyecto
+    const rawNombre = String(getRowValue(row, ['NOMBRE DEL PROYECTO', 'PROYECTO', 'NOMBRE']) || '').trim();
     const slug = generateSlug(rawNombre);
     const projectId = `p-${slug}`;
 
@@ -267,8 +279,17 @@ function runImport(): void {
       usedSlugs.add(slug);
     }
 
-    const etapa = parseEtapa(row['ETAPA']);
-    const fechaEntrega = parseFechaEntrega(row['FECHA DE ENTREGA'], etapa);
+    const etapa = parseEtapa(getRowValue(row, ['ETAPA']));
+    const fechaEntrega = parseFechaEntrega(getRowValue(row, ['FECHA DE ENTREGA', 'ENTREGA']), etapa);
+
+    const areaMin = parseNumber(getRowValue(row, ['AREA MINIMA', 'ÁREA MÍNIMA', 'AREA MINIMA (M2)', 'ÁREA MÍNIMA (M2)']));
+    const areaMax = parseNumber(getRowValue(row, ['AREA MAXIMA', 'ÁREA MÁXIMA', 'AREA MAXIMA (M2)', 'ÁREA MÁXIMA (M2)']));
+
+    if (areaMin !== undefined && areaMax !== undefined && areaMax < areaMin) {
+      warnings.push(
+        `[Fila ${rowIndex}] Proyecto "${rawNombre}": El área máxima (${areaMax} m²) es menor que el área mínima (${areaMin} m²).`
+      );
+    }
 
     const projectObj: Project = {
       id: projectId,
@@ -276,22 +297,23 @@ function runImport(): void {
       asesorId: advisorId,
       empresaId: companyId,
       nombre: rawNombre,
-      distrito: String(row['DISTRITOS'] || '').trim(),
-      direccion: String(row['DIRECCION'] || '').trim() || undefined,
-      enlace: String(row['DRIVE O PÁGINA WEB'] || '').trim() || undefined,
+      distrito: String(getRowValue(row, ['DISTRITOS', 'DISTRITO']) || '').trim(),
+      direccion: String(getRowValue(row, ['DIRECCION', 'DIRECCIÓN']) || '').trim() || undefined,
+      enlace: String(getRowValue(row, ['DRIVE O PÁGINA WEB', 'DRIVE', 'ENLACE', 'WEB']) || '').trim() || undefined,
       etapa,
       fechaEntrega,
-      financiamiento: parseList(row['FINANCIAMIENTO']),
-      tipologia: parseList(row['TIPOLOGIA']),
-      disponibles: parseNumber(row['DISPONIBLES']),
-      pisosProyecto: parseNumber(row['PISOS DEL PROYECTO']),
-      pisoMasAltoVenta: parseNumber(row['PISO MÁS ALTO A LA VENTA']),
-      departamentosPorPiso: parseNumber(row['DEPARTAMENTOS POR PISO']),
-      areaMin: parseNumber(row['AREA MINIMA']),
-      habitaciones: parseRange(row['RANGO DE HABITACIONES']),
-      banos: parseRange(row['RANGO DE BAÑOS']),
-      precioMin: parseNumber(row['PRECIO MINIMO S/']),
-      estado: parseEstado(row['ESTADO']),
+      financiamiento: parseList(getRowValue(row, ['FINANCIAMIENTO', 'BANCO'])),
+      tipologia: parseList(getRowValue(row, ['TIPOLOGIA', 'TIPOLOGÍA'])),
+      disponibles: parseNumber(getRowValue(row, ['DISPONIBLES', 'UNIDADES DISPONIBLES'])),
+      pisosProyecto: parseNumber(getRowValue(row, ['PISOS DEL PROYECTO', 'PISOS'])),
+      pisoMasAltoVenta: parseNumber(getRowValue(row, ['PISO MÁS ALTO A LA VENTA', 'PISO MAS ALTO A LA VENTA'])),
+      departamentosPorPiso: parseNumber(getRowValue(row, ['DEPARTAMENTOS POR PISO', 'DPTO POR PISO'])),
+      areaMin,
+      areaMax,
+      habitaciones: parseRange(getRowValue(row, ['RANGO DE HABITACIONES', 'HABITACIONES', 'DORMITORIOS'])),
+      banos: parseRange(getRowValue(row, ['RANGO DE BAÑOS', 'BAÑOS', 'BANOS'])),
+      precioMin: parseNumber(getRowValue(row, ['PRECIO MINIMO S/', 'PRECIO MÍNIMO S/', 'PRECIO MINIMO', 'PRECIO MÍNIMO'])),
+      estado: parseEstado(getRowValue(row, ['ESTADO'])),
       imagen: `/images/projects/${projectId}.webp`
     };
 
@@ -328,7 +350,7 @@ function runImport(): void {
   fs.writeFileSync(path.join(DATA_DIR, 'companies.json'), JSON.stringify(companiesArray, null, 2), 'utf-8');
   fs.writeFileSync(path.join(DATA_DIR, 'projects.json'), JSON.stringify(projects, null, 2), 'utf-8');
 
-  console.log('\n✅ IMPORTACIÓN COMPLETADA CON ÉXITO (IDs deterministas asignados):');
+  console.log('\n✅ IMPORTACIÓN COMPLETADA CON ÉXITO:');
   console.log(`  - ${projects.length} proyectos procesados en "src/data/projects.json"`);
   console.log(`  - ${advisorsArray.length} asesores guardados en "src/data/advisors.json"`);
   console.log(`  - ${companiesArray.length} empresas guardadas en "src/data/companies.json"\n`);
