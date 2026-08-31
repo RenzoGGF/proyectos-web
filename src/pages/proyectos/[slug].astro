@@ -30,6 +30,13 @@ interface Props {
 
 const { project, advisor, company } = Astro.props;
 
+// CONFIGURACIÓN DE ENLACE DE STOCK PARA EDIFICA
+const LINK_STOCK_EDIFICA = 'https://tu-link-de-stock-aqui.com'; // <-- REEMPLAZA ESTE LINK POR EL TUYO
+
+const esEdificaSur = 
+  company?.nombre?.trim().toUpperCase() === 'EDIFICA INVERSIONES DEL SUR SAC' ||
+  project.empresaId.toLowerCase().includes('edifica-inversiones-del-sur');
+
 const etapaLabelMap: Record<string, string> = {
   en_planos: 'En planos',
   en_construccion: 'En construcción',
@@ -41,7 +48,7 @@ const precioFormateado = project.precioMin
   : null;
 ---
 
-<BaseLayout title={`${project.nombre} - ${company?.nombre}`}>
+<BaseLayout title={`${project.nombre} - Catálogo Inmobiliario`}>
   <Header />
 
   <main class="container page-main">
@@ -103,20 +110,25 @@ const precioFormateado = project.precioMin
             {project.tipologia && project.tipologia.length > 0 && (
               <li><span class="info-label">Tipología:</span> <strong>{project.tipologia.join(', ')}</strong></li>
             )}
-            {project.habitaciones.length > 0 && (
+            {project.habitaciones && project.habitaciones.length > 0 && (
               <li><span class="info-label">Habitaciones:</span> <strong>{project.habitaciones.join(', ')} hab.</strong></li>
             )}
-            {project.banos.length > 0 && (
+            {project.banos && project.banos.length > 0 && (
               <li><span class="info-label">Baños:</span> <strong>{project.banos.join(', ')} baños</strong></li>
             )}
             {project.areaMin && (
-              <li><span class="info-label">Área mínima:</span> <strong>{project.areaMin} m²</strong></li>
+              <li>
+                <span class="info-label">Área:</span> 
+                <strong>
+                  {project.areaMin} m²{project.areaMax ? ` - ${project.areaMax} m²` : ''}
+                </strong>
+              </li>
             )}
             {project.pisosProyecto !== undefined && (
               <li><span class="info-label">Pisos del proyecto:</span> <strong>{project.pisosProyecto} pisos</strong></li>
             )}
             {project.disponibles !== undefined && (
-              <li><span class="info-label">Unidades disponibles:</span> <strong>{project.disponibles}</strong></li>
+              <li><span class="info-label">Unidades disponibles:</span> <strong>≥{project.disponibles}</strong></li>
             )}
           </ul>
 
@@ -130,11 +142,20 @@ const precioFormateado = project.precioMin
             </div>
           )}
 
-          {project.enlace && (
-            <a href={project.enlace} target="_blank" rel="noopener noreferrer" class="external-btn">
-              🔗 Ver Drive / Web Oficial ↗
-            </a>
-          )}
+          <!-- BOTONES DE ACCIÓN EXTERNA: "VER DRIVE" PRIMERO, "VER STOCK" DEBAJO -->
+          <div class="action-buttons">
+            {project.enlace && (
+              <a href={project.enlace} target="_blank" rel="noopener noreferrer" class="external-btn">
+                🔗 Ver Drive / Web Oficial ↗
+              </a>
+            )}
+
+            {esEdificaSur && (
+              <a href={LINK_STOCK_EDIFICA} target="_blank" rel="noopener noreferrer" class="stock-btn">
+                📋 Ver stock ↗
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </article>
@@ -241,18 +262,26 @@ const precioFormateado = project.precioMin
     gap: 2rem;
   }
 
-  @media (min-width: 768px) {
-    .detail-grid {
-      grid-template-columns: 2fr 1fr;
-    }
-  }
-
+  /* IMAGEN: 100% en Mobile */
   .image-box {
     width: 100%;
     aspect-ratio: 1 / 1;
     background-color: #e2e8f0;
     border-radius: var(--radius-lg);
     overflow: hidden;
+  }
+
+  /* AJUSTE EXCLUSIVO PARA PC (>= 768px): Reducción del ~10% */
+  @media (min-width: 768px) {
+    .detail-grid {
+      grid-template-columns: 2fr 1fr;
+      align-items: start;
+    }
+
+    .image-box {
+      width: 80%; /* Reducción del 10% en PC */
+      max-width: 80%;
+    }
   }
 
   .main-image {
@@ -316,6 +345,14 @@ const precioFormateado = project.precioMin
     margin-top: 0.125rem;
   }
 
+  /* CONTENEDOR DE BOTONES */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  /* BOTÓN DRIVE / WEB (ROJO RE/MAX) */
   .external-btn {
     display: block;
     text-align: center;
@@ -332,6 +369,26 @@ const precioFormateado = project.precioMin
 
   .external-btn:hover {
     background-color: #b91c1c;
+    transform: translateY(-2px);
+  }
+
+  /* BOTÓN "VER STOCK" (AZUL RE/MAX) */
+  .stock-btn {
+    display: block;
+    text-align: center;
+    background-color: var(--color-remax-blue);
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.95rem;
+    padding: 0.875rem 1.25rem;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 12px rgba(0, 61, 165, 0.25);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  .stock-btn:hover {
+    background-color: var(--color-remax-dark);
     transform: translateY(-2px);
   }
 </style>

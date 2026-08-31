@@ -1,5 +1,4 @@
 ---
-// @ts-ignore: Allow side-effect CSS import without type declarations
 import '../styles/global.css';
 
 interface Props {
@@ -9,22 +8,58 @@ interface Props {
 
 const { 
   title = 'Remax Family Proyectos',
-  description = 'Consulta de proyectos disponibles.'
+  description = 'Consulta de proyectos disponibles'
 } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
     <meta name="description" content={description} />
-    <!-- REQUISITO CRÍTICO DE PROYECTO PRIVADO -->
-    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <slot />
+    <div class="layout-wrapper">
+      <div class="layout-main-content">
+        <slot />
+      </div>
+
+      <!-- FOOTER GLOBAL -->
+      <footer class="site-footer">
+        <div class="container">
+          <p class="footer-disclaimer">
+            Toda información debe tomarse como referencial y es sujeta a cambio.
+          </p>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>
+
+<style>
+  .layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .layout-main-content {
+    flex: 1 0 auto;
+  }
+
+  .site-footer {
+    flex-shrink: 0;
+    padding: 1.5rem 0;
+    margin-top: auto;
+    text-align: center;
+  }
+
+  .footer-disclaimer {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+  }
+</style>
