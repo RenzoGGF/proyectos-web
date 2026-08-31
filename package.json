@@ -12,7 +12,8 @@
     "data:import": "tsx scripts/import-excel.ts"
   },
   "dependencies": {
-    "astro": "^4.15.0"
+    "astro": "^4.15.0",
+    "lucide-astro": "^0.556.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

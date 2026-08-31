@@ -36,21 +36,19 @@ const aniosUnicos = Array.from(
 ).sort((a, b) => a - b);
 ---
 
-<BaseLayout title="Remax Family Proyectos">
+<BaseLayout title="Catálogo Privado de Proyectos Inmobiliarios">
   <Header />
 
   <main class="container page-main">
     <div class="catalog-layout">
-      <!-- PANEL LATERAL STICKY DE FILTROS -->
       <FilterBar 
         distritos={distritosUnicos} 
         aniosEntrega={aniosUnicos} 
         companies={companiesSorted} 
       />
 
-      <!-- CONTENIDO PRINCIPAL -->
       <section class="catalog-content">
-        <!-- CABECERA: TÍTULO, CONTADOR Y CONTROL DE ORDENAMIENTO -->
+        <!-- BARRA SUPERIOR -->
         <div class="results-toolbar">
           <div class="results-header-left">
             <h2 class="results-title">
@@ -59,7 +57,6 @@ const aniosUnicos = Array.from(
             </h2>
           </div>
 
-          <!-- SELECTOR DE ORDENAMIENTO -->
           <div class="sort-control">
             <label for="sort-select" class="sort-label">Ordenar por:</label>
             <select id="sort-select" class="sort-select">
@@ -101,7 +98,6 @@ const aniosUnicos = Array.from(
     </div>
   </main>
 
-  <!-- BOTÓN VOLVER ARRIBA (Arriba a la derecha) -->
   <button type="button" id="btn-back-to-top" class="back-to-top-btn hidden" aria-label="Volver arriba">
     ▲ <span>Volver arriba</span>
   </button>
@@ -109,7 +105,6 @@ const aniosUnicos = Array.from(
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // Filtros
     const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
     const empresaSelect = document.getElementById('filter-empresa') as HTMLSelectElement | null;
     const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
@@ -119,14 +114,11 @@ const aniosUnicos = Array.from(
     const anioMaxSelect = document.getElementById('filter-anio-max') as HTMLSelectElement | null;
     const roomCheckboxes = document.querySelectorAll<HTMLInputElement>('input[name="filter-rooms"]');
     
-    // Ordenamiento
     const sortSelect = document.getElementById('sort-select') as HTMLSelectElement | null;
 
-    // Resets
     const btnReset = document.getElementById('btn-reset-filters');
     const btnNoResultsReset = document.getElementById('btn-no-results-reset');
 
-    // DOM Elements
     const gridContainer = document.getElementById('projects-grid');
     const cards = Array.from(document.querySelectorAll<HTMLElement>('.project-card'));
     const resultsCountEl = document.getElementById('results-count');
@@ -137,7 +129,6 @@ const aniosUnicos = Array.from(
 
     const CURRENT_YEAR = new Date().getFullYear();
 
-    // Actualizador de Chips de Filtros Activos
     function updateActiveChips() {
       if (!chipsContainer || !chipsList) return;
       chipsList.innerHTML = '';
@@ -220,7 +211,7 @@ const aniosUnicos = Array.from(
       }
     }
 
-    // LÓGICA DE ORDENAMIENTO EN EL CLIENTE
+    // ORDENAMIENTO REFINADO (Considera año y trimestre en entrega)
     function sortCards(cardsArray: HTMLElement[]) {
       const sortMode = sortSelect?.value || 'distrito-asc';
 
@@ -229,11 +220,10 @@ const aniosUnicos = Array.from(
         const distritoB = (b.dataset.distrito || '').toLowerCase();
         const precioA = parseFloat(a.dataset.precio || '0');
         const precioB = parseFloat(b.dataset.precio || '0');
-        const anioA = parseInt(a.dataset.anio || '0', 10);
-        const anioB = parseInt(b.dataset.anio || '0', 10);
+        const entregaA = parseInt(a.dataset.entregaOrden || '99999', 10);
+        const entregaB = parseInt(b.dataset.entregaOrden || '99999', 10);
 
         if (sortMode === 'precio-asc') {
-          // Precios menores primero (si precio es 0, va al final)
           const pA = precioA > 0 ? precioA : Infinity;
           const pB = precioB > 0 ? precioB : Infinity;
           return pA - pB;
@@ -244,18 +234,17 @@ const aniosUnicos = Array.from(
         }
 
         if (sortMode === 'entrega-asc') {
-          // Entrega Inmediata (anio === 0) primero, luego años menores
-          const tA = anioA === 0 ? 0 : (anioA > 0 ? anioA : Infinity);
-          const tB = anioB === 0 ? 0 : (anioB > 0 ? anioB : Infinity);
-          return tA - tB;
+          // Entrega Inmediata (0) primero, luego 20261 (1T), 20262 (2T)...
+          if (entregaA !== entregaB) {
+            return entregaA - entregaB;
+          }
+          return distritoA.localeCompare(distritoB, 'es', { sensitivity: 'base' });
         }
 
-        // Por defecto: Distrito A-Z
         return distritoA.localeCompare(distritoB, 'es', { sensitivity: 'base' });
       });
     }
 
-    // APLICACIÓN INTEGRADA DE FILTROS Y ORDENAMIENTO
     function applyFiltersAndSort() {
       const distritoVal = distritoSelect?.value.toLowerCase() || '';
       const empresaVal = empresaSelect?.value.toLowerCase() || '';
@@ -263,7 +252,7 @@ const aniosUnicos = Array.from(
       const precioMinVal = precioMinInput?.value ? parseFloat(precioMinInput.value) : null;
       const precioMaxVal = precioMaxInput?.value ? parseFloat(precioMaxInput.value) : null;
       const anioMinVal = anioMinSelect?.value ? parseInt(anioMinSelect.value, 10) : null;
-      const anioMaxVal = anioMaxSelect?.value ? parseInt(anioMaxSelect.value, 10) : null;
+      const anioMaxSelectVal = anioMaxSelect?.value ? parseInt(anioMaxSelect.value, 10) : null;
 
       const selectedRooms: string[] = [];
       roomCheckboxes.forEach((cb) => {
@@ -272,7 +261,6 @@ const aniosUnicos = Array.from(
 
       let visibleCount = 0;
 
-      // 1. Filtrar visibilidad
       cards.forEach((card) => {
         const cardDistrito = card.dataset.distrito || '';
         const cardEmpresa = card.dataset.empresa || '';
@@ -300,7 +288,7 @@ const aniosUnicos = Array.from(
           matchesAnioMax = true;
         } else {
           matchesAnioMin = !anioMinVal || cardAnio >= anioMinVal;
-          matchesAnioMax = !anioMaxVal || cardAnio <= anioMaxVal;
+          matchesAnioMax = !anioMaxSelectVal || cardAnio <= anioMaxSelectVal;
         }
         const matchesAnio = matchesAnioMin && matchesAnioMax;
 
@@ -324,13 +312,11 @@ const aniosUnicos = Array.from(
         }
       });
 
-      // 2. Ordenar las tarjetas en el DOM
       const sortedCards = sortCards([...cards]);
       if (gridContainer) {
         sortedCards.forEach((card) => gridContainer.appendChild(card));
       }
 
-      // 3. Actualizar UI
       if (resultsCountEl) resultsCountEl.textContent = String(visibleCount);
 
       if (noResultsEl) {
@@ -357,7 +343,6 @@ const aniosUnicos = Array.from(
       applyFiltersAndSort();
     }
 
-    // Event listeners
     distritoSelect?.addEventListener('change', applyFiltersAndSort);
     empresaSelect?.addEventListener('change', applyFiltersAndSort);
     etapaSelect?.addEventListener('change', applyFiltersAndSort);
@@ -367,13 +352,11 @@ const aniosUnicos = Array.from(
     anioMaxSelect?.addEventListener('change', applyFiltersAndSort);
     roomCheckboxes.forEach((cb) => cb.addEventListener('change', applyFiltersAndSort));
     
-    // Sort listener
     sortSelect?.addEventListener('change', applyFiltersAndSort);
 
     btnReset?.addEventListener('click', resetAllFilters);
     btnNoResultsReset?.addEventListener('click', resetAllFilters);
 
-    // Botón Volver Arriba
     window.addEventListener('scroll', () => {
       if (window.scrollY > 250) {
         btnBackToTop?.classList.remove('hidden');
@@ -400,7 +383,6 @@ const aniosUnicos = Array.from(
     gap: 1.25rem;
   }
 
-  /* BARRA SUPERIOR: TÍTULO + ORDENAMIENTO */
   .results-toolbar {
     display: flex;
     flex-direction: column;
@@ -435,7 +417,6 @@ const aniosUnicos = Array.from(
     border-radius: 9999px;
   }
 
-  /* CONTROL DE ORDENAMIENTO */
   .sort-control {
     display: flex;
     align-items: center;
@@ -472,7 +453,6 @@ const aniosUnicos = Array.from(
     box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.12);
   }
 
-  /* CHIPS */
   .chips-container {
     display: flex;
     flex-wrap: wrap;
@@ -523,7 +503,6 @@ const aniosUnicos = Array.from(
     font-weight: 900;
   }
 
-  /* ESTADO SIN RESULTADOS */
   .no-results {
     padding: 4rem 1.5rem;
     background-color: #ffffff;

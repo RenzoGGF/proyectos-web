@@ -23,6 +23,7 @@ const precioFormateado = project.precioMin
   ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
   : null;
 
+// Habitaciones / Tipología
 const tieneHabitaciones = project.habitaciones && project.habitaciones.length > 0;
 const tipologiaTexto = project.tipologia && project.tipologia.length > 0 ? project.tipologia.join(', ') : null;
 
@@ -30,8 +31,24 @@ const infoEspacioTexto = tieneHabitaciones
   ? `🛏️ ${project.habitaciones.join(', ')} hab.` 
   : (tipologiaTexto ? `🏢 ${tipologiaTexto}` : null);
 
+// ÁREA: Incluye área máxima si existe (ej. "Desde 20 - 100 m²")
+const areaTexto = project.areaMin
+  ? (project.areaMax && project.areaMax > project.areaMin
+      ? `📐 Desde ${project.areaMin} - ${project.areaMax} m²`
+      : `📐 Desde ${project.areaMin} m²`)
+  : (project.areaMax ? `📐 Hasta ${project.areaMax} m²` : null);
+
+// Data attributes
 const dataHabitaciones = tieneHabitaciones ? project.habitaciones.join(',') : '0';
 const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.etapa === 'entrega_inmediata' ? '0' : '');
+
+// Puntaje de entrega para ordenamiento preciso (Año + Trimestre)
+// Entrega inmediata = 0 (primero). Si no tiene trimestre, se asume 4T. Sin fecha = 99999.
+const dataEntregaOrden = project.etapa === 'entrega_inmediata'
+  ? 0
+  : (project.fechaEntrega 
+      ? (project.fechaEntrega.anio * 10 + (project.fechaEntrega.trimestre || 4))
+      : 99999);
 ---
 
 <a 
@@ -43,6 +60,7 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
   data-habitaciones={dataHabitaciones}
   data-precio={project.precioMin || 0}
   data-anio={dataAnio}
+  data-entrega-orden={dataEntregaOrden}
 >
   <!-- CONTENEDOR DE IMAGEN -->
   <div class="image-wrapper">
@@ -86,8 +104,8 @@ const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.eta
 
     <div class="project-specs">
       {infoEspacioTexto && <span>{infoEspacioTexto}</span>}
-      {infoEspacioTexto && project.areaMin && <span>·</span>}
-      {project.areaMin && <span>📐 Desde {project.areaMin} m²</span>}
+      {infoEspacioTexto && areaTexto && <span>·</span>}
+      {areaTexto && <span>{areaTexto}</span>}
     </div>
 
     {precioFormateado && (
