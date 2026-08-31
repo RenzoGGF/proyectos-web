@@ -1,4 +1,5 @@
 ---
+import { Bed, Building2, Ruler, MapPin } from 'lucide-astro';
 import type { Project, Company } from '../types/index';
 
 interface Props {
@@ -16,34 +17,25 @@ const etapaLabelMap: Record<string, string> = {
 
 const etapaTexto = project.etapa ? etapaLabelMap[project.etapa] : null;
 const fechaTexto = project.fechaEntrega ? project.fechaEntrega.texto : null;
-
 const etapaFechaBadge = [etapaTexto, fechaTexto].filter(Boolean).join(' | ');
 
 const precioFormateado = project.precioMin 
   ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
   : null;
 
-// Habitaciones / Tipología
 const tieneHabitaciones = project.habitaciones && project.habitaciones.length > 0;
 const tipologiaTexto = project.tipologia && project.tipologia.length > 0 ? project.tipologia.join(', ') : null;
 
-const infoEspacioTexto = tieneHabitaciones 
-  ? `🛏️ ${project.habitaciones.join(', ')} hab.` 
-  : (tipologiaTexto ? `🏢 ${tipologiaTexto}` : null);
-
-// ÁREA: Incluye área máxima si existe (ej. "Desde 20 - 100 m²")
+// Áreas
 const areaTexto = project.areaMin
   ? (project.areaMax && project.areaMax > project.areaMin
-      ? `📐 Desde ${project.areaMin} - ${project.areaMax} m²`
-      : `📐 Desde ${project.areaMin} m²`)
-  : (project.areaMax ? `📐 Hasta ${project.areaMax} m²` : null);
+      ? `Desde ${project.areaMin} - ${project.areaMax} m²`
+      : `Desde ${project.areaMin} m²`)
+  : (project.areaMax ? `Hasta ${project.areaMax} m²` : null);
 
-// Data attributes
 const dataHabitaciones = tieneHabitaciones ? project.habitaciones.join(',') : '0';
 const dataAnio = project.fechaEntrega ? project.fechaEntrega.anio : (project.etapa === 'entrega_inmediata' ? '0' : '');
 
-// Puntaje de entrega para ordenamiento preciso (Año + Trimestre)
-// Entrega inmediata = 0 (primero). Si no tiene trimestre, se asume 4T. Sin fecha = 99999.
 const dataEntregaOrden = project.etapa === 'entrega_inmediata'
   ? 0
   : (project.fechaEntrega 
@@ -62,7 +54,6 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
   data-anio={dataAnio}
   data-entrega-orden={dataEntregaOrden}
 >
-  <!-- CONTENEDOR DE IMAGEN -->
   <div class="image-wrapper">
     <img 
       src={project.imagen} 
@@ -72,7 +63,6 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
       onerror="this.onerror=null; this.src='/images/projects/default.webp';"
     />
 
-    <!-- Logo Constructora Superpuesto (52px) -->
     <div class="company-logo-badge">
       <img 
         src={company?.logo || `/images/companies/${project.empresaId.toLowerCase()}.webp`} 
@@ -81,7 +71,6 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
       />
     </div>
 
-    <!-- Gradiente + Etapa/Fecha Overlay (Solo Desktop) -->
     {etapaFechaBadge && (
       <div class="desktop-image-overlay">
         <span>{etapaFechaBadge}</span>
@@ -89,7 +78,6 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
     )}
   </div>
 
-  <!-- CONTENEDOR DE INFORMACIÓN -->
   <div class="card-info">
     {etapaFechaBadge && (
       <p class="mobile-etapa-tag">{etapaFechaBadge}</p>
@@ -97,15 +85,35 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
 
     <h2 class="project-name">{project.nombre}</h2>
 
-    <p class="project-district">{project.distrito} 📍</p>
+    <p class="project-district">
+      <span>{project.distrito}</span>
+      <MapPin size={15} class="inline-icon" />
+    </p>
+
     {project.direccion && (
       <p class="project-address">{project.direccion}</p>
     )}
 
     <div class="project-specs">
-      {infoEspacioTexto && <span>{infoEspacioTexto}</span>}
-      {infoEspacioTexto && areaTexto && <span>·</span>}
-      {areaTexto && <span>{areaTexto}</span>}
+      {tieneHabitaciones ? (
+        <span class="spec-item">
+          <Bed size={15} class="spec-icon" /> {project.habitaciones.join(', ')} hab.
+        </span>
+      ) : (
+        tipologiaTexto && (
+          <span class="spec-item">
+            <Building2 size={15} class="spec-icon" /> {tipologiaTexto}
+          </span>
+        )
+      )}
+
+      {(tieneHabitaciones || tipologiaTexto) && areaTexto && <span class="spec-dot">·</span>}
+
+      {areaTexto && (
+        <span class="spec-item">
+          <Ruler size={15} class="spec-icon" /> {areaTexto}
+        </span>
+      )}
     </div>
 
     {precioFormateado && (
@@ -189,7 +197,15 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
     font-size: 0.92rem;
     font-weight: 800;
     color: #0f172a;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     text-align: left;
+  }
+
+  .inline-icon {
+    color: var(--color-remax-blue);
+    flex-shrink: 0;
   }
 
   .project-address {
@@ -203,11 +219,30 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
   }
 
   .project-specs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.4rem;
     font-size: 0.82rem;
     font-weight: 600;
     color: var(--color-text-muted);
     margin-top: auto;
     margin-bottom: 0.35rem;
+  }
+
+  .spec-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .spec-icon {
+    color: var(--color-remax-blue);
+    flex-shrink: 0;
+  }
+
+  .spec-dot {
+    font-weight: 700;
   }
 
   .price-container {

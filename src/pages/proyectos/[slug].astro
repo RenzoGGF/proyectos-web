@@ -1,4 +1,12 @@
 ---
+import { 
+  ArrowLeft, 
+  AlertTriangle, 
+  MapPin, 
+  Phone, 
+  ExternalLink, 
+  ClipboardList 
+} from 'lucide-astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 
@@ -30,8 +38,7 @@ interface Props {
 
 const { project, advisor, company } = Astro.props;
 
-// CONFIGURACIÓN DE ENLACE DE STOCK PARA EDIFICA
-const LINK_STOCK_EDIFICA = 'https://www.dropbox.com/scl/fo/zh8zyeea685724doeqfdb/AP9VG3fCPRxnTFj_dJ2M0Rc/a.%20Stock%20de%20inmuebles?dl=0&preview=Stock+Disponible.xlsm&rlkey=os4bsfj1if9iumcavw2m0lt48&subfolder_nav_tracking=1';
+const LINK_STOCK_EDIFICA = 'https://tu-link-de-stock-aqui.com';
 
 const esEdificaSur = 
   company?.nombre?.trim().toUpperCase() === 'EDIFICA INVERSIONES DEL SUR SAC' ||
@@ -52,11 +59,17 @@ const precioFormateado = project.precioMin
   <Header />
 
   <main class="container page-main">
-    <a href="/" class="back-link">← Volver al catálogo</a>
+    <a href="/" class="back-link">
+      <ArrowLeft size={16} />
+      <span>Volver al catálogo</span>
+    </a>
 
     {project.estado === 'vencido' && (
       <div class="banner-vencido" role="alert">
-        ⚠️ <strong>Aviso:</strong> Este proyecto se encuentra vencido y no está disponible en el catálogo activo.
+        <AlertTriangle size={18} class="banner-icon" />
+        <div>
+          <strong>Aviso:</strong> Este proyecto se encuentra vencido y no está disponible en el catálogo activo.
+        </div>
       </div>
     )}
 
@@ -73,7 +86,10 @@ const precioFormateado = project.precioMin
             <span class="company-name">{company?.nombre || 'Inmobiliaria'}</span>
           </div>
           <h1 class="project-title">{project.nombre}</h1>
-          <p class="project-location">📍 {project.distrito} {project.direccion ? `— ${project.direccion}` : ''}</p>
+          <p class="project-location">
+            <MapPin size={16} class="location-icon" />
+            <span>{project.distrito} {project.direccion ? `— ${project.direccion}` : ''}</span>
+          </p>
         </div>
 
         {precioFormateado && (
@@ -85,7 +101,6 @@ const precioFormateado = project.precioMin
       </header>
 
       <div class="detail-grid">
-        <!-- Imagen con Aspect Ratio 1:1 -->
         <div class="image-box">
           <img 
             src={project.imagen} 
@@ -128,7 +143,7 @@ const precioFormateado = project.precioMin
               <li><span class="info-label">Pisos del proyecto:</span> <strong>{project.pisosProyecto} pisos</strong></li>
             )}
             {project.disponibles !== undefined && (
-              <li><span class="info-label">Unidades disponibles:</span> <strong>≥{project.disponibles}</strong></li>
+              <li><span class="info-label">Unidades disponibles:</span> <strong>{project.disponibles}</strong></li>
             )}
           </ul>
 
@@ -137,22 +152,26 @@ const precioFormateado = project.precioMin
               <h4>Asesor Responsable</h4>
               <p class="advisor-name">{advisor.nombre}</p>
               {advisor.telefono && (
-                <p class="advisor-phone">📞 {advisor.telefono}</p>
+                <p class="advisor-phone">
+                  <Phone size={15} />
+                  <span>{advisor.telefono}</span>
+                </p>
               )}
             </div>
           )}
 
-          <!-- BOTONES DE ACCIÓN EXTERNA: "VER DRIVE" PRIMERO, "VER STOCK" DEBAJO -->
           <div class="action-buttons">
             {project.enlace && (
               <a href={project.enlace} target="_blank" rel="noopener noreferrer" class="external-btn">
-                🔗 Ver Drive / Web Oficial ↗
+                <ExternalLink size={16} />
+                <span>Ver Drive / Web Oficial</span>
               </a>
             )}
 
             {esEdificaSur && (
               <a href={LINK_STOCK_EDIFICA} target="_blank" rel="noopener noreferrer" class="stock-btn">
-                📋 Ver stock ↗
+                <ClipboardList size={16} />
+                <span>Ver stock</span>
               </a>
             )}
           </div>
@@ -169,7 +188,9 @@ const precioFormateado = project.precioMin
   }
 
   .back-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
     color: var(--color-remax-blue);
     text-decoration: none;
     font-weight: 700;
@@ -177,6 +198,9 @@ const precioFormateado = project.precioMin
   }
 
   .banner-vencido {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
     background-color: #fef2f2;
     border: 1px solid #fca5a5;
     color: #991b1b;
@@ -184,6 +208,10 @@ const precioFormateado = project.precioMin
     border-radius: var(--radius-md);
     margin-bottom: 1.5rem;
     font-size: 0.95rem;
+  }
+
+  .banner-icon {
+    flex-shrink: 0;
   }
 
   .detail-header {
@@ -234,6 +262,13 @@ const precioFormateado = project.precioMin
     color: var(--color-text-main);
     font-weight: 700;
     margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .location-icon {
+    color: var(--color-remax-blue);
   }
 
   .price-box {
@@ -262,7 +297,6 @@ const precioFormateado = project.precioMin
     gap: 2rem;
   }
 
-  /* IMAGEN: 100% en Mobile */
   .image-box {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -271,7 +305,6 @@ const precioFormateado = project.precioMin
     overflow: hidden;
   }
 
-  /* AJUSTE EXCLUSIVO PARA PC (>= 768px): Reducción del ~10% */
   @media (min-width: 768px) {
     .detail-grid {
       grid-template-columns: 2fr 1fr;
@@ -279,8 +312,8 @@ const precioFormateado = project.precioMin
     }
 
     .image-box {
-      width: 80%; /* Reducción del 10% en PC */
-      max-width: 80%;
+      width: 90%;
+      max-width: 90%;
     }
   }
 
@@ -342,20 +375,23 @@ const precioFormateado = project.precioMin
   .advisor-phone {
     font-size: 0.9rem;
     color: var(--color-text-muted);
-    margin-top: 0.125rem;
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
-  /* CONTENEDOR DE BOTONES */
   .action-buttons {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  /* BOTÓN DRIVE / WEB (ROJO RE/MAX) */
   .external-btn {
-    display: block;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     background-color: var(--color-remax-red);
     color: #ffffff;
     text-decoration: none;
@@ -372,10 +408,11 @@ const precioFormateado = project.precioMin
     transform: translateY(-2px);
   }
 
-  /* BOTÓN "VER STOCK" (AZUL RE/MAX) */
   .stock-btn {
-    display: block;
-    text-align: center;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
     background-color: var(--color-remax-blue);
     color: #ffffff;
     text-decoration: none;

@@ -1,4 +1,5 @@
 ---
+import { SearchX, ArrowUp } from 'lucide-astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Header from '../components/Header.astro';
 import ProjectCard from '../components/ProjectCard.astro';
@@ -13,24 +14,18 @@ const companies = companiesData as Company[];
 
 const companiesMap = new Map<string, Company>(companies.map((c) => [c.id, c]));
 
-// 1. Proyectos activos
 const activeProjects = projects.filter((p) => p.estado === 'activo');
-
-// 2. Orden inicial por defecto: Distrito ASC
 activeProjects.sort((a, b) => a.distrito.localeCompare(b.distrito, 'es', { sensitivity: 'base' }));
 
-// 3. Distritos únicos
 const distritosUnicos = Array.from(new Set(activeProjects.map((p) => p.distrito))).sort((a, b) => 
   a.localeCompare(b, 'es', { sensitivity: 'base' })
 );
 
-// 4. Empresas activas
 const activeCompanyIds = new Set(activeProjects.map((p) => p.empresaId));
 const companiesSorted = companies
   .filter((c) => activeCompanyIds.has(c.id))
   .sort((a, b) => a.nombre.localeCompare(b.nombre, 'es', { sensitivity: 'base' }));
 
-// 5. Años de entrega únicos
 const aniosUnicos = Array.from(
   new Set(activeProjects.map((p) => p.fechaEntrega?.anio).filter((a): a is number => typeof a === 'number'))
 ).sort((a, b) => a - b);
@@ -48,7 +43,6 @@ const aniosUnicos = Array.from(
       />
 
       <section class="catalog-content">
-        <!-- BARRA SUPERIOR -->
         <div class="results-toolbar">
           <div class="results-header-left">
             <h2 class="results-title">
@@ -68,16 +62,15 @@ const aniosUnicos = Array.from(
           </div>
         </div>
 
-        <!-- CHIPS DE FILTROS ACTIVOS -->
         <div id="active-chips-container" class="chips-container hidden">
           <span class="chips-label">Filtros activos:</span>
           <div id="chips-list" class="chips-list"></div>
         </div>
 
-        <!-- ESTADO SIN RESULTADOS -->
+        <!-- ESTADO SIN RESULTADOS CON ICONO LUCIDE -->
         <div id="no-results" class="no-results hidden">
           <div class="no-results-box">
-            <p class="no-results-icon">🔍</p>
+            <SearchX size={44} class="no-results-icon" stroke-width={1.5} />
             <h3 class="no-results-title">No encontramos proyectos con esos filtros.</h3>
             <button type="button" id="btn-no-results-reset" class="btn-empty-reset">
               Limpiar filtros
@@ -85,7 +78,6 @@ const aniosUnicos = Array.from(
           </div>
         </div>
 
-        <!-- GRID DE TARJETAS -->
         <div class="projects-grid" id="projects-grid">
           {activeProjects.map((project) => (
             <ProjectCard 
@@ -98,8 +90,10 @@ const aniosUnicos = Array.from(
     </div>
   </main>
 
+  <!-- BOTÓN VOLVER ARRIBA CON ARROW-UP -->
   <button type="button" id="btn-back-to-top" class="back-to-top-btn hidden" aria-label="Volver arriba">
-    ▲ <span>Volver arriba</span>
+    <ArrowUp size={16} stroke-width={2.5} />
+    <span>Volver arriba</span>
   </button>
 </BaseLayout>
 
@@ -113,7 +107,6 @@ const aniosUnicos = Array.from(
     const anioMinSelect = document.getElementById('filter-anio-min') as HTMLSelectElement | null;
     const anioMaxSelect = document.getElementById('filter-anio-max') as HTMLSelectElement | null;
     const roomCheckboxes = document.querySelectorAll<HTMLInputElement>('input[name="filter-rooms"]');
-    
     const sortSelect = document.getElementById('sort-select') as HTMLSelectElement | null;
 
     const btnReset = document.getElementById('btn-reset-filters');
@@ -211,7 +204,6 @@ const aniosUnicos = Array.from(
       }
     }
 
-    // ORDENAMIENTO REFINADO (Considera año y trimestre en entrega)
     function sortCards(cardsArray: HTMLElement[]) {
       const sortMode = sortSelect?.value || 'distrito-asc';
 
@@ -234,7 +226,6 @@ const aniosUnicos = Array.from(
         }
 
         if (sortMode === 'entrega-asc') {
-          // Entrega Inmediata (0) primero, luego 20261 (1T), 20262 (2T)...
           if (entregaA !== entregaB) {
             return entregaA - entregaB;
           }
@@ -351,7 +342,6 @@ const aniosUnicos = Array.from(
     anioMinSelect?.addEventListener('change', applyFiltersAndSort);
     anioMaxSelect?.addEventListener('change', applyFiltersAndSort);
     roomCheckboxes.forEach((cb) => cb.addEventListener('change', applyFiltersAndSort));
-    
     sortSelect?.addEventListener('change', applyFiltersAndSort);
 
     btnReset?.addEventListener('click', resetAllFilters);
@@ -522,8 +512,7 @@ const aniosUnicos = Array.from(
   }
 
   .no-results-icon {
-    font-size: 2.5rem;
-    margin: 0;
+    color: var(--color-text-muted);
   }
 
   .no-results-title {

@@ -1,4 +1,5 @@
 ---
+import { SlidersHorizontal, ChevronDown, RotateCcw } from 'lucide-astro';
 import type { Company } from '../types/index';
 
 interface Props {
@@ -12,19 +13,19 @@ const { distritos, aniosEntrega, companies } = Astro.props;
 
 <aside class="filter-sidebar">
   <div class="filter-container">
-    <!-- Cabecera de filtros -->
     <div class="filter-bar-header">
       <button type="button" id="btn-toggle-filters" class="toggle-btn" aria-expanded="true">
-        <span class="btn-text">🔍 Filtros de Búsqueda</span>
-        <span id="toggle-icon" class="icon">▲</span>
+        <SlidersHorizontal size={16} />
+        <span class="btn-text">Filtros de Búsqueda</span>
+        <ChevronDown size={16} class="toggle-icon" id="toggle-icon" />
       </button>
 
       <button type="button" id="btn-reset-filters" class="btn-reset">
-        Limpiar
+        <RotateCcw size={13} />
+        <span>Limpiar</span>
       </button>
     </div>
 
-    <!-- Contenido de los Filtros -->
     <div id="filter-content" class="filter-content">
       <div class="filter-stack">
         <!-- 1. Distrito -->
@@ -117,20 +118,19 @@ const { distritos, aniosEntrega, companies } = Astro.props;
     const filterContent = document.getElementById('filter-content');
     const toggleIcon = document.getElementById('toggle-icon');
 
-    // 1. INICIALIZACIÓN: Si entra desde móvil (< 1024px), colapsar de inicio
+    // Colapsar en móvil por defecto
     const isMobile = window.innerWidth < 1024;
     if (isMobile && filterContent && toggleIcon && btnToggle) {
       filterContent.classList.add('is-collapsed');
+      toggleIcon.classList.add('is-rotated');
       btnToggle.setAttribute('aria-expanded', 'false');
-      toggleIcon.textContent = '▼';
     }
 
-    // 2. TOGGLE AL HACER CLIC
     btnToggle?.addEventListener('click', () => {
       if (filterContent && toggleIcon) {
         const isCollapsed = filterContent.classList.toggle('is-collapsed');
+        toggleIcon.classList.toggle('is-rotated', isCollapsed);
         btnToggle.setAttribute('aria-expanded', String(!isCollapsed));
-        toggleIcon.textContent = isCollapsed ? '▼' : '▲';
       }
     });
   });
@@ -167,13 +167,12 @@ const { distritos, aniosEntrega, companies } = Astro.props;
     border-bottom: 1px solid #e2e8f0;
   }
 
-  /* ÍCONO PEGADO AL TEXTO EN DESKTOP Y MOBILE */
   .toggle-btn {
     background: none;
     border: none;
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem; /* Separación corta y controlada */
+    gap: 0.45rem;
     font-size: 0.92rem;
     font-weight: 800;
     color: var(--color-remax-blue);
@@ -187,12 +186,15 @@ const { distritos, aniosEntrega, companies } = Astro.props;
     background-color: #eff6ff;
   }
 
-  .icon {
-    font-size: 0.7rem;
-    line-height: 1;
+  .toggle-icon {
+    transition: transform 0.25s ease;
+    transform: rotate(180deg); /* Apunta hacia arriba al estar abierto */
   }
 
-  /* BOTÓN "LIMPIAR" CON FONDO ROJO */
+  .toggle-icon.is-rotated {
+    transform: rotate(0deg); /* Apunta hacia abajo al estar colapsado */
+  }
+
   .btn-reset {
     background-color: var(--color-remax-red);
     color: #ffffff;
@@ -202,6 +204,9 @@ const { distritos, aniosEntrega, companies } = Astro.props;
     cursor: pointer;
     padding: 0.35rem 0.7rem;
     border-radius: var(--radius-md);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
     box-shadow: 0 2px 6px rgba(220, 28, 46, 0.2);
     transition: background-color 0.2s ease, transform 0.2s ease;
   }
