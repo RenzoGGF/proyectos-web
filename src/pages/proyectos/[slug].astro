@@ -38,7 +38,7 @@ interface Props {
 
 const { project, advisor, company } = Astro.props;
 
-const LINK_STOCK_EDIFICA = 'https://tu-link-de-stock-aqui.com';
+const LINK_STOCK_EDIFICA = 'https://www.dropbox.com/scl/fo/zh8zyeea685724doeqfdb/AP9VG3fCPRxnTFj_dJ2M0Rc/a.%20Stock%20de%20inmuebles?dl=0&preview=Stock+Disponible.xlsm&rlkey=os4bsfj1if9iumcavw2m0lt48&subfolder_nav_tracking=1';
 
 const esEdificaSur = 
   company?.nombre?.trim().toUpperCase() === 'EDIFICA INVERSIONES DEL SUR SAC' ||
@@ -55,7 +55,7 @@ const precioFormateado = project.precioMin
   : null;
 ---
 
-<BaseLayout title={`${project.nombre} - Catálogo Inmobiliario`}>
+<BaseLayout title={`${project.nombre}`}>
   <Header />
 
   <main class="container page-main">
