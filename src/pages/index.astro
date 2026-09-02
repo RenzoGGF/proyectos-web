@@ -99,6 +99,9 @@ const aniosUnicos = Array.from(
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.getElementById('header-search-input') as HTMLInputElement | null;
+    const searchForm = document.querySelector('.header-search-form') as HTMLFormElement | null;
+
     const distritoSelect = document.getElementById('filter-distrito') as HTMLSelectElement | null;
     const empresaSelect = document.getElementById('filter-empresa') as HTMLSelectElement | null;
     const etapaSelect = document.getElementById('filter-etapa') as HTMLSelectElement | null;
@@ -122,10 +125,31 @@ const aniosUnicos = Array.from(
 
     const CURRENT_YEAR = new Date().getFullYear();
 
+    // 1. Prevenir submit recargando página si ya estamos en el catálogo
+    searchForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      applyFiltersAndSort();
+    });
+
+    // 2. Cargar parámetro ?q= desde la URL (si vino redirigido)
+    const urlParams = new URLSearchParams(window.location.search);
+    const initialQuery = urlParams.get('q');
+    if (initialQuery && searchInput) {
+      searchInput.value = initialQuery;
+    }
+
     function updateActiveChips() {
       if (!chipsContainer || !chipsList) return;
       chipsList.innerHTML = '';
       const chips: { label: string; clear: () => void }[] = [];
+
+      // Chip de búsqueda por texto
+      if (searchInput?.value.trim()) {
+        chips.push({
+          label: `Búsqueda: "${searchInput.value.trim()}"`,
+          clear: () => { searchInput.value = ''; applyFiltersAndSort(); }
+        });
+      }
 
       if (distritoSelect?.value) {
         const text = distritoSelect.options[distritoSelect.selectedIndex].text;
@@ -237,6 +261,7 @@ const aniosUnicos = Array.from(
     }
 
     function applyFiltersAndSort() {
+      const searchVal = (searchInput?.value || '').trim().toLowerCase();
       const distritoVal = distritoSelect?.value.toLowerCase() || '';
       const empresaVal = empresaSelect?.value.toLowerCase() || '';
       const etapaVal = etapaSelect?.value || '';
@@ -253,6 +278,7 @@ const aniosUnicos = Array.from(
       let visibleCount = 0;
 
       cards.forEach((card) => {
+        const cardNombre = (card.dataset.nombre || '').toLowerCase();
         const cardDistrito = card.dataset.distrito || '';
         const cardEmpresa = card.dataset.empresa || '';
         const cardEtapa = card.dataset.etapa || '';
@@ -263,6 +289,9 @@ const aniosUnicos = Array.from(
           .split(',')
           .map((n) => parseInt(n, 10))
           .filter((n) => !isNaN(n));
+
+        // Filtro por Nombre
+        const matchesNombre = !searchVal || cardNombre.includes(searchVal);
 
         const matchesDistrito = !distritoVal || cardDistrito === distritoVal;
         const matchesEmpresa = !empresaVal || cardEmpresa === empresaVal;
@@ -293,7 +322,7 @@ const aniosUnicos = Array.from(
           });
         }
 
-        const isVisible = matchesDistrito && matchesEmpresa && matchesEtapa && matchesPrecio && matchesAnio && matchesHabitaciones;
+        const isVisible = matchesNombre && matchesDistrito && matchesEmpresa && matchesEtapa && matchesPrecio && matchesAnio && matchesHabitaciones;
 
         if (isVisible) {
           card.classList.remove('hidden');
@@ -322,6 +351,7 @@ const aniosUnicos = Array.from(
     }
 
     function resetAllFilters() {
+      if (searchInput) searchInput.value = '';
       if (distritoSelect) distritoSelect.value = '';
       if (empresaSelect) empresaSelect.value = '';
       if (etapaSelect) etapaSelect.value = '';
@@ -331,8 +361,17 @@ const aniosUnicos = Array.from(
       if (anioMaxSelect) anioMaxSelect.value = '';
       if (sortSelect) sortSelect.value = 'distrito-asc';
       roomCheckboxes.forEach((cb) => (cb.checked = false));
+      
+      // Limpiar URL param si existe
+      if (window.location.search) {
+        window.history.replaceState({}, '', window.location.pathname);
+      }
+      
       applyFiltersAndSort();
     }
+
+    // Listener de búsqueda en tiempo real
+    searchInput?.addEventListener('input', applyFiltersAndSort);
 
     distritoSelect?.addEventListener('change', applyFiltersAndSort);
     empresaSelect?.addEventListener('change', applyFiltersAndSort);
@@ -358,6 +397,11 @@ const aniosUnicos = Array.from(
     btnBackToTop?.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
+
+    // Ejecutar filtro inicial por si venía con ?q=
+    if (initialQuery) {
+      applyFiltersAndSort();
+    }
   });
 </script>
 

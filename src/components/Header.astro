@@ -1,5 +1,7 @@
 ---
+import { Search } from 'lucide-astro';
 ---
+
 <header class="site-header">
   <div class="container header-content">
     <a href="/" class="brand-link" title="Volver al catálogo principal">
@@ -12,6 +14,21 @@
       <div class="brand-divider"></div>
       <span class="brand-title">Proyectos en oficina</span>
     </a>
+
+    <!-- BUSCADOR POR NOMBRE DE PROYECTO -->
+    <form action="/" method="GET" class="header-search-form" role="search">
+      <div class="search-input-wrapper">
+        <Search size={16} class="search-icon" />
+        <input 
+          type="search" 
+          name="q" 
+          id="header-search-input" 
+          class="header-search-input"
+          placeholder="Buscar por proyecto..." 
+          autocomplete="off"
+        />
+      </div>
+    </form>
   </div>
 </header>
 
@@ -30,7 +47,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 70px; /* Cambiado a 70px */
+    gap: 1rem;
+    height: 70px;
   }
 
   .brand-link {
@@ -38,6 +56,7 @@
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
+    flex-shrink: 0;
   }
 
   .brand-logo-img {
@@ -56,15 +75,55 @@
     font-size: 0.95rem;
     font-weight: 700;
     color: var(--color-text-main);
+    white-space: nowrap;
   }
 
-  .header-badge {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--color-remax-blue);
-    background-color: #eff6ff;
-    padding: 0.25rem 0.625rem;
+  /* BARRA DE BÚSQUEDA */
+  .header-search-form {
+    display: flex;
+    align-items: center;
+    max-width: 320px;
+    width: 100%;
+  }
+
+  .search-input-wrapper {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+
+  .header-search-input {
+    width: 100%;
+    padding: 0.45rem 0.75rem 0.45rem 2.25rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-main);
+    border: 1px solid var(--color-border);
     border-radius: 9999px;
-    border: 1px solid #bfdbfe;
+    background-color: #ffffff;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .header-search-input:focus {
+    border-color: var(--color-remax-blue);
+    box-shadow: 0 0 0 3px rgba(0, 61, 165, 0.12);
+  }
+
+  @media (max-width: 640px) {
+    .brand-title, .brand-divider {
+      display: none; /* Ahorra espacio en pantallas móviles pequeñas */
+    }
+    .header-search-form {
+      max-width: 220px;
+    }
   }
 </style>

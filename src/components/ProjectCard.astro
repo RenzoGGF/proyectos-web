@@ -46,6 +46,7 @@ const dataEntregaOrden = project.etapa === 'entrega_inmediata'
 <a 
   href={`/proyectos/${project.slug}`} 
   class="project-card"
+  data-nombre={project.nombre.toLowerCase()}
   data-distrito={project.distrito.toLowerCase()}
   data-empresa={project.empresaId.toLowerCase()}
   data-etapa={project.etapa || ''}
