@@ -53,6 +53,40 @@ const etapaLabelMap: Record<string, string> = {
 const precioFormateado = project.precioMin
   ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
   : null;
+
+// HELPER: MAYÚSCULA INICIAL EN CADA PALABRA (TITLE CASE)
+function toTitleCase(str: string): string {
+  return str
+    .toLowerCase()
+    .split(/\s+/)
+    .filter(Boolean)
+    .map((palabra) => palabra.charAt(0).toUpperCase() + palabra.slice(1))
+    .join(' ');
+}
+
+// 1. Tomar las 2 primeras palabras del nombre del asesor en Title Case
+const primerAsesor = advisor?.nombre ? advisor.nombre.split('/')[0].trim() : 'Asesor';
+const primerasDosPalabrasAsesor = primerAsesor.split(/\s+/).filter(Boolean).slice(0, 2).join(' ');
+const asesorMensaje = toTitleCase(primerasDosPalabrasAsesor) || 'Asesor';
+
+// 2. Nombre del proyecto en Title Case
+const proyectoMensaje = toTitleCase(project.nombre);
+
+// 3. Sanitizar teléfono para WhatsApp (añade prefijo 51 de Perú si inicia con 9)
+const primerTelefono = advisor?.telefono ? advisor.telefono.split('/')[0].trim() : '';
+const digitosTelefono = primerTelefono.replace(/\D/g, '');
+const telefonoWhatsApp = digitosTelefono.length === 9 && digitosTelefono.startsWith('9')
+  ? `51${digitosTelefono}`
+  : digitosTelefono;
+
+// 4. Mensaje codificado para URL
+const mensajeWhatsApp = encodeURIComponent(
+  `Hola ${asesorMensaje}, me interesa el proyecto ${proyectoMensaje}`
+);
+
+const linkWhatsApp = telefonoWhatsApp 
+  ? `https://wa.me/${telefonoWhatsApp}?text=${mensajeWhatsApp}` 
+  : null;
 ---
 
 <BaseLayout title={`${project.nombre}`}>
@@ -147,15 +181,31 @@ const precioFormateado = project.precioMin
             )}
           </ul>
 
+          <!-- MARCO DE ASESOR CON BOTÓN WHATSAPP CIRCULAR A LA DERECHA -->
           {advisor && (
             <div class="advisor-card">
-              <h4>Asesor Responsable</h4>
-              <p class="advisor-name">{advisor.nombre}</p>
-              {advisor.telefono && (
-                <p class="advisor-phone">
-                  <Phone size={15} />
-                  <span>{advisor.telefono}</span>
-                </p>
+              <div class="advisor-info-text">
+                <h4>Asesor Responsable</h4>
+                <p class="advisor-name">{advisor.nombre}</p>
+                {advisor.telefono && (
+                  <p class="advisor-phone">
+                    <Phone size={15} />
+                    <span>{advisor.telefono}</span>
+                  </p>
+                )}
+              </div>
+
+              {linkWhatsApp && (
+                <a 
+                  href={linkWhatsApp} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  class="advisor-whatsapp-btn"
+                  title={`Contactar a ${asesorMensaje} por WhatsApp`}
+                  aria-label={`Contactar a ${asesorMensaje} por WhatsApp`}
+                >
+                  <img src="/images/whatsapp-icon.svg" alt="WhatsApp" class="whatsapp-icon-svg" />
+                </a>
               )}
             </div>
           )}
@@ -354,11 +404,21 @@ const precioFormateado = project.precioMin
     font-weight: 600;
   }
 
+  /* TARJETA DEL ASESOR CON FLEXBOX */
   .advisor-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
-    padding: 1rem;
+    padding: 1rem 1.25rem;
     border-radius: var(--radius-md);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .advisor-info-text {
+    display: flex;
+    flex-direction: column;
   }
 
   .advisor-card h4 {
@@ -379,6 +439,33 @@ const precioFormateado = project.precioMin
     display: flex;
     align-items: center;
     gap: 0.35rem;
+  }
+
+  /* BOTÓN CIRCULAR WHATSAPP */
+  .advisor-whatsapp-btn {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: #25d366;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(37, 211, 102, 0.35);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+  }
+
+  .advisor-whatsapp-btn:hover {
+    background-color: #1eb857;
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 6px 14px rgba(37, 211, 102, 0.45);
+  }
+
+  .whatsapp-icon-svg {
+    width: 26px;
+    height: 26px;
+    display: block;
   }
 
   .action-buttons {
