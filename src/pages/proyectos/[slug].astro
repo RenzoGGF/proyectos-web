@@ -5,7 +5,8 @@ import {
   MapPin, 
   Phone, 
   ExternalLink, 
-  ClipboardList 
+  ClipboardList,
+  Navigation
 } from 'lucide-astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
@@ -54,7 +55,7 @@ const precioFormateado = project.precioMin
   ? new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN', maximumFractionDigits: 0 }).format(project.precioMin)
   : null;
 
-// HELPER: MAYÚSCULA INICIAL EN CADA PALABRA (TITLE CASE)
+// Helper Title Case
 function toTitleCase(str: string): string {
   return str
     .toLowerCase()
@@ -64,22 +65,18 @@ function toTitleCase(str: string): string {
     .join(' ');
 }
 
-// 1. Tomar las 2 primeras palabras del nombre del asesor en Title Case
+// WhatsApp Asesor
 const primerAsesor = advisor?.nombre ? advisor.nombre.split('/')[0].trim() : 'Asesor';
 const primerasDosPalabrasAsesor = primerAsesor.split(/\s+/).filter(Boolean).slice(0, 2).join(' ');
 const asesorMensaje = toTitleCase(primerasDosPalabrasAsesor) || 'Asesor';
-
-// 2. Nombre del proyecto en Title Case
 const proyectoMensaje = toTitleCase(project.nombre);
 
-// 3. Sanitizar teléfono para WhatsApp (añade prefijo 51 de Perú si inicia con 9)
 const primerTelefono = advisor?.telefono ? advisor.telefono.split('/')[0].trim() : '';
 const digitosTelefono = primerTelefono.replace(/\D/g, '');
 const telefonoWhatsApp = digitosTelefono.length === 9 && digitosTelefono.startsWith('9')
   ? `51${digitosTelefono}`
   : digitosTelefono;
 
-// 4. Mensaje codificado para URL
 const mensajeWhatsApp = encodeURIComponent(
   `Hola ${asesorMensaje}, me interesa el proyecto ${proyectoMensaje}`
 );
@@ -87,6 +84,17 @@ const mensajeWhatsApp = encodeURIComponent(
 const linkWhatsApp = telefonoWhatsApp 
   ? `https://wa.me/${telefonoWhatsApp}?text=${mensajeWhatsApp}` 
   : null;
+
+// Búsqueda en Google Maps: <direccion>, <distrito>, Lima, Perú
+const queryMapa = encodeURIComponent(
+  [
+    project.direccion,
+    project.distrito,
+    'Lima, Perú'
+  ].filter(Boolean).join(', ')
+);
+
+const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF8&iwloc=&output=embed`;
 ---
 
 <BaseLayout title={`${project.nombre}`}>
@@ -134,6 +142,7 @@ const linkWhatsApp = telefonoWhatsApp
         )}
       </header>
 
+      <!-- SECCIÓN PRINCIPAL: IMAGEN + DETALLES -->
       <div class="detail-grid">
         <div class="image-box">
           <img 
@@ -181,7 +190,6 @@ const linkWhatsApp = telefonoWhatsApp
             )}
           </ul>
 
-          <!-- MARCO DE ASESOR CON BOTÓN WHATSAPP CIRCULAR A LA DERECHA -->
           {advisor && (
             <div class="advisor-card">
               <div class="advisor-info-text">
@@ -227,6 +235,26 @@ const linkWhatsApp = telefonoWhatsApp
           </div>
         </div>
       </div>
+
+      <!-- PANEL DE UBICACIÓN AL FINAL (ANCHO COMPLETO DE AMBOS PANELES) -->
+      <section class="location-card">
+        <div class="location-header">
+          <div class="location-title">
+            <Navigation size={18} class="location-icon" />
+            <h3>Ubicación aproximada</h3>
+          </div>
+        </div>
+
+        <div class="map-container">
+          <iframe
+            title={`Ubicación de ${project.nombre}`}
+            src={iframeMapUrl}
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
     </article>
   </main>
 </BaseLayout>
@@ -362,8 +390,8 @@ const linkWhatsApp = telefonoWhatsApp
     }
 
     .image-box {
-      width: 90%;
-      max-width: 90%;
+      width: 75%;
+      max-width: 75%;
     }
   }
 
@@ -404,7 +432,6 @@ const linkWhatsApp = telefonoWhatsApp
     font-weight: 600;
   }
 
-  /* TARJETA DEL ASESOR CON FLEXBOX */
   .advisor-card {
     background-color: var(--color-surface);
     border: 1px solid var(--color-border);
@@ -441,7 +468,6 @@ const linkWhatsApp = telefonoWhatsApp
     gap: 0.35rem;
   }
 
-  /* BOTÓN CIRCULAR WHATSAPP */
   .advisor-whatsapp-btn {
     flex-shrink: 0;
     width: 46px;
@@ -514,5 +540,58 @@ const linkWhatsApp = telefonoWhatsApp
   .stock-btn:hover {
     background-color: var(--color-remax-dark);
     transform: translateY(-2px);
+  }
+
+  /* PANEL DE UBICACIÓN (OCUPA AMBAS COLUMNAS) */
+  .location-card {
+    margin-top: 2.5rem;
+    width: 100%;
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .location-header {
+    display: flex;
+    align-items: center;
+  }
+
+  .location-title {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .location-title h3 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+  }
+
+  .map-container {
+    width: 100%;
+    height: 280px; /* Tamaño mobile */
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background-color: #e2e8f0;
+    border: 1px solid var(--color-border);
+  }
+
+  @media (min-width: 768px) {
+    .map-container {
+      height: 440px; /* Más alto en PC */
+    }
+  }
+
+  .map-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
   }
 </style>
