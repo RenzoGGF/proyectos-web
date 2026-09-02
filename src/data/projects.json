@@ -1221,6 +1221,7 @@
       "BCP"
     ],
     "tipologia": [
+      "Local",
       "Flat",
       "Duplex",
       "Triplex"
@@ -1229,6 +1230,7 @@
     "pisosProyecto": 11,
     "areaMin": 54,
     "habitaciones": [
+      0,
       1,
       2,
       3,
@@ -1385,6 +1387,7 @@
     "areaMin": 39.81,
     "areaMax": 82.41,
     "habitaciones": [
+      0,
       1,
       2
     ],
