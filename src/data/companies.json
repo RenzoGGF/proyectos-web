@@ -10,6 +10,16 @@
     "logo": "/images/companies/c-edifica-inversiones-del-sur-sac.webp"
   },
   {
+    "id": "c-grupo-mg",
+    "nombre": "GRUPO MG",
+    "logo": "/images/companies/c-grupo-mg.webp"
+  },
+  {
+    "id": "c-ter",
+    "nombre": "TER",
+    "logo": "/images/companies/c-ter.webp"
+  },
+  {
     "id": "c-phormato-edificaciones",
     "nombre": "PHORMATO EDIFICACIONES",
     "logo": "/images/companies/c-phormato-edificaciones.webp"
@@ -30,16 +40,6 @@
     "logo": "/images/companies/c-illusione-constructora-e-inmobiliaria-sac.webp"
   },
   {
-    "id": "c-grupo-mg",
-    "nombre": "GRUPO MG",
-    "logo": "/images/companies/c-grupo-mg.webp"
-  },
-  {
-    "id": "c-ter",
-    "nombre": "TER",
-    "logo": "/images/companies/c-ter.webp"
-  },
-  {
     "id": "c-in-urban",
     "nombre": "IN URBAN",
     "logo": "/images/companies/c-in-urban.webp"
@@ -48,10 +48,5 @@
     "id": "c-motori-sac",
     "nombre": "MOTORI SAC",
     "logo": "/images/companies/c-motori-sac.webp"
-  },
-  {
-    "id": "c-constructora-talambo",
-    "nombre": "CONSTRUCTORA TALAMBO",
-    "logo": "/images/companies/c-constructora-talambo.webp"
   }
 ]
