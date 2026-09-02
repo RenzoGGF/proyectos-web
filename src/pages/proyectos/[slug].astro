@@ -6,7 +6,16 @@ import {
   Phone, 
   ExternalLink, 
   ClipboardList,
-  Navigation
+  Navigation,
+  Layers,
+  CalendarDays,
+  Landmark,
+  LayoutGrid,
+  Bed,
+  Bath,
+  Ruler,
+  Building2,
+  KeyRound
 } from 'lucide-astro';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
@@ -78,7 +87,7 @@ const telefonoWhatsApp = digitosTelefono.length === 9 && digitosTelefono.startsW
   : digitosTelefono;
 
 const mensajeWhatsApp = encodeURIComponent(
-  `Hola ${asesorMensaje}, me interesa el proyecto ${proyectoMensaje}`
+  `Hola ${asesorMensaje}, me interesa el proyecto ${proyectoMensaje}...`
 );
 
 const linkWhatsApp = telefonoWhatsApp 
@@ -142,7 +151,6 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
         )}
       </header>
 
-      <!-- SECCIÓN PRINCIPAL: IMAGEN + DETALLES -->
       <div class="detail-grid">
         <div class="image-box">
           <img 
@@ -157,36 +165,95 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
           <h3>Información del Proyecto</h3>
           <ul class="info-list">
             {project.etapa && (
-              <li><span class="info-label">Etapa:</span> <strong>{etapaLabelMap[project.etapa]}</strong></li>
+              <li>
+                <span class="info-label">
+                  <Layers size={16} class="field-icon" />
+                  <span>Etapa:</span>
+                </span>
+                <strong>{etapaLabelMap[project.etapa]}</strong>
+              </li>
             )}
+
             {project.fechaEntrega && (
-              <li><span class="info-label">Entrega:</span> <strong>{project.fechaEntrega.texto}</strong></li>
+              <li>
+                <span class="info-label">
+                  <CalendarDays size={16} class="field-icon" />
+                  <span>Entrega:</span>
+                </span>
+                <strong>{project.fechaEntrega.texto}</strong>
+              </li>
             )}
+
             {project.financiamiento && project.financiamiento.length > 0 && (
-              <li><span class="info-label">Financiamiento:</span> <strong>{project.financiamiento.join(', ')}</strong></li>
+              <li>
+                <span class="info-label">
+                  <Landmark size={16} class="field-icon" />
+                  <span>Financiamiento:</span>
+                </span>
+                <strong>{project.financiamiento.join(', ')}</strong>
+              </li>
             )}
+
             {project.tipologia && project.tipologia.length > 0 && (
-              <li><span class="info-label">Tipología:</span> <strong>{project.tipologia.join(', ')}</strong></li>
+              <li>
+                <span class="info-label">
+                  <LayoutGrid size={16} class="field-icon" />
+                  <span>Tipología:</span>
+                </span>
+                <strong>{project.tipologia.join(', ')}</strong>
+              </li>
             )}
+
             {project.habitaciones && project.habitaciones.length > 0 && (
-              <li><span class="info-label">Habitaciones:</span> <strong>{project.habitaciones.join(', ')} hab.</strong></li>
+              <li>
+                <span class="info-label">
+                  <Bed size={16} class="field-icon" />
+                  <span>Habitaciones:</span>
+                </span>
+                <strong>{project.habitaciones.join(', ')} hab.</strong>
+              </li>
             )}
+
             {project.banos && project.banos.length > 0 && (
-              <li><span class="info-label">Baños:</span> <strong>{project.banos.join(', ')} baños</strong></li>
+              <li>
+                <span class="info-label">
+                  <Bath size={16} class="field-icon" />
+                  <span>Baños:</span>
+                </span>
+                <strong>{project.banos.join(', ')} baños</strong>
+              </li>
             )}
+
             {project.areaMin && (
               <li>
-                <span class="info-label">Área:</span> 
+                <span class="info-label">
+                  <Ruler size={16} class="field-icon" />
+                  <span>Área:</span>
+                </span>
                 <strong>
                   {project.areaMin} m²{project.areaMax ? ` - ${project.areaMax} m²` : ''}
                 </strong>
               </li>
             )}
+
             {project.pisosProyecto !== undefined && (
-              <li><span class="info-label">Pisos del proyecto:</span> <strong>{project.pisosProyecto} pisos</strong></li>
+              <li>
+                <span class="info-label">
+                  <Building2 size={16} class="field-icon" />
+                  <span>Pisos del proyecto:</span>
+                </span>
+                <strong>{project.pisosProyecto} pisos</strong>
+              </li>
             )}
+
             {project.disponibles !== undefined && (
-              <li><span class="info-label">Unidades disponibles:</span> <strong>≥{project.disponibles}</strong></li>
+              <li>
+                <span class="info-label">
+                  <KeyRound size={16} class="field-icon" />
+                  <span>Unidades disponibles:</span>
+                </span>
+                <strong>≥{project.disponibles}</strong>
+              </li>
             )}
           </ul>
 
@@ -236,7 +303,7 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
         </div>
       </div>
 
-      <!-- PANEL DE UBICACIÓN AL FINAL (ANCHO COMPLETO DE AMBOS PANELES) -->
+      <!-- PANEL DE UBICACIÓN AL FINAL -->
       <section class="location-card">
         <div class="location-header">
           <div class="location-title">
@@ -375,9 +442,11 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
     gap: 2rem;
   }
 
+  /* IMAGEN: aspect-ratio 4/5 y altura máxima de 660px */
   .image-box {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 4 / 5;
+    max-height: 660px;
     background-color: #e2e8f0;
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -385,13 +454,8 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
 
   @media (min-width: 768px) {
     .detail-grid {
-      grid-template-columns: 2fr 1fr;
+      grid-template-columns: 1.2fr 1fr;
       align-items: start;
-    }
-
-    .image-box {
-      width: 75%;
-      max-width: 75%;
     }
   }
 
@@ -422,14 +486,23 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
   .info-list li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     font-size: 0.9rem;
     border-bottom: 1px dashed var(--color-border);
-    padding-bottom: 0.4rem;
+    padding-bottom: 0.45rem;
   }
 
   .info-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
     color: var(--color-text-muted);
     font-weight: 600;
+  }
+
+  .field-icon {
+    color: var(--color-remax-blue);
+    flex-shrink: 0;
   }
 
   .advisor-card {
@@ -542,7 +615,6 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
     transform: translateY(-2px);
   }
 
-  /* PANEL DE UBICACIÓN (OCUPA AMBAS COLUMNAS) */
   .location-card {
     margin-top: 2.5rem;
     width: 100%;
@@ -575,7 +647,7 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
 
   .map-container {
     width: 100%;
-    height: 280px; /* Tamaño mobile */
+    height: 280px;
     border-radius: var(--radius-md);
     overflow: hidden;
     background-color: #e2e8f0;
@@ -584,7 +656,7 @@ const iframeMapUrl = `https://maps.google.com/maps?q=${queryMapa}&t=&z=16&ie=UTF
 
   @media (min-width: 768px) {
     .map-container {
-      height: 440px; /* Más alto en PC */
+      height: 420px;
     }
   }
 
